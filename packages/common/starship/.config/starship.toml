@@ -1,7 +1,6 @@
 add_newline = true
 command_timeout = 200
 format = "[$directory$aws$git_branch$git_status]($style)$character"
-palette = "catppuccin_frappe"
 
 [aws]
 symbol = " "

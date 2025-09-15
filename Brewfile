@@ -1,22 +1,20 @@
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
-tap "nikitabobko/tap"
-tap "tfkhdyt/geminicommit"
+#tap "nikitabobko/tap"
+#tap "tfkhdyt/geminicommit"
 
 # Base CLI
 brew "git"
 brew "stow"
 brew "mise"
 brew "bash"
+brew "bash-completion@2"
 brew "direnv"
 brew "tmux"
 brew "neovim"
 brew "coreutils"
 brew "wget"
-brew "awscli"
+brew "awscli@2"
 brew "devcontainer"
-brew "geminicommit"
+#brew "geminicommit"
 
 # GUI (macOS)
 cask "ui"
@@ -44,8 +42,9 @@ cask "chatgpt"
 cask "ledger-live"
 cask "zed"
 cask "iina"
-cask "aerospace"
+#cgask "aerospace"
 cask "session-manager-plugin"
+cask "wezterm@nightly"
 
 # Fonts
 cask "font-symbols-only-nerd-font"

@@ -25,7 +25,7 @@ PROFILE ?= $(DEFAULT_PROFILE)
 CONTEXT_FILE ?= $(HOME)/.config/dotfiles-v2/context
 ## If CONTEXT not provided, try reading from CONTEXT_FILE
 ifeq ($(CONTEXT),)
-  CONTEXT := $(shell test -f $(CONTEXT_FILE) && sed -e 's/#.*//' -e 's/^\s*//' -e 's/\s*$$//' $(CONTEXT_FILE) || echo "")
+  CONTEXT := $(shell test -f "$(CONTEXT_FILE)" && sed 's/\#.*//; s/^[[:space:]]*//; s/[[:space:]]*$$//' "$(CONTEXT_FILE)")
 endif
 
 ## Optional context/persona (e.g., home, work). Override with CONTEXT=...
@@ -35,7 +35,7 @@ CONTEXT ?=
 ROOTS := $(PACKAGES_DIR)/common $(PACKAGES_DIR)/$(PROFILE) $(if $(CONTEXT),$(PACKAGES_DIR)/$(CONTEXT),) $(if $(CONTEXT),$(PACKAGES_DIR)/$(PROFILE)-$(CONTEXT),)
 
 ## Stow behavior flags
-STOW_BASE_FLAGS ?= --dotfiles -v -R
+STOW_BASE_FLAGS ?= --dotfiles
 ## To enable override, set env var: STOW_OVERRIDE='.*' (or any regex)
 STOW_OVERRIDE ?=
 ## To adopt existing files into repo (dangerous): set STOW_ADOPT=1
