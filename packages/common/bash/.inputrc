@@ -16,6 +16,7 @@ set show-all-if-ambiguous On
 set show-all-if-unmodified On
 set skip-completed-text On
 set visible-stats On
+set bell-style visible
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 "\e[C": forward-char

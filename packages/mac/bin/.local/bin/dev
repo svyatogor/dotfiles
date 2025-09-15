@@ -38,11 +38,14 @@ COMMAND_ARGS=""
 
 while getopts "u" opt; do
   case "$opt" in
-    u) UP_FLAG=1 ;;
-    *) echo "Usage: $0 [-u]" >&2; exit 1 ;;
+  u) UP_FLAG=1 ;;
+  *)
+    echo "Usage: $0 [-u]" >&2
+    exit 1
+    ;;
   esac
 done
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 
 root=$(devcontainer_root)
 if [ "$root" = "" ]; then
@@ -53,14 +56,15 @@ fi
 if [ $UP_FLAG -eq 1 ]; then
   user=$(cat "$root/.devcontainer/devcontainer.json" | sed 's/^ *\/\/.*//' | jq -r '.containerUser')
   devcontainer up \
-  --remote-env SSH_AUTH_SOCK=/ssh.sock \
-  --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
-  --mount "type=volume,source=shell-history,target=/home/$user/.local/share" \
-  --mount "type=bind,source=~/dotfiles-v2,target=/home/$user/dotfiles" \
-  --dotfiles-repository git@github.com:svyatogor/dotfiles.git \
-  --workspace-folder $root \
-  --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow "}, "ghcr.io/roul/devcontainer-features/mise:1": {}}' \
-  --remove-existing-container
+    --remote-env SSH_AUTH_SOCK=/ssh.sock \
+    --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
+    --mount "type=volume,source=shell-history,target=/home/$user/.local/share" \
+    --mount "type=bind,source=~/dotfiles-v2,target=/home/$user/dotfiles" \
+    --dotfiles-repository git@github.com:svyatogor/dotfiles.git \
+    --dotfiles-install-command setup-devcontainer.sh \
+    --workspace-folder $root \
+    --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow "}, "ghcr.io/roul/devcontainer-features/mise:1": {}}' \
+    --remove-existing-container
 else
   container_id=$(get_container_id)
   workspace_folder=$(get_workspace_folder)
@@ -75,4 +79,3 @@ else
     op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -ilc "$COMMAND_ARGS"
   fi
 fi
-

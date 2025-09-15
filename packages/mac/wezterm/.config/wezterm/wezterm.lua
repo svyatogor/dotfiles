@@ -185,4 +185,17 @@ config.keys = {
 }
 config.term = "xterm-256color"
 config.underline_position = "200%"
+
+-- turn off actual beeps so you only see the flash
+config.audible_bell = "Disabled"
+
+-- choose how the flash is drawn
+config.visual_bell = {
+	fade_in_duration_ms = 60,
+	fade_out_duration_ms = 60,
+	target = "BackgroundColor", -- or "ForegroundColor" or "CursorColor"
+}
+
+config.colors.visual_bell = "#bbe"
+
 return config

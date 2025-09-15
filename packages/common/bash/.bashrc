@@ -61,6 +61,7 @@ alias vim=nvim
 # fi
 
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 
 function assume() {
   export GRANTED_ALIAS_CONFIGURED="true"
