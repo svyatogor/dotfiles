@@ -1,0 +1,8 @@
+# Ignore common junk files inside package trees
+^\.DS_Store$
+^Thumbs\.db$
+^\.git/$
+^\.gitignore$
+^\.gitkeep$
+^README\.md$
+

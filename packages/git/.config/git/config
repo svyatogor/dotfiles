@@ -1,0 +1,36 @@
+[alias]
+	publish = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
+
+[core]
+	autocrlf = "input"
+	pager = delta
+
+[delta]
+	# features = "catppuccin-frappe"
+	navigate = true
+	side-by-side = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "openpgp"
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[user]
+	email = "svyatogor@gmail.com"
+	name = "Sergey Kuleshov"

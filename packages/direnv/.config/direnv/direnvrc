@@ -1,0 +1,12 @@
+# Silence direnv logs by default
+export DIRENV_LOG_FORMAT=""
+
+# Integrate mise with direnv
+if command -v mise >/dev/null 2>&1; then
+  case "$SHELL" in
+    *zsh) shell_name="zsh" ;;
+    *bash) shell_name="bash" ;;
+    *) shell_name="bash" ;;
+  esac
+  eval "$(mise direnv activate "$shell_name" 2>/dev/null || true)"
+fi
