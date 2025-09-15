@@ -21,12 +21,32 @@ elif [[ -d "/usr/local/Homebrew" ]]; then
   eval "$('/usr/local/bin/brew' shellenv)"
 fi
 
-echo "[bootstrap-mac] Running Brew Bundle..."
-brew bundle --file="$(dirname "$0")/../Brewfile"
+echo "[bootstrap-mac] Preparing Brew bundle set..."
+CONTEXT=${CONTEXT:-}
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+brew_dir="${repo_root}/brew"
+root_brewfile="${repo_root}/Brewfile"
 
-# Initialize fzf key bindings (no prompts)
-if [[ -x "$(brew --prefix)/opt/fzf/install" ]]; then
-  yes | "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-bash --no-fish || true
+brewfiles=()
+[[ -f "$root_brewfile" ]] && brewfiles+=("$root_brewfile")
+[[ -f "$brew_dir/Brewfile.mac" ]] && brewfiles+=("$brew_dir/Brewfile.mac")
+if [[ -n "$CONTEXT" && -f "$brew_dir/Brewfile.mac-$CONTEXT" ]]; then
+  brewfiles+=("$brew_dir/Brewfile.mac-$CONTEXT")
+fi
+
+if [[ ${#brewfiles[@]} -gt 0 ]]; then
+  tmp_brewfile="$(mktemp)"
+  printf "# Auto-generated merged Brewfile (mac + context)\n" > "$tmp_brewfile"
+  for f in "${brewfiles[@]}"; do
+    printf "\n# === %s ===\n" "$f" >> "$tmp_brewfile"
+    cat "$f" >> "$tmp_brewfile"
+  done
+  echo "[bootstrap-mac] Running brew bundle with merged file (${#brewfiles[@]} layers)..."
+  brew bundle --file="$tmp_brewfile"
+  echo "[bootstrap-mac] Cleaning up packages not in merged Brewfile..."
+  brew bundle cleanup --force --file="$tmp_brewfile"
+else
+  echo "[bootstrap-mac] No Brewfiles found to process. Skipping brew bundle."
 fi
 
 echo "[bootstrap-mac] Ensuring stow + mise present..."
@@ -44,4 +64,3 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 echo "[bootstrap-mac] Done. Consider restarting your terminal."
-

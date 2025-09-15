@@ -1,0 +1,19 @@
+# Additional packages only for devcontainers (optional)
+# docker-cli
+# build-essential
+
+# Common Debian/Ubuntu packages (install via scripts/apt-install.sh)
+# Comment out or add as needed.
+
+git
+stow
+curl
+ca-certificates
+gnupg
+tmux
+ripgrep
+fd-find
+fzf
+neovim
+jq
+

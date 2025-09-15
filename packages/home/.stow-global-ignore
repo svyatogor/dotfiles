@@ -1,0 +1,8 @@
+# ignore common junk
+^\.DS_Store$
+^Thumbs\.db$
+^\.git/$
+^\.gitignore$
+^\.gitkeep$
+^README\.md$
+

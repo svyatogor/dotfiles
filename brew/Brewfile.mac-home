@@ -1,0 +1,6 @@
+# Extra Homebrew items for mac home laptop (optional)
+# Examples:
+# cask "plex"
+# cask "spotify"
+# brew "htop"
+

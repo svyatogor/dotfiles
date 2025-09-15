@@ -1,0 +1,132 @@
+accordion-padding = 30
+after-login-command = []
+after-startup-command = []
+default-root-container-layout = "tiles"
+default-root-container-orientation = "auto"
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+exec-on-workspace-change = []
+on-focus-changed = []
+on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
+start-at-login = true
+
+[gaps.inner]
+horizontal = 10
+vertical = 10
+
+[gaps.outer]
+bottom = 0
+left = 0
+right = 0
+top = 0
+
+[key-mapping]
+preset = "qwerty"
+
+[mode.main.binding]
+alt-1 = "workspace 1"
+alt-2 = "workspace 2"
+alt-3 = "workspace 3"
+alt-4 = "workspace 4"
+alt-c = "workspace C"
+alt-comma = "layout accordion horizontal vertical"
+alt-d = "workspace D"
+alt-h = "focus left --boundaries all-monitors-outer-frame"
+alt-j = "focus down --boundaries all-monitors-outer-frame"
+alt-k = "focus up --boundaries all-monitors-outer-frame"
+alt-l = "focus right --boundaries all-monitors-outer-frame"
+alt-m = "workspace M"
+alt-shift-1 = ["move-node-to-workspace 1", "workspace 1"]
+alt-shift-2 = ["move-node-to-workspace 2", "workspace 2"]
+alt-shift-3 = ["move-node-to-workspace 3", "workspace 3"]
+alt-shift-4 = ["move-node-to-workspace 4", "workspace 4"]
+alt-shift-c = ["move-node-to-workspace C", "workspace C"]
+alt-shift-d = ["move-node-to-workspace D", "workspace D"]
+alt-shift-h = "move left"
+alt-shift-j = "move down"
+alt-shift-k = "move up"
+alt-shift-l = "move right"
+alt-shift-m = ["move-node-to-workspace M", "workspace M"]
+alt-shift-r = "mode resize"
+alt-shift-semicolon = "mode service"
+alt-shift-t = ["move-node-to-workspace T", "workspace T"]
+alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
+alt-shift-w = ["move-node-to-workspace W", "workspace W"]
+alt-slash = "layout tiles horizontal vertical"
+alt-t = "workspace T"
+alt-tab = "workspace-back-and-forth"
+alt-w = "workspace W"
+alt-z = "fullscreen"
+cmd-alt-h = []
+cmd-h = []
+
+[mode.resize.binding]
+enter = "mode main"
+esc = "mode main"
+h = "resize width -50"
+j = "resize height +50"
+k = "resize height -50"
+l = "resize width +50"
+
+[mode.service.binding]
+alt-shift-h = ["join-with left", "mode main"]
+alt-shift-j = ["join-with down", "mode main"]
+alt-shift-k = ["join-with up", "mode main"]
+alt-shift-l = ["join-with right", "mode main"]
+esc = ["reload-config", "mode main"]
+f = ["layout floating tiling", "mode main"]
+r = ["flatten-workspace-tree", "mode main"]
+
+[[on-window-detected]]
+check-further-callbacks = true
+run = "layout floating"
+
+[on-window-detected.if]
+
+[[on-window-detected]]
+run = "move-node-to-workspace C"
+
+[on-window-detected.if]
+app-id = "com.tdesktop.Telegram"
+
+[[on-window-detected]]
+run = "move-node-to-workspace C"
+
+[on-window-detected.if]
+app-id = "com.tinyspeck.slackmacgap"
+
+[[on-window-detected]]
+run = "move-node-to-workspace M"
+
+[on-window-detected.if]
+app-id = "ru.yandex.desktop.music"
+
+[[on-window-detected]]
+run = "layout floating"
+
+[on-window-detected.if]
+app-id = "com.openai.chat"
+
+[[on-window-detected]]
+run = "layout floating"
+
+[on-window-detected.if]
+app-id = "ai.perplexity.mac"
+
+[[on-window-detected]]
+run = "layout floating"
+
+[on-window-detected.if]
+app-id = "com.raycast.macos"
+
+[[on-window-detected]]
+run = "layout floating"
+
+[on-window-detected.if]
+window-title-regex-substring = "(MetaMask)"
+
+[[on-window-detected]]
+run = "layout tiling"
+
+[on-window-detected.if]
+app-id = "com.mitchellh.ghostty"

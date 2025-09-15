@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Color helpers
+style_color() {
+  local color="$1"
+  local text="$2"
+  printf "\033[38;5;%sm%s\033[0m\n" "$color" "$text"
+}
+
+# Get the instance ID either from argument or interactive selection
+target_instance_id=""
+
+if [ -n "$1" ]; then
+  # Branch 1: Argument is provided (Direct Connect)
+  input="$1"
+
+  # Check if the input already starts with i- (instance ID format)
+  if [[ "$input" == i-* ]]; then
+    # Use the input directly as the instance ID
+    target_instance_id="$input"
+  else
+    # Treat input as a Name tag and search for the instance
+    name="$input"
+    echo "Searching for instance with Name tag: $name..."
+
+    # Find the instance ID using the provided name tag
+    instance_id=$(aws ec2 describe-instances \
+      --filters "Name=tag:Name,Values=$name" "Name=instance-state-name,Values=running" \
+      --query "Reservations[*].Instances[*].InstanceId" --output text)
+
+    if [ -z "$instance_id" ]; then
+      style_color "1" "Error: No running instance found with Name tag '$name'." >&2
+      exit 1
+    fi
+
+    style_color "3" "Found instance ID: $instance_id. Connecting..."
+    target_instance_id="$instance_id"
+  fi
+else
+  # Branch 2: No argument is provided (Interactive Menu)
+  # Get a list of all running instances formatted for fzf
+  EC2_LIST=$(aws ec2 describe-instances \
+    --filters "Name=instance-state-name,Values=running" \
+    --query "Reservations[*].Instances[*].{InstanceId:InstanceId, Name:Tags[?Key=='Name']|[0].Value, IP:PrivateIpAddress}" \
+    --output json | jq -r '.[] | .[] | "\(.InstanceId)\t\(.Name)\t\(.IP)"')
+
+  if [ -z "$EC2_LIST" ]; then
+    style_color "1" "Error: No running instances found in your account for SSM." >&2
+    exit 1
+  fi
+
+  # Use fzf to interactively select an instance
+  SELECTED_INSTANCE=$(printf '%s\n' "$EC2_LIST" | fzf --height 40% --layout=reverse --header "Select EC2 Instance to connect to:")
+
+  # Check if the user made a selection (didn't press Esc)
+  if [ -n "$SELECTED_INSTANCE" ]; then
+    instance_id=$(echo "$SELECTED_INSTANCE" | awk '{print $1}')
+    echo "Connecting to: $SELECTED_INSTANCE"
+    target_instance_id="$instance_id"
+  else
+    echo "No instance selected."
+    exit 1
+  fi
+fi
+
+# Connect to the selected/specified instance via SSM
+if [ -n "$target_instance_id" ]; then
+  aws ssm start-session \
+    --document-name AWS-StartInteractiveCommand \
+    --parameters command="cd ~ && bash -l" \
+    --target "$target_instance_id"
+fi
+

@@ -1,0 +1,13 @@
+# Extra Homebrew items for mac work laptop (optional)
+# Examples:
+# cask "zoom"
+# cask "slack"
+# brew "awscli"
+
+cask "affinity-photo"
+cask "microsoft-openjdk@17"
+cask "microsoft-word"
+cask "microsoft-excel"
+cask "tunnelbear"
+cask "logi-options+"
+cask "discord"

@@ -6,8 +6,8 @@ echo "[devcontainer-setup] Installing base tooling + stowing configs..."
 OS="$(uname -s)"
 
 install_with_apt() {
-  sudo apt-get update -y
-  sudo apt-get install -y git stow curl ca-certificates gnupg tmux
+  # Declarative install from apt lists
+  PROFILE=devcontainer bash "$(dirname "$0")/apt-install.sh"
   # fd-find installs as fdfind on Debian/Ubuntu; symlink to fd if missing
   if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
     sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
@@ -46,7 +46,7 @@ else
   rm ~/.zsh* || true
   rm ~/.zprofile* || true
   rm ~/.bash* || true
-  make stow
+  PROFILE=devcontainer STOW_OVERRIDE='.*' make stow
 fi
 
 # Install mise tools if present
