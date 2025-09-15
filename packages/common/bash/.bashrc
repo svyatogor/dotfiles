@@ -13,6 +13,9 @@ shopt -s extglob
 shopt -s globstar
 shopt -s checkjobs
 
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
 # Homebrew shellenv (macOS Intel/Apple Silicon)
 if [ -d /opt/homebrew ]; then
   eval "$('/opt/homebrew/bin/brew' shellenv)"
