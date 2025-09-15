@@ -2,6 +2,11 @@
 [alias]
 tpm = "https://github.com/svyatogor/asdf-tpm"
 
+[settings]
+# tools can read the versions files used by other version managers
+# for example, .nvmrc in the case of node's nvm
+idiomatic_version_file_enable_tools = ['node', 'ruby']
+
 [tools]
 node = "lts"
 # ruby = "3"
