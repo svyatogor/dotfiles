@@ -8,7 +8,9 @@
 ##
 SHELL := /bin/bash
 
-.PHONY: mac devcontainer stow unstow brew brew-dump mise-install check list apt-install set-context show-context clear-context
+.PHONY: bootstrap mac devcontainer stow unstow brew brew-dump mise-install check list apt-install set-context show-context clear-context
+
+.DEFAULT_GOAL := bootstrap
 
 ## Root directory for stow packages
 PACKAGES_DIR ?= packages
@@ -20,6 +22,20 @@ ifeq ($(UNAME_S),Darwin)
 DEFAULT_PROFILE := mac
 endif
 PROFILE ?= $(DEFAULT_PROFILE)
+
+BOOTSTRAP_TARGETS := stow mise-install
+ifeq ($(PROFILE),mac)
+BOOTSTRAP_TARGETS := brew stow mise-install
+endif
+ifeq ($(PROFILE),devcontainer)
+BOOTSTRAP_TARGETS := devcontainer stow mise-install
+endif
+
+bootstrap:
+	@for target in $(BOOTSTRAP_TARGETS); do \
+	  echo "==> make $$target"; \
+	  $(MAKE) $$target; \
+	done
 
 ## Persisted context config file (used if CONTEXT not provided)
 CONTEXT_FILE ?= $(HOME)/.config/dotfiles-v2/context
