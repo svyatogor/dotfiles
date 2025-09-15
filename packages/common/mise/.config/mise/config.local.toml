@@ -1,4 +1,6 @@
 # Global tool versions managed by mise
+[plugins]
+tpm = "https://github.com/svyatogor/asdf-tpm"
 
 [tools]
 node = "lts"
@@ -14,3 +16,4 @@ eza = "latest"
 lazygit = "latest"
 delta = "latest"
 starship = "latest"
+tpm = "latest"
