@@ -1,5 +1,5 @@
 # Global tool versions managed by mise
-[plugins]
+[alias]
 tpm = "https://github.com/svyatogor/asdf-tpm"
 
 [tools]
@@ -17,3 +17,5 @@ lazygit = "latest"
 delta = "latest"
 starship = "latest"
 tpm = "latest"
+"ubi:openai/codex" = { version = "latest", exe = "codex-aarch64-apple-darwin", rename_exe = "codex" }
+claude = "latest"
