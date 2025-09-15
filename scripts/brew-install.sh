@@ -43,7 +43,7 @@ if [[ ${#brewfiles[@]} -gt 0 ]]; then
   echo "[brew] Running brew bundle with merged file (${#brewfiles[@]} layers)..."
   brew bundle --file="$tmp_brewfile"
   echo "[brew] Cleaning up packages not in merged Brewfile..."
-  brew bundle cleanup --force --file="$tmp_brewfile"
+  brew bundle cleanup --force --zap --file="$tmp_brewfile"
   rm -f "$tmp_brewfile"
   trap - EXIT
 else

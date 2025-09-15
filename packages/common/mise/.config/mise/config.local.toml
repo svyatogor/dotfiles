@@ -18,4 +18,5 @@ delta = "latest"
 starship = "latest"
 tpm = "latest"
 "ubi:openai/codex" = { version = "latest", exe = "codex-aarch64-apple-darwin", rename_exe = "codex" }
+"ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
 claude = "latest"

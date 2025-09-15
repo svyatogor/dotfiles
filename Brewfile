@@ -1,5 +1,4 @@
-#tap "nikitabobko/tap"
-#tap "tfkhdyt/geminicommit"
+tap "nikitabobko/tap"
 
 # Base CLI
 brew "git"
@@ -15,7 +14,6 @@ brew "wget"
 brew "awscli@2"
 brew "devcontainer"
 brew "btop"
-#brew "geminicommit"
 
 # GUI (macOS)
 cask "ui"
@@ -43,7 +41,7 @@ cask "chatgpt"
 cask "ledger-live"
 cask "zed"
 cask "iina"
-#cgask "aerospace"
+cask "aerospace"
 cask "session-manager-plugin"
 cask "wezterm@nightly"
 
