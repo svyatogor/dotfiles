@@ -33,33 +33,16 @@ function get_workspace_folder() {
 
 # Parse arguments using getopt
 # only “--up”
-OPTS=$(getopt -o "" --long up,aws:: -n 'dev' -- "$@")
-if [ $? != 0 ]; then
-  echo "Failed parsing options." >&2
-  exit 1
-fi
-
-eval set -- "$OPTS"
-
 UP_FLAG=0
 COMMAND_ARGS=""
 
-while true; do
-  case "$1" in
-    --up)
-      UP_FLAG=1
-      shift
-      ;;
-    --)
-      shift
-      COMMAND_ARGS="$*"
-      break
-      ;;
-    *)
-      break
-      ;;
+while getopts "u" opt; do
+  case "$opt" in
+    u) UP_FLAG=1 ;;
+    *) echo "Usage: $0 [-u]" >&2; exit 1 ;;
   esac
 done
+shift $((OPTIND-1))
 
 root=$(devcontainer_root)
 if [ "$root" = "" ]; then
@@ -73,15 +56,17 @@ if [ $UP_FLAG -eq 1 ]; then
   --remote-env SSH_AUTH_SOCK=/ssh.sock \
   --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
   --mount "type=volume,source=shell-history,target=/home/$user/.local/share" \
+  --mount "type=bind,source=~/dotfiles-v2,target=/home/$user/dotfiles" \
   --dotfiles-repository git@github.com:svyatogor/dotfiles.git \
   --workspace-folder $root \
+  --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow "}, "ghcr.io/roul/devcontainer-features/mise:1": {}}' \
   --remove-existing-container
 else
   container_id=$(get_container_id)
   workspace_folder=$(get_workspace_folder)
 
   # Build environment variables
-  ENV_VARS="-e SSH_AUTH_SOCK=/ssh.sock -e NVIM_APPNAME=nvim_host -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
+  ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e NVIM_APPNAME=nvim_host -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
 
   if [ -z "$COMMAND_ARGS" ]; then
     # op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- $DOCKER exec $ENV_VARS -w /workspace -it $container_id fish -ilc "tmux new -A -s $(basename $root)"

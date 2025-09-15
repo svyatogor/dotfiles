@@ -11,9 +11,3 @@ curl
 ca-certificates
 gnupg
 tmux
-ripgrep
-fd-find
-fzf
-neovim
-jq
-

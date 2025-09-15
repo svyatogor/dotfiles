@@ -60,6 +60,7 @@ make stow
 
 echo "[bootstrap-mac] Installing mise tools..."
 if command -v mise >/dev/null 2>&1; then
+  mise self-update -y || true
   mise install || true
 fi
 

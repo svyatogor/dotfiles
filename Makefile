@@ -1,10 +1,19 @@
+## Dotfiles Makefile
+##
+## Variables you can override per invocation:
+##  - PROFILE:   mac | linux | devcontainer (auto-detected by default)
+##  - CONTEXT:   home | work (optional persona layer; can be persisted)
+##  - STOW_OVERRIDE: regex for stow --override to resolve intra-package conflicts
+##  - STOW_ADOPT:   set to non-empty to pass --adopt (pulls files into repo; use with care)
+##
 SHELL := /bin/bash
 
 .PHONY: mac devcontainer stow unstow brew-dump mise-install check list apt-install set-context show-context clear-context
 
+## Root directory for stow packages
 PACKAGES_DIR ?= packages
 
-# Profile detection (mac, linux, devcontainer); override with PROFILE=...
+## Profile detection (override with PROFILE=...)
 UNAME_S := $(shell uname -s)
 DEFAULT_PROFILE := linux
 ifeq ($(UNAME_S),Darwin)
@@ -12,32 +21,35 @@ DEFAULT_PROFILE := mac
 endif
 PROFILE ?= $(DEFAULT_PROFILE)
 
-# Persisted context config
+## Persisted context config file (used if CONTEXT not provided)
 CONTEXT_FILE ?= $(HOME)/.config/dotfiles-v2/context
-# If CONTEXT not provided, try reading from CONTEXT_FILE
+## If CONTEXT not provided, try reading from CONTEXT_FILE
 ifeq ($(CONTEXT),)
   CONTEXT := $(shell test -f $(CONTEXT_FILE) && sed -e 's/#.*//' -e 's/^\s*//' -e 's/\s*$$//' $(CONTEXT_FILE) || echo "")
 endif
 
-# Optional context/persona (e.g., home, work). Override with CONTEXT=...
+## Optional context/persona (e.g., home, work). Override with CONTEXT=...
 CONTEXT ?=
 
-# Roots order: common -> profile -> context -> profile-context
+## Stow roots order: common -> profile -> context -> profile-context
 ROOTS := $(PACKAGES_DIR)/common $(PACKAGES_DIR)/$(PROFILE) $(if $(CONTEXT),$(PACKAGES_DIR)/$(CONTEXT),) $(if $(CONTEXT),$(PACKAGES_DIR)/$(PROFILE)-$(CONTEXT),)
 
-# Stow behavior flags
+## Stow behavior flags
 STOW_BASE_FLAGS ?= --dotfiles -v -R
-# To enable override, set env var: STOW_OVERRIDE='.*' (or any regex)
+## To enable override, set env var: STOW_OVERRIDE='.*' (or any regex)
 STOW_OVERRIDE ?=
-# To adopt existing files into repo (dangerous): set STOW_ADOPT=1
+## To adopt existing files into repo (dangerous): set STOW_ADOPT=1
 STOW_ADOPT ?=
 
+## mac: bootstrap macOS (Homebrew bundle + cleanup) and stow packages
 mac:
 	CONTEXT=$(CONTEXT) ./scripts/bootstrap-mac.sh
 
+## devcontainer: install apt packages declaratively and stow for containers
 devcontainer:
 	CONTEXT=$(CONTEXT) ./scripts/setup-devcontainer.sh
 
+## list: show active profile, context, and discovered packages per root
 list:
 	@echo "Profile: $(PROFILE)  Context: $(CONTEXT)"
 	@echo "Roots: $(ROOTS)"
@@ -48,6 +60,7 @@ list:
 	  fi; \
 	done
 
+## stow: link all packages from each root into the home directory
 stow:
 	@for root in $(ROOTS); do \
 	  if [ -d "$$root" ]; then \
@@ -62,6 +75,7 @@ stow:
 	  fi; \
 	done
 
+## unstow: remove symlinks created by stow for all packages
 unstow:
 	@for root in $(ROOTS); do \
 	  if [ -d "$$root" ]; then \
@@ -76,34 +90,40 @@ unstow:
 	  fi; \
 	done
 
+## brew-dump: regenerate root Brewfile from current system
 brew-dump:
 	@which brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
 	brew bundle dump --force --describe --file=./Brewfile
 
+## mise-install: install tools defined in mise config.toml
 mise-install:
 	@which mise >/dev/null 2>&1 || { echo "mise not found in PATH"; exit 1; }
 	mise install
 
+## apt-install: install apt packages from profile/context lists
 apt-install:
 	@PROFILE=$(PROFILE) CONTEXT=$(CONTEXT) bash ./scripts/apt-install.sh
 
+## check: quick diagnostics and version checks
 check:
 	@$(MAKE) list
 	@stow --version | head -n1 || true
 	@mise --version || true
 
-# Manage persisted context
+## set-context: persist CONTEXT to a file so future runs remember it
 set-context:
 	@mkdir -p $(dir $(CONTEXT_FILE))
 	@test -n "$(CONTEXT)" || { echo "Usage: make set-context CONTEXT=home|work"; exit 1; }
 	@echo "$(CONTEXT)" > $(CONTEXT_FILE)
 	@echo "Saved context: $(CONTEXT) at $(CONTEXT_FILE)"
 
+## show-context: display the active profile, context, and config path
 show-context:
 	@echo "Profile: $(PROFILE)"
 	@echo "Context: $(CONTEXT)"
 	@echo "Context file: $(CONTEXT_FILE)"
 
+## clear-context: remove persisted context file
 clear-context:
 	@rm -f $(CONTEXT_FILE) || true
 	@echo "Cleared context file: $(CONTEXT_FILE)"
