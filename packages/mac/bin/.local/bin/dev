@@ -59,9 +59,8 @@ if [ $UP_FLAG -eq 1 ]; then
     --remote-env SSH_AUTH_SOCK=/ssh.sock \
     --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
     --mount "type=volume,source=shell-history,target=/home/$user/.local/share" \
-    --mount "type=bind,source=~/dotfiles-v2,target=/home/$user/dotfiles" \
-    --dotfiles-repository git@github.com:svyatogor/dotfiles.git \
-    --dotfiles-install-command setup-devcontainer.sh \
+    --dotfiles-repository https://github.com/svyatogor/dotfiles.git \
+    --dotfiles-install-command scripts/setup-devcontainer.sh \
     --workspace-folder $root \
     --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow "}, "ghcr.io/roul/devcontainer-features/mise:1": {}}' \
     --remove-existing-container
@@ -70,12 +69,12 @@ else
   workspace_folder=$(get_workspace_folder)
 
   # Build environment variables
-  ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e NVIM_APPNAME=nvim_host -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
+  ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
 
   if [ -z "$COMMAND_ARGS" ]; then
     # op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- $DOCKER exec $ENV_VARS -w /workspace -it $container_id fish -ilc "tmux new -A -s $(basename $root)"
-    op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -il
+    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -il
   else
-    op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -ilc "$COMMAND_ARGS"
+    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -ilc "$COMMAND_ARGS"
   fi
 fi

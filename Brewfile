@@ -44,6 +44,7 @@ cask "iina"
 cask "aerospace"
 cask "session-manager-plugin"
 cask "wezterm@nightly"
+cask "1password-cli"
 
 # Fonts
 cask "font-symbols-only-nerd-font"
