@@ -14,6 +14,7 @@ brew "coreutils"
 brew "wget"
 brew "awscli@2"
 brew "devcontainer"
+brew "btop"
 #brew "geminicommit"
 
 # GUI (macOS)

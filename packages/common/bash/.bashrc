@@ -68,8 +68,6 @@ function assume() {
   unset GRANTED_ALIAS_CONFIGURED
 }
 
-# # Initialize fzf key bindings (no prompts)
-# if [[ -x "$(brew --prefix)/opt/fzf/install" ]]; then
-#   yes | "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-bash --no-fish || true
-# fi
-
+if [[ -s $HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh ]]; then
+  . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+fi

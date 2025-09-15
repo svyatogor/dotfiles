@@ -8,7 +8,7 @@
 ##
 SHELL := /bin/bash
 
-.PHONY: mac devcontainer stow unstow brew-dump mise-install check list apt-install set-context show-context clear-context
+.PHONY: mac devcontainer stow unstow brew brew-dump mise-install check list apt-install set-context show-context clear-context
 
 ## Root directory for stow packages
 PACKAGES_DIR ?= packages
@@ -44,6 +44,10 @@ STOW_ADOPT ?=
 ## mac: bootstrap macOS (Homebrew bundle + cleanup) and stow packages
 mac:
 	CONTEXT=$(CONTEXT) ./scripts/bootstrap-mac.sh
+
+## brew: install Homebrew if needed and run brew bundle/cleanup
+brew:
+	@CONTEXT=$(CONTEXT) ./scripts/brew-install.sh
 
 ## devcontainer: install apt packages declaratively and stow for containers
 devcontainer:
