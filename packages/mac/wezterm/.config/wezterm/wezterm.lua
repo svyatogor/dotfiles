@@ -2,8 +2,7 @@ local wezterm = require("wezterm")
 
 local act = wezterm.action
 local config = wezterm.config_builder()
-config.color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors" }
-wezterm.add_to_config_reload_watch_list(os.getenv("HOME") .. "/.config/wezterm/colors")
+wezterm.add_to_config_reload_watch_list(os.getenv("HOME") .. "/.local/share/wezterm/colors")
 local function hex_to_rgb(color)
 	local hex = color:gsub("#", "")
 	if #hex == 3 then
@@ -130,12 +129,15 @@ local function extend_with_tab_bar(base)
 end
 
 do
-	local config_dir = wezterm.config_dir or (os.getenv("HOME") .. "/.config/wezterm")
+	local config_dir = os.getenv("HOME") .. "/.local/share/wezterm"
 	local theme_path = config_dir .. "/colors/tinted-theming.toml"
 	local ok, scheme = pcall(wezterm.color.load_scheme, theme_path)
 	if ok and scheme then
 		local scheme_colors = extend_with_tab_bar(scheme.colors or scheme)
 		config.colors = scheme_colors
+		if config.colors and config.colors.cursor_border then
+			config.colors.cursor_bg = config.colors.cursor_border
+		end
 	else
 		wezterm.log_error("Failed to load scheme at " .. theme_path .. "; falling back to named scheme")
 		config.color_scheme = "tinted-theming"
@@ -222,6 +224,7 @@ config.window_background_opacity = 0.93
 config.macos_window_background_blur = 60
 
 config.use_cap_height_to_scale_fallback_fonts = true
+config.bold_brightens_ansi_colors = false
 
 config.window_padding = {
 	left = 15,
@@ -285,7 +288,7 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action_callback(function(window, pane)
 			local overrides = window:get_config_overrides() or {}
-			local current_opacity = overrides.window_background_opacity or 0.93
+			local current_opacity = overrides.window_background_opacity or 0.9
 
 			-- Cycle through opacity values from 0.8 to 1.0 in 0.05 increments
 			local opacity_values = { 0.8, 0.85, 0.9, 0.95, 1.0 }
