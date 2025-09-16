@@ -12,3 +12,6 @@ vim.opt_local.spell = false
 
 vim.g.lazyvim_ruby_lsp = "ruby_lsp"
 vim.g.lazyvim_ruby_formatter = "rubocop"
+
+vim.g.tinted_background_transparent = 1
+vim.opt.termguicolors = true

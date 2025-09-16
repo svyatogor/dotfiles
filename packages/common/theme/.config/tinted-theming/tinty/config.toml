@@ -31,4 +31,4 @@ name = "lazygit"
 path = "https://git.sr.ht/~blueingreen/base16-lazygit"
 themes-dir = "colors"
 supported-systems = ["base16"]
-hook = "mkdir -p ~/.config/lazygit/ && cp -f %f ~/.config/lazygit/config.yml"
+hook = "mkdir -p ~/.config/lazygit/ && cp -f %f ~/.config/lazygit/colors.yml"
