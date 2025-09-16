@@ -1,0 +1,99 @@
+# Configuration for Tinty
+# https://github.com/tinted-theming/tinty
+#
+# This file is optional, but there is limited tinty functionality
+# without customization of this config.toml
+#
+# This file should contain a `[[items]]` section for each application
+# you want themed. You can also set a `shell` value which is used in
+# Tinty when running shell commands. `shell` is also used when executing
+# `hook`s provided in this config file Check tinty repository for more
+# information and examples.
+
+
+# Explanation and default values for keys:
+
+# # Through which shell command hooks will run. The command will be replaced in '{}'
+shell = "bash -c '{}'"
+# # Default scheme to apply if a previously set scheme doesn't exist.
+# # Used specifically in the `tinty init` subcommand.
+default-scheme = "base16-mocha"
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-fzf"
+name = "tinted-fzf"
+hook = ". %f"
+themes-dir = "sh"
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-shell"
+name = "tinted-shell"
+themes-dir = "scripts"
+hook = ". %f"
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-delta"
+name = "tinted-delta"
+themes-dir = "configs"
+supported-systems = ["base16", "base24"]
+
+# WezTerm
+[[items]]
+name = "tinted-terminal"
+path = "https://github.com/tinted-theming/tinted-terminal"
+themes-dir = "themes/wezterm"
+supported-systems = ["base16", "base24"]
+# Writes a Lua module you can require in wezterm.lua
+hook = "mkdir -p ~/.config/wezterm && cp -f %f ~/.config/wezterm/colors/tinted-theming.toml"
+
+#
+# [[items]]
+# # Path to template repository. Can be a URL, absolute path or path
+# # beginning with `~/`.
+# path = "https://github.com/tinted-theming/tinted-shell"
+# # Unique name of item
+# name = "tinted-shell"
+# # Name of the repository directory containing the theme files
+# themes-dir = "scripts"
+# # (Optional) Command to execute after copying template (goes through `shell`)
+# hook = ""
+# # (Optional) supported scheme system of template. Some templates
+# # could support multiple scheme systems.
+# supported-systems = ["base16", "base24"]
+
+
+# Example file. For shell, tmux, fzf, waybar and sway. Runs hooks
+# through zsh:
+
+# shell = "zsh -c '{}'"
+# default-scheme = "base16-oceanicnext"
+#
+# [[items]]
+# path = "https://github.com/tinted-theming/tinted-shell"
+# name = "tinted-shell"
+# hook = ". %f"
+# themes-dir = "scripts"
+#
+# [[items]]
+# path = "https://github.com/tinted-theming/base16-tmux"
+# name = "base16-tmux"
+# themes-dir = "colors"
+# hook = "test -n \"$TMUX\" && tmux source-file %f"
+#
+# [[items]]
+# path = "https://github.com/tinted-theming/base16-fzf"
+# name = "fzf"
+# themes-dir = "bash"
+# hook = ". %f"
+#
+# [[items]]
+# path = "https://github.com/tinted-theming/base16-waybar"
+# name = "base16-waybar"
+# themes-dir = "colors"
+# hook = "cp -r %f ~/.config/waybar/colors.css"
+#
+# [[items]]
+# path = "https://github.com/rkubosz/base16-sway"
+# name = "base16-sway"
+# themes-dir = "themes"
+# hook = "cat %f > ~/.config/sway/config && swaymsg reload"

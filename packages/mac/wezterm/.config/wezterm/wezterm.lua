@@ -2,8 +2,8 @@ local wezterm = require("wezterm")
 
 local act = wezterm.action
 local config = wezterm.config_builder()
-
-local color_scheme = "Catppuccin Frappe"
+config.color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors" }
+config.color_scheme = "tinted-theming"
 
 local function tab_title(tab_info)
 	if tab_info.tab_title and #tab_info.tab_title > 0 then
@@ -16,7 +16,7 @@ local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabl
 tabline.setup({
 	options = {
 		icons_enabled = true,
-		theme = color_scheme,
+		-- theme = "tinted-theming",
 		tabs_enabled = true,
 		theme_overrides = {},
 		section_separators = {
@@ -97,7 +97,6 @@ config.window_decorations = "RESIZE|MACOS_FORCE_ENABLE_SHADOW|MACOS_FORCE_SQUARE
 config.window_background_opacity = 0.93
 config.macos_window_background_blur = 60
 
-config.color_scheme = color_scheme
 config.use_cap_height_to_scale_fallback_fonts = true
 
 config.window_padding = {

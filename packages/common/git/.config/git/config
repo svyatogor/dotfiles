@@ -34,3 +34,6 @@
 [user]
 	email = "svyatogor@gmail.com"
 	name = "Sergey Kuleshov"
+
+[include]
+	path = ~/.local/share/tinted-theming/tinty/tinted-delta-configs-file.gitconfig

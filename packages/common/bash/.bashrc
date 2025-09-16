@@ -15,6 +15,7 @@ shopt -s checkjobs
 
 export LANG=C.UTF-8
 export LC_ALL=C.UTF-8
+export BAT_THEME=base16-256
 
 # Homebrew shellenv (macOS Intel/Apple Silicon)
 if [ -d /opt/homebrew ]; then
@@ -62,6 +63,34 @@ alias vim=nvim
 # if [[ ! -v BASH_COMPLETION_VERSINFO ]]; then
 #   . "/nix/store/ny5hpgdkfvm89kzg9nq7v3fzjklx3166-bash-completion-2.16.0/etc/profile.d/bash_completion.sh"
 # fi
+
+# Tinty isn't able to apply environment variables to your shell due to
+# the way shell sub-processes work. This is a work around by running
+# Tinty through a function and then executing the shell scripts.
+tinty_source_shell_theme() {
+  newer_file=$(mktemp)
+  tinty $@
+  subcommand="$1"
+
+  if [ "$subcommand" = "apply" ] || [ "$subcommand" = "init" ]; then
+    tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
+
+    while read -r script; do
+      # shellcheck disable=SC1090
+      . "$script"
+    done < <(find "$tinty_data_dir" -maxdepth 1 -type f -o -type l -name "*.sh" -newer "$newer_file")
+
+    unset tinty_data_dir
+  fi
+
+  unset subcommand
+}
+
+if [ -n "$(command -v 'tinty')" ]; then
+  eval "$(tinty generate-completion bash)"
+  tinty_source_shell_theme "init" >/dev/null
+  alias tinty=tinty_source_shell_theme
+fi
 
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"

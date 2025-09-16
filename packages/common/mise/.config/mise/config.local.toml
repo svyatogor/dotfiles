@@ -23,6 +23,7 @@ delta = "latest"
 starship = "latest"
 tpm = "latest"
 zoxide = "latest"
+"ubi:tinted-theming/tinty" = "latest"
 "ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux|darwin).*(musl|static)", rename_exe = "codex" }
 "ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
 claude = "latest"
