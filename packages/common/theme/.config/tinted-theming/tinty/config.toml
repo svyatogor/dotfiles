@@ -25,3 +25,10 @@ path = "https://github.com/tinted-theming/tinted-terminal"
 themes-dir = "themes/wezterm"
 supported-systems = ["base16", "base24"]
 hook = "mkdir -p ~/.local/share/wezterm/colors && cp -f %f ~/.local/share/wezterm/colors/tinted-theming.toml"
+
+[[items]]
+name = "lazygit"
+path = "https://git.sr.ht/~blueingreen/base16-lazygit"
+themes-dir = "colors"
+supported-systems = ["base16"]
+hook = "mkdir -p ~/.config/lazygit/ && cp -f %f ~/.config/lazygit/colors.yml"

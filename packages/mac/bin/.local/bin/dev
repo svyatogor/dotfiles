@@ -69,7 +69,7 @@ else
   workspace_folder=$(get_workspace_folder)
 
   # Build environment variables
-  ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
+  ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e BASE16_THEME -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
 
   if [ -z "$COMMAND_ARGS" ]; then
     # op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- $DOCKER exec $ENV_VARS -w /workspace -it $container_id fish -ilc "tmux new -A -s $(basename $root)"
