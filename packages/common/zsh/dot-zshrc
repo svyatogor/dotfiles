@@ -1,0 +1,158 @@
+# Inspired by concepts from https://www.youtube.com/watch?v=ud7YxC33Z3w and adapted for my workflow.
+
+# --- Plugin manager: Zinit -------------------------------------------------
+# Install Zinit into XDG data dir (or fallback .local/share) when missing.
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [ ! -d "$ZINIT_HOME" ]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+fi
+if [ ! -d "$ZINIT_HOME/.git" ]; then
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+# --- Environment bootstrap --------------------------------------------------
+# Homebrew shellenv (macOS Intel/Apple Silicon) keeps PATH and variables fresh.
+if [ -d /opt/homebrew ]; then
+  eval "$('/opt/homebrew/bin/brew' shellenv)"
+fi
+
+# mise (tool version manager) activates shims only when available.
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
+# direnv automatically loads per-directory environment customizations.
+if command -v direnv >/dev/null 2>&1; then
+  export DIRENV_LOG_FORMAT=""        # Silence direnv noisy logging.
+  eval "$(direnv hook zsh)"
+fi
+
+# Starship prompt offers a cross-shell async prompt configuration.
+if command -v starship >/dev/null 2>&1; then
+  export STARSHIP_CONFIG="$HOME/.config/starship.toml"
+  eval "$(starship init zsh)"
+fi
+
+# --- Preferred tooling ------------------------------------------------------
+# Prefer GNU coreutils aliases when installed on macOS for consistent behavior.
+command -v gsed >/dev/null 2>&1 && alias sed='gsed'
+command -v ggrep >/dev/null 2>&1 && alias grep='ggrep'
+command -v gls >/dev/null 2>&1 && alias ls='gls'
+
+# fzf and zoxide integrate shell completions and directory jumping helpers.
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
+
+# --- Aliases ----------------------------------------------------------------
+# Text viewing aliases favor bat/eza/neovim for richer defaults.
+alias cat='bat'
+alias less='bat'
+alias eza='eza --icons auto --git'
+alias la='eza -a'
+alias ll='eza -l'
+alias lla='eza -la'
+alias lt='eza --tree'
+alias ls='eza'
+
+# Git workflow shortcuts speed up common tasks.
+alias g='lazygit'
+alias gp='git push'
+alias gss='git status -s'
+
+# Editor shortcuts keep nvim as the single entry point.
+alias n='nvim'
+alias vim='nvim'
+
+# --- Functions --------------------------------------------------------------
+# tinty_source_shell_theme reloads tinted-theming scripts when themes change.
+function tinty_source_shell_theme() {
+  newer_file=$(mktemp)
+  tinty "$@"
+  subcommand="$1"
+
+  if [ "$subcommand" = "apply" ] || [ "$subcommand" = "init" ]; then
+    tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
+
+    while read -r script; do
+      # shellcheck disable=SC1090
+      . "$script"
+    done < <(find "$tinty_data_dir" -maxdepth 1 -type f -o -type l -name "*.sh" -newer "$newer_file")
+
+    unset tinty_data_dir
+  fi
+
+  unset subcommand
+}
+
+# Experimental tinty shell completion and alias support.
+# if command -v tinty >/dev/null 2>&1; then
+#   eval "$(tinty generate-completion zsh)"
+#   tinty_source_shell_theme "init" >/dev/null
+#   alias tinty=tinty_source_shell_theme
+# fi
+
+# assume wraps the granted "assume" binary while signaling the alias state.
+function assume() {
+  export GRANTED_ALIAS_CONFIGURED="true"
+  source /nix/store/hcz8ndam06rs0ynzz7390kjf6iws3xsr-granted-0.38.0/bin/assume "$@"
+  unset GRANTED_ALIAS_CONFIGURED
+}
+
+# --- Plugins via Zinit ------------------------------------------------------
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+autoload -U compinit && compinit     # Initialize zsh completion system.
+zinit cdreplay -q                    # Re-run buffered completions after compinit.
+
+# --- Keybindings ------------------------------------------------------------
+bindkey -e                           # Use emacs keybindings baseline.
+bindkey '^p' history-search-backward # Search backward by prefix (Ctrl+P).
+bindkey '^n' history-search-forward  # Search forward by prefix (Ctrl+N).
+bindkey '^[w' kill-region            # Map Alt+W to cut current selection.
+
+# Map macOS Option+Arrow escape sequences emitted by Terminal/iTerm2.
+# The 1;3 modifier denotes the Option key; map to word-wise navigation.
+bindkey '\e[1;3D' backward-word     # Option+Left moves back one word.
+bindkey '\e[1;3C' forward-word      # Option+Right moves forward one word.
+# Some terminals use 1;9 for the same chords; cover those variants too.
+bindkey '\e[1;9D' backward-word
+bindkey '\e[1;9C' forward-word
+
+# Apply equivalent bindings for Ctrl+Arrow, which emit the 1;5 modifier.
+bindkey '\e[1;5D' backward-word
+bindkey '\e[1;5C' forward-word
+# Fallback for terminals sending bare "[5" sequences.
+bindkey '\e[5D' backward-word
+bindkey '\e[5C' forward-word
+
+# --- History configuration --------------------------------------------------
+HISTDUP=erase                        # Drop duplicates when writing history.
+HISTFILE=~/.zsh_history              # Persistent history file location.
+HISTSIZE=32768                       # In-memory history entries to retain.
+SAVEHIST=$HISTSIZE                   # Sync persistent history size with memory.
+
+setopt appendhistory                 # Append new commands instead of truncating.
+setopt sharehistory                  # Share history across concurrent shells.
+setopt hist_ignore_space             # Ignore commands prefixed with a space.
+setopt hist_ignore_all_dups          # Remove older duplicates automatically.
+setopt hist_save_no_dups             # Prevent duplicate entries when writing file.
+setopt hist_ignore_dups              # Skip immediate duplicates in memory.
+setopt hist_find_no_dups             # De-duplicate search results while navigating.
+
+# --- Completion styling -----------------------------------------------------
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# Allow case-insensitive completion matches.
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# Reuse LS_COLORS to colorize completion listings.
+zstyle ':completion:*' menu no
+# Keep completion in list form unless explicitly asked for menu select.
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# Display directory listing preview when using fzf-tab for `cd`.
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+# Preview target directory contents when navigating with zoxide.
+
+export PATH="$PATH:$HOME/.local/bin"

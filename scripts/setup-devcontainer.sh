@@ -101,6 +101,24 @@ else
   make stow
 fi
 
+set_default_shell() {
+  local shell_path
+  shell_path="$(command -v zsh || true)"
+  if [[ -z "$shell_path" ]]; then
+    echo "[devcontainer-setup] zsh not found; skipping default shell update." >&2
+    return
+  fi
+
+  if [[ "${SHELL:-}" == "$shell_path" ]]; then
+    return
+  fi
+
+  echo "[devcontainer-setup] Setting default shell to ${shell_path}."
+  sudo chsh -s "$shell_path" "$(whoami)"
+}
+
+set_default_shell
+
 # Install mise tools if present
 install_mise || true
 if command -v mise >/dev/null 2>&1; then
