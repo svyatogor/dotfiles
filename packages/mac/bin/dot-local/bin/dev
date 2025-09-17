@@ -73,8 +73,8 @@ else
 
   if [ -z "$COMMAND_ARGS" ]; then
     # op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- $DOCKER exec $ENV_VARS -w /workspace -it $container_id fish -ilc "tmux new -A -s $(basename $root)"
-    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -il
+    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id zsh -il
   else
-    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id bash -ilc "$COMMAND_ARGS"
+    op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id zsh -ilc "$COMMAND_ARGS"
   fi
 fi

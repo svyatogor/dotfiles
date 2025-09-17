@@ -8,7 +8,7 @@ tpm = "https://github.com/svyatogor/asdf-tpm"
 idiomatic_version_file_enable_tools = ['node', 'ruby']
 
 [tools]
-node = "lts"
+node = "24"
 # rust = "1.82"
 # ruby = "3"
 # python = "3.12"
@@ -25,7 +25,7 @@ starship = "latest"
 tpm = "latest"
 zoxide = "latest"
 "ubi:tinted-theming/tinty" = "latest"
-"ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux|darwin).*(musl|static|)", rename_exe = "codex" }
+"ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux-musl|darwin)", rename_exe = "codex" }
 "ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
 claude = "latest"
 

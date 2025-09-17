@@ -119,6 +119,7 @@ brew-dump:
 mise-install:
 	@which mise >/dev/null 2>&1 || { echo "mise not found in PATH"; exit 1; }
 	mise install
+	mise prune -y
 
 ## apt-install: install apt packages from profile/context lists
 apt-install:

@@ -207,10 +207,10 @@ tabline.apply_to_config(config)
 
 config.font = wezterm.font_with_fallback({
 	"Maple Mono",
-	{
-		family = "Symbols Nerd Font Mono",
-		scale = 0.9,
-	},
+	-- {
+	-- 	family = "Symbols Nerd Font Mono",
+	-- 	scale = 0.9,
+	-- },
 })
 config.font_size = 13
 config.line_height = 1.1
