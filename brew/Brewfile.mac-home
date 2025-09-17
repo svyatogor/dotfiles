@@ -5,7 +5,6 @@
 # brew "htop"
 
 cask "affinity-photo"
-cask "microsoft-openjdk@17"
 cask "microsoft-word"
 cask "microsoft-excel"
 cask "tunnelbear"
