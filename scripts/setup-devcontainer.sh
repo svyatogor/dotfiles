@@ -24,6 +24,55 @@ install_mise() {
   export PATH="$HOME/.local/bin:$PATH"
 }
 
+install_stow_from_source() {
+  local version="${1:-2.4.1}"
+  if ! command -v wget >/dev/null 2>&1; then
+    echo "[devcontainer-setup] wget is required to install GNU stow from source." >&2
+    return 1
+  fi
+
+  local tmp_dir
+  tmp_dir="$(mktemp -d)"
+  (
+    set -euo pipefail
+    trap 'rm -rf "$tmp_dir"' EXIT
+    cd "$tmp_dir"
+    local archive="stow-${version}.tar.gz"
+    local url="https://ftp.gnu.org/gnu/stow/${archive}"
+    echo "[devcontainer-setup] Downloading GNU stow ${version}..."
+    wget "$url"
+    tar xvf "$archive"
+    cd "stow-${version}"
+    ./configure
+    make
+    sudo make install
+  )
+}
+
+ensure_stow() {
+  local required_version="2.4"
+  local desired_version="2.4.1"
+  local installed_version=""
+
+  if command -v stow >/dev/null 2>&1; then
+    installed_version="$(stow --version 2>/dev/null | head -n1 | awk '{print $NF}')"
+    if [[ -n "$installed_version" ]] && [[ "$(printf '%s\n' "$required_version" "$installed_version" | sort -V | head -n1)" == "$required_version" ]]; then
+      return 0
+    fi
+    echo "[devcontainer-setup] Found GNU stow ${installed_version:-unknown}; upgrading to ${desired_version}."
+  else
+    echo "[devcontainer-setup] GNU stow not found; installing ${desired_version}."
+  fi
+
+  if install_stow_from_source "$desired_version"; then
+    hash -r
+    return 0
+  fi
+
+  echo "[devcontainer-setup] Failed to install GNU stow ${desired_version}." >&2
+  return 1
+}
+
 # case "$OS" in
 #   Linux)
 #     if command -v apt-get >/dev/null 2>&1; then
@@ -37,6 +86,9 @@ install_mise() {
 # esac
 
 # Stow dotfiles
+if ! ensure_stow; then
+  echo "[devcontainer-setup] Continuing without stowing configs." >&2
+fi
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_root"
 if ! command -v stow >/dev/null 2>&1; then
