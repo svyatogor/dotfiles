@@ -9,6 +9,7 @@ idiomatic_version_file_enable_tools = ['node', 'ruby']
 
 [tools]
 node = "lts"
+# rust = "1.82"
 # ruby = "3"
 # python = "3.12"
 # go = "1.22"
@@ -27,3 +28,7 @@ zoxide = "latest"
 "ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux|darwin).*(musl|static|)", rename_exe = "codex" }
 "ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
 claude = "latest"
+
+[tasks.sync]
+description = "Install tools from config.toml and prune removed ones"
+run = "mise install && mise prune -y"
