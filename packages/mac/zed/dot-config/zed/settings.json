@@ -7,6 +7,12 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "claude": {
+      "default_mode": "plan"
+    }
+  },
+  "icon_theme": "Catppuccin Mocha",
   "buffer_font_family": "Maple Mono",
   "buffer_font_weight": 250,
   "buffer_font_size": 14,
@@ -24,7 +30,7 @@
     },
     {
       "host": "app.klarpay.orb.local",
-      "username": "node",
+      "username": "vscode",
       "port": 2222,
       "projects": [
         {
@@ -84,7 +90,12 @@
     "edit_prediction_provider": "none"
   },
   "terminal": {
-    // "font_family": "Ubuntu Mono",
+    "shell": {
+      "with_arguments": {
+        "program": "/bin/zsh",
+        "args": ["--login"]
+      }
+    },
     "font_weight": 200,
     "font_fallbacks": ["Symbols Nerd Font"]
   },

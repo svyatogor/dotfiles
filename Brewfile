@@ -14,6 +14,7 @@ brew "devcontainer"
 brew "btop"
 brew "git-crypt"
 brew "gpg"
+brew "telnet"
 
 # GUI (macOS)
 cask "ui"
