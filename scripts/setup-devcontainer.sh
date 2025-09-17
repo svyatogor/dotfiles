@@ -5,15 +5,6 @@ echo "[devcontainer-setup] Installing base tooling + stowing configs..."
 
 OS="$(uname -s)"
 
-# install_with_apt() {
-#   # Declarative install from apt lists
-#   PROFILE=devcontainer bash "$(dirname "$0")/apt-install.sh"
-#   # fd-find installs as fdfind on Debian/Ubuntu; symlink to fd if missing
-#   if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
-#     sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
-#   fi
-# }
-
 install_mise() {
   if command -v mise >/dev/null 2>&1; then
     return
@@ -73,18 +64,6 @@ ensure_stow() {
   return 1
 }
 
-# case "$OS" in
-#   Linux)
-#     if command -v apt-get >/dev/null 2>&1; then
-#       install_with_apt
-#     fi
-#     ;;
-#   Darwin)
-#     echo "[devcontainer-setup] On macOS? Consider running: make mac"
-#     ;;
-#   *) ;;
-# esac
-
 # Stow dotfiles
 if ! ensure_stow; then
   echo "[devcontainer-setup] Continuing without stowing configs." >&2
@@ -100,24 +79,6 @@ else
   rm ~/.bash* || true
   make stow
 fi
-
-set_default_shell() {
-  local shell_path
-  shell_path="$(command -v zsh || true)"
-  if [[ -z "$shell_path" ]]; then
-    echo "[devcontainer-setup] zsh not found; skipping default shell update." >&2
-    return
-  fi
-
-  if [[ "${SHELL:-}" == "$shell_path" ]]; then
-    return
-  fi
-
-  echo "[devcontainer-setup] Setting default shell to ${shell_path}."
-  sudo chsh -s "$shell_path" "$(whoami)"
-}
-
-set_default_shell
 
 # Install mise tools if present
 install_mise || true
