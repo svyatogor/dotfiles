@@ -14,6 +14,8 @@ brew "wget"
 brew "awscli@2"
 brew "devcontainer"
 brew "btop"
+brew "git-crypt"
+brew "gpg"
 
 # GUI (macOS)
 cask "ui"
