@@ -1,0 +1,154 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "icon_theme": "Catppuccin Latte",
+  "buffer_font_family": "Maple Mono",
+  "ssh_connections": [
+    {
+      "host": "app.llm-experiment-devcontainer.orb.local",
+      "username": "node",
+      "port": 2222,
+      "projects": [
+        {
+          "paths": ["/workspaces"]
+        }
+      ],
+      "nickname": "llm-experiment"
+    },
+    {
+      "host": "app.klarpay.orb.local",
+      "username": "node",
+      "port": 2222,
+      "projects": [
+        {
+          "paths": ["/workspaces/repos/core"]
+        },
+        {
+          "paths": ["/workspaces/repos/safe-core-sdk"]
+        },
+        {
+          "paths": ["/workspaces/repos/total-banking"]
+        },
+        {
+          "paths": ["/workspaces/repos/total-banking-tron-batch"]
+        }
+      ]
+    },
+    {
+      "host": "app.orion-devcontainer.orb.local",
+      "username": "node",
+      "port": 2222,
+      "projects": [
+        {
+          "paths": ["/workspaces"]
+        }
+      ]
+    },
+    {
+      "host": "app.orion-devcontainer.orb.local",
+      "username": "node",
+      "port": 2222,
+      "projects": []
+    },
+    {
+      "host": "rails-app.orion.orb.local",
+      "username": "vscode",
+      "port": 2222,
+      "projects": [
+        {
+          "paths": ["/workspaces"]
+        }
+      ]
+    },
+    {
+      "host": "app.wirex-stellar.orb.local",
+      "username": "vscode",
+      "port": 2222,
+      "projects": [
+        {
+          "paths": ["/workspace"]
+        }
+      ]
+    }
+  ],
+  "vim_mode": true,
+  "ui_font_size": 15,
+  "buffer_font_size": 14,
+  "features": {
+    "edit_prediction_provider": "none"
+  },
+  "terminal": {
+    // "font_family": "Ubuntu Mono",
+    "font_fallbacks": ["Symbols Nerd Font"]
+  },
+  "tab_bar": {
+    "show": false
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Crisp Anysphere Blend Light",
+    "dark": "Catppuccin Mocha"
+  },
+  "vim": {
+    "use_system_clipboard": "on_yank",
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true
+  },
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "rubocop", "!solargraph", "..."]
+    }
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        // For TypeScript:
+        "typescript": {
+          "tsserver": { "maxTsServerMemory": 16184 },
+          "inlayHints": {
+            "parameterNames": {
+              "enabled": "all",
+              "suppressWhenArgumentMatchesName": false
+            },
+            "parameterTypes": {
+              "enabled": true
+            },
+            "variableTypes": {
+              "enabled": true,
+              "suppressWhenTypeMatchesName": true
+            },
+            "propertyDeclarationTypes": {
+              "enabled": true
+            },
+            "functionLikeReturnTypes": {
+              "enabled": true
+            },
+            "enumMemberValues": {
+              "enabled": true
+            }
+          }
+        },
+        // For JavaScript:
+        "javascript": {
+          "tsserver": { "maxTsServerMemory": 16184 }
+        }
+      }
+    }
+  },
+  "auto_install_extensions": {
+    "html": true,
+    "dockerfile": true,
+    "toml": true,
+    "ruby": true,
+    "catppuccin-icons": true,
+    "gruvbox-crisp-themes": true,
+    "catppuccin": true,
+    "make": true
+  }
+}
