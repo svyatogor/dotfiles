@@ -58,7 +58,7 @@ if [ $UP_FLAG -eq 1 ]; then
   devcontainer up \
     --remote-env SSH_AUTH_SOCK=/ssh.sock \
     --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
-    --mount "type=volume,source=shell-history,target=/home/$user/.local/share" \
+    --mount "type=volume,source=shell-history,target=/home/$user/.zsh_history" \
     --dotfiles-repository https://github.com/svyatogor/dotfiles.git \
     --dotfiles-install-command scripts/setup-devcontainer.sh \
     --workspace-folder $root \
@@ -72,7 +72,6 @@ else
   ENV_VARS="-e PROFILE=devcontainer -e SSH_AUTH_SOCK=/ssh.sock -e BASE16_THEME -e DEV_CONTAINER_NAME=$(basename $root) -e TERM  -e AWS_PROFILE -e AWS_DEFAULT_REGION -e AWS_REGION -e AWS_SESSION_EXPIRATION -e AWS_SECRET_ACCESS_KEY -e AWS_ACCESS_KEY_ID -e AWS_CREDENTIAL_EXPIRATION -e AWS_SESSION_TOKEN"
 
   if [ -z "$COMMAND_ARGS" ]; then
-    # op run --no-masking --env-file="$HOME/dotfiles/container-secrets.env" -- $DOCKER exec $ENV_VARS -w /workspace -it $container_id fish -ilc "tmux new -A -s $(basename $root)"
     op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id zsh -il
   else
     op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it $container_id zsh -ilc "$COMMAND_ARGS"
