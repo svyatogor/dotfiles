@@ -5,7 +5,7 @@ set -euo pipefail
 validate_dependencies() {
   local missing_deps=()
   for dep in docker jq op; do
-    if ! command -v "$dep" &> /dev/null; then
+    if ! command -v "$dep" &>/dev/null; then
       missing_deps+=("$dep")
     fi
   done
@@ -72,8 +72,9 @@ build_env_vars() {
     "PROFILE=devcontainer"
     "SSH_AUTH_SOCK=/ssh.sock"
     "DEV_CONTAINER_NAME=$(basename "$root")"
+    "SHELL=/bin/zsh"
     # Optional environment variables (only include if set)
-    "BASE16_THEME"
+    "BASE16_THEME=$(tinty current)"
     "TERM"
     # AWS credentials
     "AWS_PROFILE"
@@ -130,7 +131,8 @@ if [ $UP_FLAG -eq 1 ]; then
   devcontainer up \
     --remote-env SSH_AUTH_SOCK=/ssh.sock \
     --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock" \
-    --mount "type=volume,source=shell-history,target=/home/$user/.zsh_history" \
+    --mount "type=volume,source=local-share,target=/home/$user/.local/share" \
+    --mount "type=volume,source=local-state,target=/home/$user/.local/state" \
     --dotfiles-repository https://github.com/svyatogor/dotfiles.git \
     --dotfiles-install-command scripts/setup-devcontainer.sh \
     --workspace-folder "$root" \

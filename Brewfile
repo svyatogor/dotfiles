@@ -15,6 +15,7 @@ brew "btop"
 brew "git-crypt"
 brew "gpg"
 brew "telnet"
+brew "plantuml"
 
 # GUI (macOS)
 cask "ui"

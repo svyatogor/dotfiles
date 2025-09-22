@@ -130,8 +130,9 @@ bindkey '\e[5D' backward-word
 bindkey '\e[5C' forward-word
 
 # --- History configuration --------------------------------------------------
+mkdir -p ~/.local/state/zsh/
 HISTDUP=erase                        # Drop duplicates when writing history.
-HISTFILE=~/.zsh_history              # Persistent history file location.
+HISTFILE=~/.local/state/zsh/history  # Persistent history file location.
 HISTSIZE=32768                       # In-memory history entries to retain.
 SAVEHIST=$HISTSIZE                   # Sync persistent history size with memory.
 
