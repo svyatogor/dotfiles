@@ -4,8 +4,8 @@ set -euo pipefail
 echo "[bootstrap-mac] Starting macOS bootstrap..."
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
-	echo "This script is for macOS only." >&2
-	exit 1
+  echo "This script is for macOS only." >&2
+  exit 1
 fi
 
 CONTEXT=${CONTEXT:-}
@@ -21,13 +21,11 @@ make stow
 
 echo "[bootstrap-mac] Installing mise tools..."
 if command -v mise >/dev/null 2>&1; then
-	mise self-update -y || true
-	mise install || true
+  mise self-update -y || true
+  mise install || true
 fi
 
 echo /opt/homebrew/bin/bash | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/bash
-
-tinty sync || true
 
 echo "[bootstrap-mac] Done. Consider restarting your terminal."

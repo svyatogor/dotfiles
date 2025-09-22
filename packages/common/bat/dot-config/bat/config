@@ -1,3 +1,2 @@
 --pager='less -R'
 --style=numbers
---theme='base16-256'
