@@ -64,34 +64,6 @@ alias gss='git status -s'
 alias n='nvim'
 alias vim='nvim'
 
-# --- Functions --------------------------------------------------------------
-# tinty_source_shell_theme reloads tinted-theming scripts when themes change.
-function tinty_source_shell_theme() {
-  newer_file=$(mktemp)
-  tinty "$@"
-  subcommand="$1"
-
-  if [ "$subcommand" = "apply" ] || [ "$subcommand" = "init" ]; then
-    tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
-
-    while read -r script; do
-      # shellcheck disable=SC1090
-      . "$script"
-    done < <(find "$tinty_data_dir" -maxdepth 1 -type f -o -type l -name "*.sh" -newer "$newer_file")
-
-    unset tinty_data_dir
-  fi
-
-  unset subcommand
-}
-
-# Experimental tinty shell completion and alias support.
-# if command -v tinty >/dev/null 2>&1; then
-#   eval "$(tinty generate-completion zsh)"
-#   tinty_source_shell_theme "init" >/dev/null
-#   alias tinty=tinty_source_shell_theme
-# fi
-
 # assume wraps the granted "assume" binary while signaling the alias state.
 function assume() {
   export GRANTED_ALIAS_CONFIGURED="true"

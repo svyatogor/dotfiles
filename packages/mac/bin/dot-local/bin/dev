@@ -74,7 +74,6 @@ build_env_vars() {
     "DEV_CONTAINER_NAME=$(basename "$root")"
     "SHELL=/bin/zsh"
     # Optional environment variables (only include if set)
-    "BASE16_THEME=$(tinty current)"
     "TERM"
     # AWS credentials
     "AWS_PROFILE"

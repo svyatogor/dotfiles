@@ -87,9 +87,4 @@ if command -v mise >/dev/null 2>&1; then
   mise install || true
 fi
 
-if command -v tinty >/dev/null 2>&1; then
-  tinty sync || true
-  tinty init || true
-fi
-
 echo "[devcontainer-setup] Complete."

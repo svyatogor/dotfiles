@@ -3,7 +3,14 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local config = wezterm.config_builder()
 
-config.color_scheme = "Catppuccin Frappe"
+function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return "Catppuccin Frappe"
+	else
+		return "Catppuccin Latte"
+	end
+end
+config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 
 local function tab_title(tab_info)
 	if tab_info.tab_title and #tab_info.tab_title > 0 then
@@ -81,8 +88,8 @@ config.tab_max_width = 32
 config.hide_tab_bar_if_only_one_tab = true
 
 config.window_decorations = "RESIZE|MACOS_FORCE_ENABLE_SHADOW|MACOS_FORCE_SQUARE_CORNERS"
-config.window_background_opacity = 1
--- config.macos_window_background_blur = 60
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 70
 
 config.use_cap_height_to_scale_fallback_fonts = true
 config.bold_brightens_ansi_colors = false
