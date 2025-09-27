@@ -1,4 +1,5 @@
 tap "nikitabobko/tap"
+tap "common-fate/granted"
 
 # Base CLI
 brew "git"
@@ -16,6 +17,7 @@ brew "git-crypt"
 brew "gpg"
 brew "telnet"
 brew "plantuml"
+brew "granted"
 
 # GUI (macOS)
 cask "ui"

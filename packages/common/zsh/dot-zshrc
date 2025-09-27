@@ -64,13 +64,6 @@ alias gss='git status -s'
 alias n='nvim'
 alias vim='nvim'
 
-# assume wraps the granted "assume" binary while signaling the alias state.
-function assume() {
-  export GRANTED_ALIAS_CONFIGURED="true"
-  source /nix/store/hcz8ndam06rs0ynzz7390kjf6iws3xsr-granted-0.38.0/bin/assume "$@"
-  unset GRANTED_ALIAS_CONFIGURED
-}
-
 # --- Plugins via Zinit ------------------------------------------------------
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
