@@ -76,7 +76,7 @@ build_env_vars() {
     # Optional environment variables (only include if set)
     "TERM"
     # AWS credentials
-    "AWS_PROFILE"
+    "AWSUME_PROFILE=$AWS_PROFILE"
     "AWS_DEFAULT_REGION"
     "AWS_REGION"
     "AWS_SESSION_EXPIRATION"
