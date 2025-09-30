@@ -63,6 +63,11 @@ alias gss='git status -s'
 # Editor shortcuts keep nvim as the single entry point.
 alias n='nvim'
 alias vim='nvim'
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+
+alias claude='SHELL=/bin/bash claude'
+alias codex='SHELL=/bin/bash codex'
 
 # --- Plugins via Zinit ------------------------------------------------------
 zinit light zsh-users/zsh-syntax-highlighting
