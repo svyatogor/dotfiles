@@ -76,7 +76,6 @@ build_env_vars() {
     # Optional environment variables (only include if set)
     "TERM"
     # AWS credentials
-    "AWSUME_PROFILE=$AWS_PROFILE"
     "AWS_DEFAULT_REGION"
     "AWS_REGION"
     "AWS_SESSION_EXPIRATION"
@@ -85,6 +84,13 @@ build_env_vars() {
     "AWS_CREDENTIAL_EXPIRATION"
     "AWS_SESSION_TOKEN"
   )
+
+  # Add AWSUME_PROFILE mapping only if AWS_PROFILE is set
+  if [[ -n "${AWS_PROFILE:-}" ]]; then
+    env_vars+=("AWSUME_PROFILE=$AWS_PROFILE")
+  fi
+
+  local env_vars_final=("${env_vars[@]}")
 
   local env_string=""
   for var in "${env_vars[@]}"; do
