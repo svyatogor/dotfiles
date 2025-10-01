@@ -16,7 +16,7 @@ return {
     opts = {},
   },
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     opts = function(_, opts)
       local ai = require("mini.ai")
       opts.custom_textobjects.t = false

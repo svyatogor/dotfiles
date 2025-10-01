@@ -1,9 +1,3 @@
-# Extra Homebrew items for mac home laptop (optional)
-# Examples:
-# cask "plex"
-# cask "spotify"
-# brew "htop"
-
 cask "affinity-photo"
 cask "microsoft-word"
 cask "microsoft-excel"

@@ -4,11 +4,11 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 function scheme_for_appearance(appearance)
-	if appearance:find("Dark") then
-		return "Catppuccin Frappe"
-	else
-		return "Catppuccin Latte"
-	end
+	-- if appearance:find("Dark") then
+	return "Catppuccin Frappe"
+	-- else
+	-- 	return "Catppuccin Latte"
+	-- end
 end
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 
@@ -23,7 +23,7 @@ local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabl
 tabline.setup({
 	options = {
 		icons_enabled = true,
-		theme = config.colors,
+		theme = "Catppuccin Frappe",
 		tabs_enabled = true,
 		section_separators = {
 			left = wezterm.nerdfonts.ple_upper_left_triangle,
@@ -74,7 +74,7 @@ tabline.setup({
 tabline.apply_to_config(config)
 
 config.font = wezterm.font_with_fallback({
-	"Maple Mono",
+	"JetBrains Mono",
 	-- {
 	-- 	family = "Symbols Nerd Font Mono",
 	-- 	scale = 0.9,
@@ -88,6 +88,7 @@ config.tab_max_width = 32
 config.hide_tab_bar_if_only_one_tab = true
 
 config.window_decorations = "RESIZE|MACOS_FORCE_ENABLE_SHADOW|MACOS_FORCE_SQUARE_CORNERS"
+-- config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.9
 config.macos_window_background_blur = 70
 

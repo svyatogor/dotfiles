@@ -18,6 +18,7 @@ brew "gpg"
 brew "telnet"
 brew "plantuml"
 brew "granted"
+brew "gemini-cli"
 
 # GUI (macOS)
 cask "ui"
