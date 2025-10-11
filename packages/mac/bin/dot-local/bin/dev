@@ -73,8 +73,6 @@ build_env_vars() {
     "SSH_AUTH_SOCK=/ssh.sock"
     "DEV_CONTAINER_NAME=$(basename "$root")"
     "SHELL=/bin/zsh"
-    # Optional environment variables (only include if set)
-    "TERM"
     # AWS credentials
     "AWS_DEFAULT_REGION"
     "AWS_REGION"
@@ -165,4 +163,5 @@ workspace_folder=$(get_workspace_folder)
 # Build environment variables using the new function
 ENV_VARS=$(build_env_vars)
 
-op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it "$container_id" zsh -il
+# op run --no-masking -- docker exec $ENV_VARS -w "$workspace_folder" -it "$container_id" zsh -il
+docker exec $ENV_VARS -w "$workspace_folder" -it "$container_id" zsh -il
