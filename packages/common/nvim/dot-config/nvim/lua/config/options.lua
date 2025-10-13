@@ -15,3 +15,4 @@ vim.g.lazyvim_ruby_formatter = "rubocop"
 
 vim.g.tinted_background_transparent = 1
 vim.opt.termguicolors = true
+vim.g.clipboard = "osc52"
