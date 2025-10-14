@@ -98,12 +98,22 @@ if [ -n "$target_instance_id" ]; then
     exit 1
   fi
 
-  # Show a confirmation with nice formatting
-  style_color "3" "Setting up port forwarding from localhost:$local_port to localhost:$remote_port..."
+  # Prompt for remote host, optional
+  echo -n "Remote host (optional, press Enter for localhost on instance): "
+  read -r remote_host
 
-  aws ssm start-session \
-    --target "$target_instance_id" \
-    --document-name AWS-StartPortForwardingSession \
-    --parameters "{\"portNumber\":[\"$remote_port\"],\"localPortNumber\":[\"$local_port\"]}"
+  if [ -n "$remote_host" ]; then
+    style_color "3" "Setting up port forwarding from localhost:$local_port to $remote_host:$remote_port..."
+    aws ssm start-session \
+      --target "$target_instance_id" \
+      --document-name AWS-StartPortForwardingSessionToRemoteHost \
+      --parameters "{\"host\":[\"$remote_host\"],\"portNumber\":[\"$remote_port\"],\"localPortNumber\":[\"$local_port\"]}"
+  else
+    style_color "3" "Setting up port forwarding from localhost:$local_port to localhost:$remote_port..."
+    aws ssm start-session \
+      --target "$target_instance_id" \
+      --document-name AWS-StartPortForwardingSession \
+      --parameters "{\"portNumber\":[\"$remote_port\"],\"localPortNumber\":[\"$local_port\"]}"
+  fi
 fi
 
