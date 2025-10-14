@@ -5,6 +5,30 @@ echo "[devcontainer-setup] Installing base tooling + stowing configs..."
 
 OS="$(uname -s)"
 
+# Install Ghostty terminfo
+install_ghostty_terminfo() {
+  local repo_root="${1:-.}"
+  local terminfo_file="$repo_root/resources/xterm-ghostty.terminfo"
+
+  if [[ ! -f "$terminfo_file" ]]; then
+    echo "[devcontainer-setup] Ghostty terminfo file not found, skipping." >&2
+    return 0
+  fi
+
+  if ! command -v tic >/dev/null 2>&1; then
+    echo "[devcontainer-setup] tic command not available, skipping terminfo installation." >&2
+    return 0
+  fi
+
+  echo "[devcontainer-setup] Installing Ghostty terminfo..."
+  if tic -x -o "$HOME/.terminfo" "$terminfo_file"; then
+    echo "[devcontainer-setup] Ghostty terminfo installed successfully."
+  else
+    echo "[devcontainer-setup] Failed to install Ghostty terminfo." >&2
+    return 1
+  fi
+}
+
 install_mise() {
   if command -v mise >/dev/null 2>&1; then
     return
@@ -86,5 +110,8 @@ if command -v mise >/dev/null 2>&1; then
   mise self-update -y || true
   mise install || true
 fi
+
+# Install Ghostty terminfo
+install_ghostty_terminfo "$repo_root" || true
 
 echo "[devcontainer-setup] Complete."
