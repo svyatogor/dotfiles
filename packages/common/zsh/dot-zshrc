@@ -55,6 +55,7 @@ alias ll='eza -l'
 alias lla='eza -la'
 alias lt='eza --tree'
 alias ls='eza'
+alias yy='yazi'
 
 # Git workflow shortcuts speed up common tasks.
 alias g='lazygit'
@@ -143,3 +144,5 @@ select-word-style bash
 source ~/.local/share/theme/zsh.sh
 source ~/.local/share/theme/fzf.sh
 source ~/.local/share/theme/bat.sh
+
+export GRANTED_NO_CACHE=1

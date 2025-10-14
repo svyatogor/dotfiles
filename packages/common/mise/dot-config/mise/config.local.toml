@@ -28,6 +28,8 @@ fd = "latest"
 "ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux-musl|darwin)", rename_exe = "codex" }
 "ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
 claude = "latest"
+gemini = "latest"
+yazi = "latest"
 
 [tasks.sync]
 description = "Install tools from config.toml and prune removed ones"
