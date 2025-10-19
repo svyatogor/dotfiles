@@ -30,6 +30,7 @@ fd = "latest"
 claude = "latest"
 gemini = "latest"
 yazi = "latest"
+gh = "latest"
 
 [tasks.sync]
 description = "Install tools from config.toml and prune removed ones"

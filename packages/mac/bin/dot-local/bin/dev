@@ -73,6 +73,8 @@ build_env_vars() {
     "SSH_AUTH_SOCK=/ssh.sock"
     "DEV_CONTAINER_NAME=$(basename "$root")"
     "SHELL=/bin/zsh"
+    "TERM"
+    "COLORTERM"
     # AWS credentials
     "AWS_DEFAULT_REGION"
     "AWS_REGION"
