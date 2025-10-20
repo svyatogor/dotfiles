@@ -146,3 +146,12 @@ source ~/.local/share/theme/fzf.sh
 source ~/.local/share/theme/bat.sh
 
 export GRANTED_NO_CACHE=1
+
+function glm() {
+  ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.5-air" \
+    ANTHROPIC_DEFAULT_SONNET_MODEL="glm-4.6" \
+    ANTHROPIC_DEFAULT_OPUS_MODEL="glm-4.6" \
+    ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic" \
+    API_TIMEOUT_MS="3000000" \
+    claude "$@"
+}
