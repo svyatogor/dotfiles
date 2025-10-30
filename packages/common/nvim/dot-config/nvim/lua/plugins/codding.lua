@@ -34,12 +34,16 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = {
-        "K",
-        function()
-          require("pretty_hover").hover()
-        end,
+      opts.servers = opts.servers or {}
+      opts.servers["*"] = opts.servers["*"] or {}
+      opts.servers["*"].keys = {
+        {
+          "K",
+          function()
+            require("pretty_hover").hover()
+          end,
+          desc = "Hover with pretty_hover",
+        },
       }
 
       opts.diagnostics = {
