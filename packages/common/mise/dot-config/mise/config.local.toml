@@ -32,6 +32,7 @@ gemini = "latest"
 yazi = "latest"
 gh = "latest"
 opencode = "latest"
+uv = "latest"
 
 [tasks.sync]
 description = "Install tools from config.toml and prune removed ones"

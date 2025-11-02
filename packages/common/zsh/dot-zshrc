@@ -20,6 +20,7 @@ fi
 
 # mise (tool version manager) activates shims only when available.
 if command -v mise >/dev/null 2>&1; then
+  export MISE_LOG_LEVEL=error
   eval "$(mise activate zsh)"
 fi
 

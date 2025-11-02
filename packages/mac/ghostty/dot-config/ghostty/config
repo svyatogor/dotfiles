@@ -1,5 +1,6 @@
 window-padding-x = 2
 shell-integration = zsh
+macos-titlebar-style = tabs
 # theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 theme = Catppuccin Macchiato
 background-opacity = 0.92
