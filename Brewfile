@@ -1,4 +1,4 @@
-tap "nikitabobko/tap"
+# tap "nikitabobko/tap"
 tap "common-fate/granted"
 
 # Base CLI
@@ -17,16 +17,21 @@ brew "gpg"
 brew "telnet"
 brew "plantuml"
 brew "granted"
+brew "cocoapods"
+
+# PostgreSQL tools
 brew "libpq"
+
+# Ruby dependencies
+brew "libyaml"
+brew "gmp"
 
 # GUI (macOS)
 cask "unifi-identity-enterprise"
 cask "visual-studio-code"
-cask "istat-menus"
 cask "telegram"
 cask "daisydisk"
 cask "forklift"
-cask "transmission"
 cask "google-chrome"
 cask "raycast"
 cask "yandex-music"
@@ -36,22 +41,15 @@ cask "the-unarchiver"
 # cask "google-drive"
 cask "1password"
 cask "slack"
-cask "windows-app"
 cask "tableplus"
-cask "datagrip"
 cask "medis"
 cask "orbstack"
 cask "chatgpt"
-cask "ledger-live"
-cask "zed@preview"
-cask "iina"
-# cask "aerospace"
 cask "session-manager-plugin"
-# cask "wezterm@nightly"
 cask "ghostty"
 cask "1password-cli"
+cask "ollama"
 cask "zen"
-cask "figma"
 
 # Fonts
 cask "font-symbols-only-nerd-font"
@@ -59,7 +57,6 @@ cask "font-jetbrains-mono"
 cask "font-maple-mono"
 cask "font-ubuntu-mono"
 cask "font-lilex"
-cask "font-geist-mono"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-fira-code-nerd-font"
 

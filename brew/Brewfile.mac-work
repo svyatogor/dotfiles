@@ -1,6 +1,2 @@
-# Extra Homebrew items for mac work laptop (optional)
-# Examples:
-# cask "zoom"
-# cask "slack"
-# brew "awscli"
+cask "windows-app"
 
