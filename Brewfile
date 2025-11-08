@@ -50,6 +50,7 @@ cask "ghostty"
 cask "1password-cli"
 cask "ollama"
 cask "zen"
+cask "tailscale"
 
 # Fonts
 cask "font-symbols-only-nerd-font"
