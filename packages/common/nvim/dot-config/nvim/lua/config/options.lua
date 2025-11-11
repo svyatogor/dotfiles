@@ -15,4 +15,16 @@ vim.g.lazyvim_ruby_formatter = "rubocop"
 
 vim.g.tinted_background_transparent = 1
 vim.opt.termguicolors = true
-vim.g.clipboard = "osc52"
+vim.opt.clipboard = "unnamedplus"
+
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
