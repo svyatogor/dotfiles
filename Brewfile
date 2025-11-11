@@ -16,7 +16,7 @@ brew "git-crypt"
 brew "gpg"
 brew "telnet"
 brew "plantuml"
-brew "granted"
+brew "common-fate/granted/granted"
 brew "cocoapods"
 
 # PostgreSQL tools
@@ -48,9 +48,9 @@ cask "chatgpt"
 cask "session-manager-plugin"
 cask "ghostty"
 cask "1password-cli"
-cask "ollama"
+cask "ollama-app"
 cask "zen"
-cask "tailscale"
+cask "tailscale-app"
 
 # Fonts
 cask "font-symbols-only-nerd-font"
