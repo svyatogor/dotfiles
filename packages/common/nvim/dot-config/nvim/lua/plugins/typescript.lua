@@ -13,20 +13,23 @@ return {
         vtsls = {
           enabled = false,
         },
+        tsgo = {
+          enabled = true,
+        },
       },
     },
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      settings = {
-        separate_diagnostic_server = false,
-        expose_as_code_action = "all",
-        -- code_lens = "all",
-      },
-    },
-    -- keys = {
-    -- },
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {
+  --     settings = {
+  --       separate_diagnostic_server = false,
+  --       expose_as_code_action = "all",
+  --       -- code_lens = "all",
+  --     },
+  --   },
+  --   -- keys = {
+  --   -- },
+  -- },
 }
