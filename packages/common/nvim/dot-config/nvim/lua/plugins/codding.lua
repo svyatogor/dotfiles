@@ -33,24 +33,19 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = function(_, opts)
-      opts.servers = opts.servers or {}
-      opts.servers["*"] = opts.servers["*"] or {}
-      opts.servers["*"].keys = {
-        {
-          "K",
-          function()
-            require("pretty_hover").hover()
-          end,
-          desc = "Hover with pretty_hover",
+    opts = {
+      servers = {
+        ["*"] = {
+          keys = {
+            {
+              "K",
+              function()
+                require("pretty_hover").hover()
+              end,
+            },
+          },
         },
-      }
-
-      opts.diagnostics = {
-        float = {
-          border = "rounded", -- choose from "single", "double", "rounded", "shadow", "solid"
-        },
-      }
-    end,
+      },
+    },
   },
 }
