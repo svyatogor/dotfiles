@@ -35,6 +35,7 @@ opencode = "latest"
 uv = "latest"
 "npm:@zed-industries/claude-code-acp" = "latest"
 "npm:@zed-industries/codex-acp" = "latest"
+glow = "latest"
 
 [tasks.sync]
 description = "Install tools from config.toml and prune removed ones"
