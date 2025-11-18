@@ -1,6 +1,6 @@
 add_newline = true
 command_timeout = 200
-format = "${env_var}[$directory$aws$git_branch$git_status]($style)$character"
+format = "${env_var}$hostname[$directory$aws$git_branch$git_status]($style)$character"
 
 [env_var.DEV_CONTAINER_NAME]
 symbol = " "

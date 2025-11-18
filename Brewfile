@@ -18,6 +18,7 @@ brew "telnet"
 brew "plantuml"
 brew "common-fate/granted/granted"
 brew "cocoapods"
+brew "bash"
 
 # PostgreSQL tools
 brew "libpq"
