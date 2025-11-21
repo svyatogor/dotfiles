@@ -1,2 +1,3 @@
-cask "windows-app"
-
+tap "jesseduffield/lazydocker"
+brew "jesseduffield/lazydocker/lazydocker"
+brew "rainfrog"
