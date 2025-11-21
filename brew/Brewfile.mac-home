@@ -1,6 +1,7 @@
 cask "microsoft-word"
 cask "microsoft-excel"
 cask "tunnelbear"
+cask "tailscale-app"
 # cask "logi-options+"
 cask "discord"
 cask "affinity"

@@ -4,7 +4,7 @@ set -euo pipefail
 # Validate required dependencies are available
 validate_dependencies() {
   local missing_deps=()
-  for dep in docker jq op; do
+  for dep in docker jq; do
     if ! command -v "$dep" &>/dev/null; then
       missing_deps+=("$dep")
     fi
@@ -83,6 +83,10 @@ build_env_vars() {
     "AWS_ACCESS_KEY_ID"
     "AWS_CREDENTIAL_EXPIRATION"
     "AWS_SESSION_TOKEN"
+    # LLM API Keys
+    "OPENAI_API_KEY"
+    "GEMINI_API_KEY"
+    "CLAUDE_CODE_SESSION"
   )
 
   # Add AWSUME_PROFILE mapping only if AWS_PROFILE is set

@@ -19,6 +19,7 @@ brew "plantuml"
 brew "common-fate/granted/granted"
 brew "cocoapods"
 brew "bash"
+brew "syncthing"
 
 # PostgreSQL tools
 brew "libpq"
@@ -51,7 +52,6 @@ cask "ghostty"
 cask "1password-cli"
 cask "ollama-app"
 cask "zen"
-cask "tailscale-app"
 
 # Fonts
 cask "font-symbols-only-nerd-font"

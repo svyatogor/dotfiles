@@ -25,6 +25,9 @@ if command -v mise >/dev/null 2>&1; then
   mise install || true
 fi
 
+echo "[bootstrap-mac] Extracting secrets from 1Password..."
+"$repo_root/scripts/extract-secrets.sh" || echo "Warning: Failed to extract secrets (continuing anyway)"
+
 echo /opt/homebrew/bin/bash | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/bash
 
