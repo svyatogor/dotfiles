@@ -17,45 +17,6 @@ validate_dependencies() {
   fi
 }
 
-# Validate 1Password CLI authentication
-validate_1password_auth() {
-  if ! command -v op &>/dev/null; then
-    return 1
-  fi
-
-  if ! op account get &>/dev/null; then
-    echo "Error: Not authenticated with 1Password CLI" >&2
-    echo "Please run: eval \$(op signin)" >&2
-    exit 1
-  fi
-
-  return 0
-}
-
-# Load secrets from 1Password and export as environment variables
-load_1password_secrets() {
-  if ! command -v op &>/dev/null; then
-    return 1
-  fi
-
-  # Define secret references as inline template
-  local template='OPENAI_API_KEY=op://Keys/OPENAI_API_KEY/credential
-GEMINI_API_KEY=op://Keys/GEMINI_API_KEY/credential 
-CLAUDE_CODE_SESSION=op://Keys/CLAUDE_CODE_SESSION/credential'
-
-  # Use op inject to resolve all secrets in a single API call
-  local injected
-  if injected=$(echo "$template" | op inject 2>&1); then
-    eval "$(echo "$injected" | sed 's/^/export /')"
-  else
-    echo "Error: Failed to inject secrets from 1Password" >&2
-    echo "$injected" >&2
-    exit 1
-  fi
-
-  return 0
-}
-
 # Find the root directory containing devcontainer configuration
 function devcontainer_root() {
   local dir="$PWD"
@@ -122,9 +83,10 @@ build_env_vars() {
     "AWS_ACCESS_KEY_ID"
     "AWS_CREDENTIAL_EXPIRATION"
     "AWS_SESSION_TOKEN"
-    # 1Password-managed secrets
+    # LLM API Keys
     "OPENAI_API_KEY"
     "GEMINI_API_KEY"
+    "CLAUDE_CODE_SESSION"
   )
 
   # Add AWSUME_PROFILE mapping only if AWS_PROFILE is set
@@ -167,13 +129,6 @@ shift $((OPTIND - 1))
 
 # Validate dependencies before proceeding
 validate_dependencies
-if validate_1password_auth; then
-  load_1password_secrets || {
-    echo "Warning: Failed to load 1Password secrets" >&2
-  }
-else
-  echo "Warning: 1Password CLI not found; skipping secret injection" >&2
-fi
 
 root=$(devcontainer_root)
 if [ "$root" = "" ]; then

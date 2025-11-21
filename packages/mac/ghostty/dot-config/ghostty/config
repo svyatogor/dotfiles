@@ -17,3 +17,4 @@ minimum-contrast = 1.5
 shell-integration-features = ssh-terminfo,ssh-env,sudo,cursor,title
 clipboard-read = allow
 font-family = Maple Mono
+macos-option-as-alt = true
