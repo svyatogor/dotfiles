@@ -1,2 +1,2 @@
-cask "windows-app"
-brew "caddy"
+tap "jesseduffield/lazydocker"
+brew "jesseduffield/lazydocker/lazydocker"
