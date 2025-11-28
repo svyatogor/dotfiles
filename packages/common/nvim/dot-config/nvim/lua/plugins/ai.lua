@@ -20,4 +20,12 @@ return {
       },
     },
   },
+  {
+    "aweis89/ai-commit-msg.nvim",
+    ft = "gitcommit",
+    config = true,
+    opts = {
+      -- your configuration options here
+    },
+  },
 }
