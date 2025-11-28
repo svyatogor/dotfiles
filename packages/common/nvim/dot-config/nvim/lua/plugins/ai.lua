@@ -25,7 +25,24 @@ return {
     ft = "gitcommit",
     config = true,
     opts = {
-      -- your configuration options here
+      auto_push_prompt = false,
+      pull_before_push = {
+        enabled = false,
+      },
+      notifications = false,
+      providers = {
+        gemini = {
+          model = "gemini-2.5-flash",
+          temperature = 0.3,
+          max_tokens = 4000,
+          pricing = {
+            ["gemini-2.5-flash"] = {
+              input_per_million = 0.10, -- Cost per million input tokens
+              output_per_million = 0.40, -- Cost per million output tokens
+            },
+          },
+        },
+      },
     },
   },
 }
