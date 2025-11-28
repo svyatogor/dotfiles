@@ -36,6 +36,7 @@ uv = "latest"
 "npm:@zed-industries/claude-code-acp" = "latest"
 "npm:@zed-industries/codex-acp" = "latest"
 glow = "latest"
+"ubi:tree-sitter/tree-sitter" = "latest"
 
 [tasks.sync]
 description = "Install tools from config.toml and prune removed ones"
