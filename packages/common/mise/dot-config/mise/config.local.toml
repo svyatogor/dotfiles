@@ -26,7 +26,7 @@ tpm = "latest"
 zoxide = "latest"
 fd = "latest"
 "ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux-musl|darwin)", rename_exe = "codex" }
-"ubi:tfkhdyt/geminicommit" = { version = "latest", exe = "gmc" }
+"ubi:tfkhdyt/geminicommit" = { version = "0.6.0", exe = "gmc" }
 claude = "latest"
 gemini = "latest"
 yazi = "latest"
