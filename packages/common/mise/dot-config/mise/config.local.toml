@@ -25,16 +25,12 @@ starship = "latest"
 tpm = "latest"
 zoxide = "latest"
 fd = "latest"
-"ubi:openai/codex" = { version = "latest", matching_regex = "(arm64|aarch64).*(linux-musl|darwin)", rename_exe = "codex" }
 "ubi:tfkhdyt/geminicommit" = { version = "0.6.0", exe = "gmc" }
 claude = "latest"
-gemini = "latest"
 yazi = "latest"
 gh = "latest"
 opencode = "latest"
 uv = "latest"
-"npm:@zed-industries/claude-code-acp" = "latest"
-"npm:@zed-industries/codex-acp" = "latest"
 glow = "latest"
 "ubi:tree-sitter/tree-sitter" = "latest"
 
