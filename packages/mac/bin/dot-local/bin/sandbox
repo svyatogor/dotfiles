@@ -1,0 +1,275 @@
+#!/bin/bash
+# AI Agent Sandbox - Run claude/opencode in isolated containers
+# Usage: sandbox [claude|opencode] [--rebuild] [--shell]
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SANDBOX_BASE="${SANDBOX_BASE:-$HOME/.ai-sandbox}"
+SRC_ROOT="${SRC_ROOT:-$HOME/src}"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+log_info() { echo -e "${GREEN}[sandbox]${NC} $*"; }
+log_warn() { echo -e "${YELLOW}[sandbox]${NC} $*"; }
+log_error() { echo -e "${RED}[sandbox]${NC} $*" >&2; }
+
+usage() {
+  cat <<EOF
+Usage: sandbox [OPTIONS] <agent> [agent-args...]
+
+Run AI coding agents (claude, opencode) in isolated containers.
+
+Agents:
+  claude      Run Claude Code
+  opencode    Run OpenCode
+
+Commands:
+  update      Update claude and opencode in the sandbox image
+
+Options:
+  --rebuild   Force rebuild the Docker image
+  --shell     Drop into a shell instead of running the agent
+  --shared    Use shared sandbox (all projects in one container)
+  -h, --help  Show this help message
+
+Environment Variables:
+  SANDBOX_BASE   Base directory for sandbox data (default: ~/.ai-sandbox)
+  SRC_ROOT       Root directory containing your projects (default: ~/src)
+
+Examples:
+  sandbox claude                    # Run claude in project-specific sandbox
+  sandbox opencode --shell          # Get a shell in opencode sandbox
+  sandbox claude --shared           # Use shared sandbox for all projects
+  sandbox update                    # Update all agents to latest versions
+  cd ~/src/myproject && sandbox claude  # Works from any subdirectory
+
+EOF
+  exit 0
+}
+
+# Detect which project we're in based on current directory
+detect_project() {
+  local cwd="$PWD"
+
+  # Check if we're under SRC_ROOT
+  if [[ "$cwd" == "$SRC_ROOT"* ]]; then
+    # Extract the first directory component under SRC_ROOT
+    local relative="${cwd#$SRC_ROOT/}"
+    local project="${relative%%/*}"
+    if [[ -n "$project" && "$project" != "$relative" ]]; then
+      echo "$project"
+      return 0
+    elif [[ -n "$project" ]]; then
+      # We're directly in a project directory
+      echo "$project"
+      return 0
+    fi
+  fi
+
+  # Fallback: use current directory name
+  basename "$cwd"
+}
+
+# Get the path inside container corresponding to host path
+# Path preservation: container paths match host paths exactly
+get_container_path() {
+  local host_path="$1"
+  # Path is preserved exactly as-is
+  echo "$host_path"
+}
+
+# Build or get the Docker image
+ensure_image() {
+  local rebuild="$1"
+  local image_name="ai-sandbox:latest"
+
+  if [[ "$rebuild" == "true" ]] || ! docker image inspect "$image_name" &>/dev/null; then
+    log_info "Building sandbox image..."
+    docker build --no-cache -t "$image_name" "$SCRIPT_DIR"
+  fi
+
+  echo "$image_name"
+}
+
+# Run the sandbox container
+run_sandbox() {
+  local agent="$1"
+  local project="$2"
+  local use_shared="$3"
+  local shell_mode="$4"
+  shift 4
+  local agent_args=("$@")
+
+  local image_name
+  image_name=$(ensure_image "$REBUILD")
+
+  local container_name="sandbox-${project}"
+  local work_dir
+  work_dir=$(get_container_path "$PWD")
+
+  local host_uid host_gid host_user
+  host_uid=$(id -u)
+  host_gid=$(id -g)
+  host_user=$(id -un 2>/dev/null || echo sandbox)
+
+  # Build mount arguments
+  local mounts=()
+
+  # Project directory - mounted at exact same path as host for path preservation
+  local project_root
+  if [[ "$PWD" == "$SRC_ROOT"* ]]; then
+    # We're under SRC_ROOT, extract project root
+    local relative="${PWD#$SRC_ROOT/}"
+    local project_name="${relative%%/*}"
+    project_root="$SRC_ROOT/$project_name"
+  else
+    # We're outside SRC_ROOT, mount the current directory
+    project_root="$PWD"
+  fi
+
+  if [[ "$use_shared" == "true" ]]; then
+    # Shared mode: mount entire src directory at same path
+    mounts+=(-v "$SRC_ROOT:$SRC_ROOT:rw")
+  else
+    # Per-project mode: mount only the project directory at same path
+    if [[ -d "$project_root" ]]; then
+      mounts+=(-v "$project_root:$project_root:rw")
+    else
+      log_error "Project directory not found: $project_root"
+      exit 1
+    fi
+  fi
+
+  # Container home path (matches CLI defaults)
+  local container_home="/home/ubuntu"
+
+  # Single volume for all agent data (symlinked in image to expected paths)
+  # ~/.sandbox/claude -> ~/.claude, ~/.sandbox/opencode-config -> ~/.config/opencode, etc.
+  mounts+=(-v "ai-sandbox:$container_home/.sandbox")
+
+  # Mount opencode agent directory RO from host (overlays symlink target)
+  if [[ -d "$HOME/.config/opencode/agent" ]]; then
+    mounts+=(-v "$HOME/.config/opencode/agent:$container_home/.sandbox/opencode-config/agent:ro")
+  fi
+
+  # Mount opencode json/jsonc config files RO from host
+  for config_file in "$HOME/.config/opencode"/*.json "$HOME/.config/opencode"/*.jsonc; do
+    if [[ -f "$config_file" ]]; then
+      local filename
+      filename=$(basename "$config_file")
+      mounts+=(-v "$config_file:$container_home/.sandbox/opencode-config/$filename:ro")
+    fi
+  done
+
+  # Git config (read-only, for commit identity)
+  if [[ -f "$HOME/.gitconfig" ]]; then
+    mounts+=(-v "$HOME/.gitconfig:$container_home/.gitconfig:ro")
+  fi
+
+  # Determine command to run
+  local cmd
+  if [[ "$shell_mode" == "true" ]]; then
+    cmd=("/bin/bash")
+  else
+    case "$agent" in
+    claude)
+      cmd=("claude" "${agent_args[@]+"${agent_args[@]}"}")
+      ;;
+    opencode)
+      cmd=("opencode" "${agent_args[@]+"${agent_args[@]}"}")
+      ;;
+    *)
+      log_error "Unknown agent: $agent"
+      exit 1
+      ;;
+    esac
+  fi
+
+  log_info "Starting $agent sandbox for project: $project"
+  log_info "Working directory: $work_dir"
+
+  # Run the container
+  exec docker run \
+    --rm \
+    -it \
+    --name "$container_name" \
+    --hostname "sandbox-$project" \
+    --user "ubuntu" \
+    --network host \
+    -w "$work_dir" \
+    -e "TERM=${TERM:-xterm-256color}" \
+    -e "SANDBOX_PROJECT=$project" \
+    -e "SANDBOX_AGENT=$agent" \
+    -e "HOME=$container_home" \
+    -e "USER=$host_user" \
+    -e "LOGNAME=$host_user" \
+    "${mounts[@]}" \
+    --security-opt no-new-privileges \
+    --cap-drop ALL \
+    "$image_name" \
+    "${cmd[@]}"
+}
+
+# Parse arguments
+AGENT=""
+REBUILD="false"
+SHELL_MODE="false"
+USE_SHARED="false"
+AGENT_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -h | --help)
+    usage
+    ;;
+  --rebuild)
+    REBUILD="true"
+    shift
+    ;;
+  --shell)
+    SHELL_MODE="true"
+    shift
+    ;;
+  --shared)
+    USE_SHARED="true"
+    shift
+    ;;
+  update)
+    ensure_image "false" >/dev/null
+    update_agents
+    exit 0
+    ;;
+  claude | opencode)
+    AGENT="$1"
+    shift
+    # Remaining args go to the agent
+    AGENT_ARGS=("$@")
+    break
+    ;;
+  *)
+    log_error "Unknown option: $1"
+    usage
+    ;;
+  esac
+done
+
+if [[ -z "$AGENT" ]]; then
+  log_error "No agent specified"
+  usage
+fi
+
+# Detect project from current directory
+PROJECT=$(detect_project)
+
+if [[ -z "$PROJECT" ]]; then
+  log_warn "Could not detect project, using 'default'"
+  PROJECT="default"
+fi
+
+# Run the sandbox
+run_sandbox "$AGENT" "$PROJECT" "$USE_SHARED" "$SHELL_MODE" "${AGENT_ARGS[@]+"${AGENT_ARGS[@]}"}"
