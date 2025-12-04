@@ -210,6 +210,7 @@ run_sandbox() {
     --user "ubuntu" \
     -w "$work_dir" \
     -e "TERM=${TERM:-xterm-256color}" \
+    -e "COLORTERM=${COLORTERM}" \
     -e "SANDBOX_PROJECT=$project" \
     -e "SANDBOX_AGENT=$agent" \
     -e "HOME=$container_home" \

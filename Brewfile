@@ -15,7 +15,6 @@ brew "btop"
 brew "git-crypt"
 brew "gpg"
 brew "telnet"
-brew "plantuml"
 brew "common-fate/granted/granted"
 brew "cocoapods"
 brew "bash"
@@ -50,7 +49,6 @@ cask "chatgpt"
 cask "session-manager-plugin"
 cask "ghostty@tip"
 cask "1password-cli"
-cask "ollama-app"
 cask "zen"
 
 # Fonts
@@ -61,6 +59,3 @@ cask "font-ubuntu-mono"
 cask "font-lilex"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-fira-code-nerd-font"
-
-# Mac App Store helper (optional)
-brew "mas"

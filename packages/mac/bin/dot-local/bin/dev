@@ -143,6 +143,7 @@ if [ -z "$container_id" ] || [ $REBUILD_FLAG -eq 1 ]; then
 
   DEVCONTAINER_UP_ARGS=(
     --remote-env SSH_AUTH_SOCK=/ssh.sock
+    --mount "type=bind,source=~/.local/share/opencode/auth.json:target=~/.local/share/opencode/auth.json"
     --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock"
     --mount "type=volume,source=local-share,target=/home/$user/.local/share"
     --mount "type=volume,source=local-state,target=/home/$user/.local/state"
