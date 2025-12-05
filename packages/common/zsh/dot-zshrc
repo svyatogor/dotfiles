@@ -147,4 +147,5 @@ source ~/.local/share/theme/fzf.sh
 source ~/.local/share/theme/bat.sh
 
 [[ -f ~/.local/share/secrets.sh ]] && source ~/.local/share/secrets.sh
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
