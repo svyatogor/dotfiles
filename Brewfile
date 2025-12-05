@@ -1,5 +1,5 @@
 # tap "nikitabobko/tap"
-tap "common-fate/granted"
+# tap "common-fate/granted"
 
 # Base CLI
 brew "git"
@@ -15,7 +15,8 @@ brew "btop"
 brew "git-crypt"
 brew "gpg"
 brew "telnet"
-brew "common-fate/granted/granted"
+# brew "common-fate/granted/granted"
+brew "aws-vault"
 brew "cocoapods"
 brew "bash"
 brew "syncthing"

@@ -143,14 +143,14 @@ if [ -z "$container_id" ] || [ $REBUILD_FLAG -eq 1 ]; then
 
   DEVCONTAINER_UP_ARGS=(
     --remote-env SSH_AUTH_SOCK=/ssh.sock
-    --mount "type=bind,source=~/.local/share/opencode/auth.json:target=~/.local/share/opencode/auth.json"
+    --mount "type=bind,source=~/.local/share/opencode/auth.json,target=~/.local/share/opencode/auth.json"
     --mount "type=bind,source=/run/host-services/ssh-auth.sock,target=/ssh.sock"
     --mount "type=volume,source=local-share,target=/home/$user/.local/share"
     --mount "type=volume,source=local-state,target=/home/$user/.local/state"
     --dotfiles-repository https://github.com/svyatogor/dotfiles.git
     --dotfiles-install-command scripts/setup-devcontainer.sh
     --workspace-folder "$root"
-    --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow "}, "ghcr.io/roul/devcontainer-features/mise:1": {}}'
+    --additional-features '{"ghcr.io/devcontainers/features/sshd:1": {}, "ghcr.io/devcontainers-extra/features/apt-packages:1": {"packages": "tmux stow"}, "ghcr.io/roul/devcontainer-features/mise:1": {}}'
   )
 
   if [ $REBUILD_FLAG -eq 1 ]; then
