@@ -194,13 +194,20 @@ run_sandbox() {
   log_info "Working directory: $work_dir"
 
   # Run the container
+  # Security flags explained:
+  #   --cap-drop ALL: Remove all Linux capabilities (CAP_NET_ADMIN, CAP_SYS_ADMIN, etc.)
+  #                   Prevents: raw sockets, mounting filesystems, loading kernel modules,
+  #                   changing network config, bypassing file permissions, etc.
+  #   --security-opt no-new-privileges: Prevent privilege escalation via setuid/setgid binaries
+  #                   Even if a binary has setuid bit, it won't run with elevated privileges
+  #   --ipc private: Isolate IPC namespace (shared memory, semaphores, message queues)
+  #                  Prevents containers from communicating via /dev/shm or SysV IPC
   exec docker run \
     --rm \
     -it \
     --name "$container_name" \
     --hostname "sandbox-$project" \
     --user "ubuntu" \
-    --network host \
     -w "$work_dir" \
     -e "TERM=${TERM:-xterm-256color}" \
     -e "COLORTERM=${COLORTERM}" \
@@ -212,6 +219,7 @@ run_sandbox() {
     "${mounts[@]}" \
     --security-opt no-new-privileges \
     --cap-drop ALL \
+    --ipc private \
     "$image_name" \
     "${cmd[@]}"
 }
