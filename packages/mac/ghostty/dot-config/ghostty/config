@@ -19,7 +19,14 @@ macos-option-as-alt = true
 
 font-size = 14
 adjust-cell-height = 20%
-# font-family = Maple Mono
-font-family = Lilex
-#font-thicken = true
+font-family = Maple Mono
+# font-family = Lilex
+# font-family = Ioskeley Mono
+# font-family = Ubuntu Mono
+# font-thicken = true
 #font-thicken-strength = 0
+keybind = shift+enter=text:\x1b\r
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+l=goto_split:right

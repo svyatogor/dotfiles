@@ -1,3 +1,5 @@
+tap "henrygd/beszel"
+
 cask "microsoft-word"
 cask "microsoft-excel"
 cask "tunnelbear"
@@ -12,3 +14,4 @@ cask "istat-menus"
 cask "transmission"
 cask "iina"
 cask "macwhisper"
+brew "beszel-agent"
