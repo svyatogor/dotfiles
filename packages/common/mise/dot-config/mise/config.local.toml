@@ -1,7 +1,3 @@
-# Global tool versions managed by mise
-[alias]
-tpm = "https://github.com/svyatogor/asdf-tpm"
-
 [settings]
 # tools can read the versions files used by other version managers
 # for example, .nvmrc in the case of node's nvm
@@ -13,27 +9,3 @@ node = "24"
 # ruby = "3"
 # python = "3.12"
 # go = "1.22"
-fzf = "latest"
-ripgrep = "latest"
-jq = "latest"
-neovim = "latest"
-bat = "latest"
-eza = "latest"
-lazygit = "latest"
-delta = "latest"
-starship = "latest"
-tpm = "latest"
-zoxide = "latest"
-fd = "latest"
-"ubi:tfkhdyt/geminicommit" = { version = "0.6.0", exe = "gmc" }
-claude = "latest"
-yazi = "latest"
-"github:sst/opencode" = "latest"
-gh = "latest"
-uv = "latest"
-glow = "latest"
-"ubi:tree-sitter/tree-sitter" = "latest"
-
-[tasks.sync]
-description = "Install tools from config.toml and prune removed ones"
-run = "mise install && mise prune -y"
