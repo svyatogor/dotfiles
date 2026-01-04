@@ -36,7 +36,8 @@ brew "opencode"
 brew "gh"
 brew "glow"
 brew "tree-sitter-cli"
-cask "claude"
+cask "claude-code"
+brew "mole"
 
 # PostgreSQL tools
 brew "libpq"
