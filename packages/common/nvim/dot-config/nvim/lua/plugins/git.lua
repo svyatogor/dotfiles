@@ -2,7 +2,12 @@ return {
   { "tpope/vim-fugitive" },
   {
     "sindrets/diffview.nvim",
-    cmd = "DiffViewOpen",
+    cmd = "DiffviewOpen",
+  },
+  {
+    "esmuellert/codediff.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    cmd = "CodeDiff",
   },
   -- {
   --   "sindrets/diffview.nvim",
