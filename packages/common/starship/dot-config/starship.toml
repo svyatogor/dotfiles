@@ -20,7 +20,9 @@ error_symbol = "[✗](bold cyan)"
 success_symbol = "[❯](bold cyan)"
 
 [directory]
-repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+#fish_style_pwd_dir_length = 1
+#repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+truncate_to_repo = false
 repo_root_style = "bold cyan"
 truncation_length = 2
 truncation_symbol = "…/"

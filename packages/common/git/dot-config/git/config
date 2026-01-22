@@ -37,3 +37,5 @@
 
 [include]
   path = ~/.local/share/theme/delta.gitconfig
+[branch]
+	autoSetupMerge = always
