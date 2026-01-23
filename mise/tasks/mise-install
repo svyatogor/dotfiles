@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Install tools defined in mise config"
+set -euo pipefail
+
+which mise >/dev/null 2>&1 || { echo "mise not found in PATH"; exit 1; }
+mise install
+mise prune -y

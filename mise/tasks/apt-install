@@ -1,40 +1,23 @@
 #!/usr/bin/env bash
+#MISE description="Install apt packages from profile/context lists"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
 set -euo pipefail
 
 # Declarative apt installer.
 # Reads package lists from profile-aware locations and installs them via apt.
-# - PROFILE: selects additional root under packages/<PROFILE> (default: linux on non-mac, mac otherwise)
-# - FILES: optional explicit files to read (space-separated). If set, PROFILE roots are ignored.
-#
-# Each file format:
-# - One package name per line
-# - Comments start with '#'
-# - Blank lines are ignored
 
-PROFILE=${PROFILE:-}
-CONTEXT=${CONTEXT:-}
-UNAME_S="$(uname -s)"
-if [[ -z "${PROFILE}" ]]; then
-  if [[ "${UNAME_S}" == "Darwin" ]]; then
-    PROFILE="mac"
-  else
-    PROFILE="linux"
-  fi
-fi
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PACKAGES_DIR="${REPO_ROOT}/packages"
+CONTEXT="${usage_context:-}"
 
 declare -a FILES_ARR=()
 if [[ "${FILES:-}" != "" ]]; then
-  # Use explicit files if provided
   # shellcheck disable=SC2206
   FILES_ARR=(${FILES})
 else
-  # Discover default apt lists for common, profile, context, and profile-context roots
   [[ -f "${PACKAGES_DIR}/common/apt.txt" ]] && FILES_ARR+=("${PACKAGES_DIR}/common/apt.txt")
   [[ -f "${PACKAGES_DIR}/${PROFILE}/apt.txt" ]] && FILES_ARR+=("${PACKAGES_DIR}/${PROFILE}/apt.txt")
-  if [[ -n "${CONTEXT}" ]]; then
+  if [[ -n "$CONTEXT" ]]; then
     [[ -f "${PACKAGES_DIR}/${CONTEXT}/apt.txt" ]] && FILES_ARR+=("${PACKAGES_DIR}/${CONTEXT}/apt.txt")
     [[ -f "${PACKAGES_DIR}/${PROFILE}-${CONTEXT}/apt.txt" ]] && FILES_ARR+=("${PACKAGES_DIR}/${PROFILE}-${CONTEXT}/apt.txt")
   fi
@@ -53,7 +36,6 @@ fi
 echo "[apt-install] Using files:"
 for f in "${FILES_ARR[@]}"; do echo "  - ${f}"; done
 
-# Merge, normalize, and dedupe package names
 mapfile -t PACKAGES < <(cat "${FILES_ARR[@]}" \
   | sed -E 's/#.*$//' \
   | tr -d '\r' \

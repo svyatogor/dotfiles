@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#MISE description="Quick diagnostics and version checks"
+#MISE depends=["list"]
+set -euo pipefail
+
+stow --version | head -n1 || true
+mise --version || true

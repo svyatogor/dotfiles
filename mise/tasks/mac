@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#MISE description="Bootstrap macOS (Homebrew bundle + cleanup)"
+#MISE depends=["brew", "stow", "mise-install"]
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+echo "[bootstrap-mac] Starting macOS bootstrap..."
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  echo "This script is for macOS only." >&2
+  exit 1
+fi
+
+repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
+
+echo "[bootstrap-mac] Extracting secrets from 1Password..."
+"$repo_root/scripts/extract-secrets.sh" || echo "Warning: Failed to extract secrets (continuing anyway)"
+
+echo "[bootstrap-mac] Done. Consider restarting your terminal."

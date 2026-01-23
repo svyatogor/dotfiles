@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#MISE description="Link all packages from each root into home directory"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+CONTEXT="${usage_context:-}"
+
+# Build roots
+ROOTS="$PACKAGES_DIR/common $PACKAGES_DIR/$PROFILE"
+[ -n "$CONTEXT" ] && ROOTS="$ROOTS $PACKAGES_DIR/$CONTEXT $PACKAGES_DIR/${PROFILE}-${CONTEXT}"
+
+STOW_BASE_FLAGS="--dotfiles"
+
+for root in $ROOTS; do
+  if [ -d "$root" ]; then
+    echo "Stowing from $root"
+    for d in "$root"/*; do
+      if [ -d "$d" ]; then
+        p=$(basename "$d")
+        echo "  stow $p"
+        stow -d "$root" -t "$HOME" $STOW_BASE_FLAGS \
+          ${STOW_OVERRIDE:+--override="$STOW_OVERRIDE"} \
+          ${STOW_ADOPT:+--adopt} \
+          "$p"
+      fi
+    done
+  fi
+done

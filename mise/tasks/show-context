@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#MISE description="Display the active profile and context"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+CONTEXT="${usage_context:-}"
+
+echo "Profile: $PROFILE"
+echo "Context: ${CONTEXT:-<not set>}"

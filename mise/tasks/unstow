@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#MISE description="Remove symlinks created by stow for all packages"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+CONTEXT="${usage_context:-}"
+
+# Build roots
+ROOTS="$PACKAGES_DIR/common $PACKAGES_DIR/$PROFILE"
+[ -n "$CONTEXT" ] && ROOTS="$ROOTS $PACKAGES_DIR/$CONTEXT $PACKAGES_DIR/${PROFILE}-${CONTEXT}"
+
+for root in $ROOTS; do
+  if [ -d "$root" ]; then
+    echo "Unstowing from $root"
+    for d in "$root"/*; do
+      if [ -d "$d" ]; then
+        p=$(basename "$d")
+        echo "  unstow $p"
+        stow -d "$root" -t "$HOME" -D "$p" || true
+      fi
+    done
+  fi
+done

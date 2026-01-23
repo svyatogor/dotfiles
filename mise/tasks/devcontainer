@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+#MISE description="Setup devcontainer (apt packages + stow)"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
 set -euo pipefail
 
 echo "[devcontainer-setup] Installing base tooling + stowing configs..."
 
 OS="$(uname -s)"
 
-# Install Ghostty terminfo
 install_ghostty_terminfo() {
   local repo_root="${1:-.}"
   local terminfo_file="$repo_root/resources/xterm-ghostty.terminfo"
@@ -35,7 +36,6 @@ install_mise() {
   fi
   echo "[devcontainer-setup] Installing mise..."
   curl -fsSL https://mise.jdx.dev/install.sh | bash
-  # ensure common install path is in PATH for this session
   export PATH="$HOME/.local/bin:$PATH"
 }
 
@@ -88,20 +88,20 @@ ensure_stow() {
   return 1
 }
 
+repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
+
 # Stow dotfiles
 if ! ensure_stow; then
   echo "[devcontainer-setup] Continuing without stowing configs." >&2
 fi
-repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_root"
 if ! command -v stow >/dev/null 2>&1; then
   echo "GNU stow not installed; skipping stow step." >&2
 else
-  # Override conflicts across packages; avoid --adopt to keep repo clean
   rm ~/.zsh* || true
   rm ~/.zprofile* || true
   rm ~/.bash* || true
-  make stow
+  mise run stow
 fi
 
 # Install mise tools if present
