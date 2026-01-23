@@ -69,9 +69,6 @@ alias vim='nvim'
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 
-alias claude='SHELL=/bin/bash claude'
-alias codex='SHELL=/bin/bash codex'
-
 # --- Plugins via Zinit ------------------------------------------------------
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
