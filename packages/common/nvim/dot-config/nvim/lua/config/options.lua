@@ -17,6 +17,8 @@ vim.g.tinted_background_transparent = 1
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.fillchars:append({ diff = " " })
+
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {

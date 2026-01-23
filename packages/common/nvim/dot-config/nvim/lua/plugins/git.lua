@@ -1,13 +1,9 @@
 return {
-  { "tpope/vim-fugitive" },
   {
     "sindrets/diffview.nvim",
-    cmd = "DiffViewOpen",
+    cmd = "DiffviewOpen",
+    keys = {
+      { "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Open Diff View" },
+    },
   },
-  -- {
-  --   "sindrets/diffview.nvim",
-  --   keys = {
-  --     { "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Open Diff View" },
-  --   },
-  -- },
 }
