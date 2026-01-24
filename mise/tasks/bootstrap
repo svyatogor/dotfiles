@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#MISE description="Bootstrap dotfiles (runs profile-specific targets)"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+CONTEXT="${usage_context:-}"
+
+echo "Profile: $PROFILE  Context: $CONTEXT"
+
+case "$PROFILE" in
+  mac)
+    mise run brew
+    mise run stow
+    mise run mise-install
+    ;;
+  devcontainer)
+    mise run devcontainer
+    mise run stow
+    mise run mise-install
+    ;;
+  *)
+    mise run stow
+    mise run mise-install
+    ;;
+esac

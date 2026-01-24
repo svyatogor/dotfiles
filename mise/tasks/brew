@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#MISE description="Install Homebrew if needed and run brew bundle/cleanup"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
 set -euo pipefail
 
 echo "[brew] Starting Homebrew setup..."
@@ -19,7 +21,7 @@ elif [[ -d "/usr/local/Homebrew" ]]; then
   eval "$('/usr/local/bin/brew' shellenv)"
 fi
 
-repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 brew_dir="${repo_root}/brew"
 root_brewfile="${repo_root}/Brewfile"
 context="${CONTEXT:-}"

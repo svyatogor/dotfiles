@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#MISE description="Show active profile, context, and discovered packages"
+#USAGE flag "-c --context <context>" env="CONTEXT" help="Context (home|work)"
+set -euo pipefail
+
+CONTEXT="${usage_context:-}"
+
+# Build roots
+ROOTS="$PACKAGES_DIR/common $PACKAGES_DIR/$PROFILE"
+[ -n "$CONTEXT" ] && ROOTS="$ROOTS $PACKAGES_DIR/$CONTEXT $PACKAGES_DIR/${PROFILE}-${CONTEXT}"
+
+echo "Profile: $PROFILE  Context: $CONTEXT"
+echo "Roots: $ROOTS"
+
+for root in $ROOTS; do
+  if [ -d "$root" ]; then
+    echo "Packages in $root:"
+    for d in "$root"/*; do
+      [ -d "$d" ] && echo "  - $(basename "$d")"
+    done
+  fi
+done

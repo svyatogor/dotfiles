@@ -18,3 +18,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.conceallevel = 1
   end,
 })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("markdown_diagnostics"),
+  pattern = { "markdown" },
+  callback = function()
+    vim.diagnostic.enable(false, { bufnr = 0 })
+  end,
+})

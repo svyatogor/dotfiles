@@ -1,0 +1,13 @@
+# Dotfiles mise configuration
+#
+# Variables (override via env or --context flag):
+#   PROFILE:       mac | linux | devcontainer (auto-detected)
+#   CONTEXT:       home | work (from ~/.config/mise/config.local.toml or --context)
+#   STOW_OVERRIDE: regex for stow --override
+#   STOW_ADOPT:    set to 1 to pass --adopt
+#
+# Tasks are defined in mise/tasks/
+
+[env]
+PACKAGES_DIR = "packages"
+PROFILE = "{% if os() == 'macos' %}mac{% else %}linux{% endif %}"
