@@ -1,4 +1,5 @@
 return {
+  { "tpope/vim-fugitive" },
   {
     "sindrets/diffview.nvim",
     cmd = "DiffviewOpen",
