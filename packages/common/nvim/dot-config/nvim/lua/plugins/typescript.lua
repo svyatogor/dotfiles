@@ -16,6 +16,16 @@ return {
         tsgo = {
           enabled = true,
         },
+        eslint = {
+          settings = {
+            -- Run ESLint on change, not just save
+            run = "onType",
+            -- Experimental: may help with faster validation
+            experimental = {
+              useFlatConfig = nil, -- auto-detect
+            },
+          },
+        },
       },
     },
   },
