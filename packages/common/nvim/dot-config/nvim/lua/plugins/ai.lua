@@ -45,7 +45,7 @@ return {
     },
   },
   {
-    dir = "svyatogor/ai-commit-msg.nvim",
+    "svyatogor/ai-commit-msg.nvim",
     ft = "gitcommit",
     config = true,
     opts = {
