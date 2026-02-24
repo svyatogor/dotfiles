@@ -45,7 +45,7 @@ return {
     },
   },
   {
-    dir = "/Users/sergeykuleshov/src/ai-commit-msg.nvim",
+    dir = "svyatogor/ai-commit-msg.nvim",
     ft = "gitcommit",
     config = true,
     opts = {
