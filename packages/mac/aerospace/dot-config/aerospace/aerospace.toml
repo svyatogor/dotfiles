@@ -15,10 +15,10 @@ horizontal = 10
 vertical = 10
 
 [gaps.outer]
-bottom = 0
-left = 0
-right = 0
-top = 0
+bottom = 10
+left = 10
+right = 10
+top = 10
 
 [key-mapping]
 preset = "qwerty"
@@ -57,6 +57,8 @@ alt-t = "workspace T"
 alt-tab = "workspace-back-and-forth"
 alt-w = "workspace W"
 alt-z = "fullscreen"
+alt-equal = "resize smart +50"
+alt-minus = "resize smart -50"
 cmd-alt-h = []
 cmd-h = []
 
@@ -69,18 +71,25 @@ k = "resize height -50"
 l = "resize width +50"
 
 [mode.service.binding]
-alt-shift-h = ["join-with left", "mode main"]
-alt-shift-j = ["join-with down", "mode main"]
-alt-shift-k = ["join-with up", "mode main"]
-alt-shift-l = ["join-with right", "mode main"]
 esc = ["reload-config", "mode main"]
+# join-with
+h = ["join-with left", "mode main"]
+j = ["join-with down", "mode main"]
+k = ["join-with up", "mode main"]
+l = ["join-with right", "mode main"]
+# float / flatten
 f = ["layout floating tiling", "mode main"]
 r = ["flatten-workspace-tree", "mode main"]
+# toggle display
+tab = [
+  "move-node-to-monitor --wrap-around --focus-follows-window next",
+  "mode main",
+]
 
 # Default: enable floating layout
-[[on-window-detected]]
-check-further-callbacks = true
-run = "layout floating"
+# [[on-window-detected]]
+# check-further-callbacks = true
+# run = "layout floating"
 
 # Move messaging apps to workspace C
 [[on-window-detected]]
