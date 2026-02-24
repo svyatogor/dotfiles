@@ -77,56 +77,29 @@ esc = ["reload-config", "mode main"]
 f = ["layout floating tiling", "mode main"]
 r = ["flatten-workspace-tree", "mode main"]
 
+# Default: enable floating layout
 [[on-window-detected]]
 check-further-callbacks = true
 run = "layout floating"
 
-[on-window-detected.if]
-
+# Move messaging apps to workspace C
 [[on-window-detected]]
+if.app-id = "com.tdesktop.Telegram"
 run = "move-node-to-workspace C"
 
-[on-window-detected.if]
-app-id = "com.tdesktop.Telegram"
-
 [[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
 run = "move-node-to-workspace C"
 
-[on-window-detected.if]
-app-id = "com.tinyspeck.slackmacgap"
-
+# Move music app to workspace M
 [[on-window-detected]]
+if.app-id = "ru.yandex.desktop.music"
 run = "move-node-to-workspace M"
 
-[on-window-detected.if]
-app-id = "ru.yandex.desktop.music"
-
 [[on-window-detected]]
+if.app-id = "com.raycast.macos"
 run = "layout floating"
 
-[on-window-detected.if]
-app-id = "com.openai.chat"
-
 [[on-window-detected]]
+if.window-title-regex-substring = "(MetaMask)"
 run = "layout floating"
-
-[on-window-detected.if]
-app-id = "ai.perplexity.mac"
-
-[[on-window-detected]]
-run = "layout floating"
-
-[on-window-detected.if]
-app-id = "com.raycast.macos"
-
-[[on-window-detected]]
-run = "layout floating"
-
-[on-window-detected.if]
-window-title-regex-substring = "(MetaMask)"
-
-[[on-window-detected]]
-run = "layout tiling"
-
-[on-window-detected.if]
-app-id = "com.mitchellh.ghostty"
