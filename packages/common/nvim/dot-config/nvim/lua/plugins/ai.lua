@@ -45,7 +45,7 @@ return {
     },
   },
   {
-    "aweis89/ai-commit-msg.nvim",
+    dir = "/Users/sergeykuleshov/src/ai-commit-msg.nvim",
     ft = "gitcommit",
     config = true,
     opts = {
@@ -53,14 +53,15 @@ return {
       pull_before_push = {
         enabled = false,
       },
-      notifications = false,
+      spinner = true,
+      notifications = true,
       providers = {
         gemini = {
-          model = "gemini-2.5-flash",
+          model = "gemini-3-flash-preview",
           temperature = 0.3,
           max_tokens = 4000,
           pricing = {
-            ["gemini-2.5-flash"] = {
+            ["gemini-3-flash-preview"] = {
               input_per_million = 0.10, -- Cost per million input tokens
               output_per_million = 0.40, -- Cost per million output tokens
             },
