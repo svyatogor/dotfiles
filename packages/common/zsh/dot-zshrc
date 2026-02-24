@@ -36,13 +36,8 @@ if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
-# --- Preferred tooling ------------------------------------------------------
-# Prefer GNU coreutils aliases when installed on macOS for consistent behavior.
-command -v gsed >/dev/null 2>&1 && alias sed='gsed'
-command -v ggrep >/dev/null 2>&1 && alias grep='ggrep'
-command -v gls >/dev/null 2>&1 && alias ls='gls'
-
 # fzf and zoxide integrate shell completions and directory jumping helpers.
+export FZF_CTRL_R_OPTS="--tmux center,80%,80% --reverse --preview 'echo {}' --preview-window down:3:wrap --bind '?:toggle-preview'"
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
@@ -70,13 +65,18 @@ export EDITOR=nvim
 export GIT_EDITOR=nvim
 
 # --- Plugins via Zinit ------------------------------------------------------
-zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-autoload -U compinit && compinit     # Initialize zsh completion system.
-zinit cdreplay -q                    # Re-run buffered completions after compinit.
+autoload -U compinit && compinit
+zinit cdreplay -q
+
+# Грузим тяжелые плагины в фоне (wait) без лишнего вывода (lucid)
+zinit ice wait lucid
+zinit light zsh-users/zsh-autosuggestions
+
+zinit ice wait lucid
+zinit light zsh-users/zsh-syntax-highlighting
 
 # --- Keybindings ------------------------------------------------------------
 bindkey -e                           # Use emacs keybindings baseline.
@@ -121,9 +121,9 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # Reuse LS_COLORS to colorize completion listings.
 zstyle ':completion:*' menu no
 # Keep completion in list form unless explicitly asked for menu select.
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 # Display directory listing preview when using fzf-tab for `cd`.
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 # Preview target directory contents when navigating with zoxide.
 
 export PATH="$PATH:$HOME/.local/bin"
@@ -146,3 +146,50 @@ source ~/.local/share/theme/bat.sh
 [[ -f ~/.local/share/secrets.sh ]] && source ~/.local/share/secrets.sh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+
+# --- Custom functions
+gwt() {
+  local branch=$1
+
+  if [[ -z "$branch" ]]; then
+    echo "Usage: gwt <branch-name>"
+    return 1
+  fi
+
+  local folder_name=${branch//\//-}
+  local wt_root
+  wt_root=$(dirname "$(git rev-parse --absolute-git-dir)")
+  local target_path="$wt_root/$folder_name"
+
+  if [[ -d "$target_path" ]]; then
+    cd "$target_path" || return
+    [[ -n "$TMUX" ]] && tmux rename-window "$folder_name"
+    return
+  fi
+
+  if git show-ref --quiet refs/heads/"$branch" || git show-ref --quiet refs/remotes/origin/"$branch"; then
+    git worktree add "$target_path" "$branch"
+  else
+    local base_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+    git worktree add -b "$branch" "$target_path" origin/"${base_branch:-main}"
+    git -C "$target_path" config branch."$branch".remote origin
+    git -C "$target_path" config branch."$branch".merge "refs/heads/$branch"
+  fi
+
+  cd "$target_path" || return
+  [[ -n "$TMUX" ]] && tmux rename-window "$folder_name"
+}
+
+_gwt() {
+  local -a branches
+  branches=("${(@f)$(git branch -a --format='%(refname:short)' 2>/dev/null | sed 's|^origin/||' | sort -u)}")
+  
+  if [[ ${#branches[@]} -gt 0 ]]; then
+    _describe 'branches' branches
+  else
+    _message "not a git repository"
+  fi
+}
+compdef _gwt gwt 
