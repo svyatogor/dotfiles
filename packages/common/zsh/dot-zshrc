@@ -192,4 +192,45 @@ _gwt() {
     _message "not a git repository"
   fi
 }
-compdef _gwt gwt 
+compdef _gwt gwt
+
+gwd() {
+  local branch=$1
+
+  if [[ -z "$branch" ]]; then
+    echo "Usage: gwd <branch-name>"
+    return 1
+  fi
+
+  local folder_name=${branch//\\//-}
+  local wt_root
+  wt_root=$(dirname "$(git rev-parse --absolute-git-dir)")
+  local target_path="$wt_root/$folder_name"
+
+  if [[ ! -d "$target_path" ]]; then
+    echo "Worktree not found: $target_path"
+    return 1
+  fi
+
+  git worktree remove "$target_path" && echo "Removed worktree: $target_path"
+}
+
+_gwd() {
+  local -a worktrees
+  worktrees=("${(@f)$(git worktree list --porcelain 2>/dev/null | awk '/^worktree / {print $2}')}")
+  local wt_root
+  wt_root=$(dirname "$(git rev-parse --absolute-git-dir)" 2>/dev/null)
+
+  local -a branches
+  for wt in "${worktrees[@]}"; do
+    [[ "$wt" == "$wt_root" ]] && continue
+    branches+=("${wt:t}")
+  done
+
+  if [[ ${#branches[@]} -gt 0 ]]; then
+    _describe 'worktrees' branches
+  else
+    _message "no worktrees found"
+  fi
+}
+compdef _gwd gwd
