@@ -3,7 +3,7 @@ macos-titlebar-style = tabs
 #theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 theme = Catppuccin Frappe
 shell-integration = zsh
-# background-opacity = 0.92
+background-opacity = 0.92
 window-colorspace = display-p3
 cursor-style = underline
 window-height = 50
@@ -15,13 +15,21 @@ window-padding-y = 2
 shell-integration-features = ssh-terminfo,ssh-env,sudo,cursor,title
 clipboard-read = allow
 macos-option-as-alt = true
-#background-blur = macos-glass-regular
+background-blur = macos-glass-regular
 background-blur = 50
 font-size = 14
 adjust-cell-height = 20%
-font-family = Maple Mono
+# font-family = Maple Mono
 # font-family = Lilex
-# font-family = Ioskeley Mono
-# font-family = Ubuntu Mono
-# font-thicken = true
-#font-thicken-strength = 0
+
+keybind = ctrl+1=text:\x021
+keybind = ctrl+2=text:\x022
+keybind = ctrl+3=text:\x023
+keybind = ctrl+4=text:\x024
+keybind = ctrl+5=text:\x025
+keybind = ctrl+6=text:\x026
+keybind = ctrl+7=text:\x027
+keybind = ctrl+8=text:\x028
+keybind = ctrl+9=text:\x029
+keybind = ctrl+tab=text:\x02l
+keybind = shift+enter=text:\x1b\r
