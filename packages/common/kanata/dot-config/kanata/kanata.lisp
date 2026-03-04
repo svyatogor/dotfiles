@@ -42,7 +42,7 @@
 
 (deflayer nav
   _ _ _ _ _ _ _ _ _ _ _ _
-  _ _ _ _ _ lft down up rght _
+  _ _ _ _ caps lft down up rght _
   spc
   fn
 )
