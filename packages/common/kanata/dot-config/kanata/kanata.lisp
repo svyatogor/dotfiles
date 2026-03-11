@@ -5,7 +5,7 @@
 
 (defsrc
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
-  caps a s d f h j k l ;
+  caps a s d f g h j k l ;
   spc
   fn
 )
@@ -19,14 +19,14 @@
   
   ;; Левая рука
   a (tap-hold-release $tap-time $hold-time a lsft)
-  s (tap-hold-release $tap-time $hold-time s lmet)
   d (tap-hold-release $tap-time $hold-time d lalt)
   f (tap-hold-release $tap-time $hold-time f lctl)
+  g (tap-hold-release $tap-time $hold-time g lmet)
 
   ;; Правая рука
+  h (tap-hold-release $tap-time $hold-time h rmet)
   j (tap-hold-release $tap-time $hold-time j rctl)
   k (tap-hold-release $tap-time $hold-time k ralt)
-  l (tap-hold-release $tap-time $hold-time l rmet)
   ; (tap-hold-release $tap-time $hold-time ; rsft)
 
   fnl (tap-hold 200 200 fn (layer-toggle fn))
@@ -35,21 +35,21 @@
 
 (deflayer base
   brdn  brup  _    _    _    _   prev  pp  next  mute  vold  volu
-  @escctrl @a @s @d @f _ @j @k @l @;
+  @escctrl @a s @d @f @g @h @j @k l @;
   @spc
   @fnl
 )
 
 (deflayer nav
   _ _ _ _ _ _ _ _ _ _ _ _
-  _ _ _ _ caps lft down up rght _
+  _ _ _ _ caps _ lft down up rght _
   spc
   fn
 )
 
 (deflayer fn
   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11   f12
-  @escctrl _ _ _ _ _ _ _ _ _
+  @escctrl _ _ _ _ _ _ _ _ _ _
   _
   fn
 )

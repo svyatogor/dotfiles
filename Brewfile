@@ -36,6 +36,7 @@ brew "glow"
 brew "tree-sitter-cli"
 cask "claude-code"
 cask "nikitabobko/tap/aerospace"
+cask "sparrow"
 brew "mole"
 
 # PostgreSQL tools
@@ -46,7 +47,6 @@ brew "libyaml"
 brew "gmp"
 
 # GUI (macOS)
-cask "unifi-identity-enterprise"
 cask "visual-studio-code"
 cask "telegram"
 cask "daisydisk"
@@ -64,8 +64,8 @@ cask "tableplus"
 cask "medis"
 cask "orbstack"
 cask "claude"
-cask "session-manager-plugin"
-cask "ghostty@tip"
+cask "ghostty"
+cask "finicky"
 cask "1password-cli"
 cask "zen"
 

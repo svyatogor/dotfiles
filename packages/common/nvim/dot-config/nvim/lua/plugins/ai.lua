@@ -58,7 +58,7 @@ return {
       provider = "claude_code",
       providers = {
         claude_code = {
-          model = "haiku",
+          model = "sonnet",
         },
         --   gemini = {
         --     model = "gemini-3-flash-preview",
