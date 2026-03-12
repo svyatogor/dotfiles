@@ -19,15 +19,12 @@ set -g pure_enable_single_line_prompt true
 set -g pure_enable_aws_profile true
 set -g pure_show_numbered_git_indicator true
 set -g pure_symbol_git_dirty ""
-set -g pure_symbol_git_stash "󰏗"
+set -g pure_symbol_git_stash "󰏗 "
 set -g pure_symbol_git_unpulled_commits "󰶹"
 set -g pure_symbol_git_unpushed_commits "󰶼"
 set -g pure_symbol_ssh_prefix " "
 set -g pure_begin_prompt_with_current_directory false
 set -g pure_truncate_prompt_current_directory_keeps 3
-if test (scutil --get LocalHostName 2>/dev/null) = sergey-bivial
-    set -g pure_symbol_prompt "🏢❯"
-end
 
 # Override pure user@host to show only hostname
 function _pure_user_at_host
@@ -76,6 +73,8 @@ abbr -a vim nvim
 
 bind \cp history-search-backward
 bind \cn history-search-forward
+
+bind \cl 'printf "\033[2J\033[3J\033[H"; commandline -f repaint'
 
 # --- Secrets (add secrets.fish if needed) ------------------------------------
 # test -f ~/.local/share/secrets.fish; and source ~/.local/share/secrets.fish
