@@ -33,3 +33,5 @@ keybind = ctrl+8=text:\x028
 keybind = ctrl+9=text:\x029
 keybind = ctrl+tab=text:\x02l
 keybind = shift+enter=text:\x1b\r
+# Cmd+K → clear screen + scrollback (sends C-S-l, bound in tmux and fish)
+keybind = super+k=text:\x1b[76;6u
