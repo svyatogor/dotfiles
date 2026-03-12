@@ -17,7 +17,13 @@
 	smudge = "git-lfs smudge -- %f"
 
 [gpg]
-	format = "openpgp"
+	format = ssh
+
+[commit]
+	gpgSign = true
+
+[tag]
+	gpgSign = true
 
 [init]
 	defaultBranch = "main"
@@ -37,5 +43,9 @@
 
 [include]
   path = ~/.local/share/theme/delta.gitconfig
+
+[include]
+  path = ~/.config/git/identity
+
 [branch]
 	autoSetupMerge = always

@@ -15,6 +15,14 @@ return {
         },
         tsgo = {
           enabled = true,
+          -- Force UTF-16 to match ESLint's encoding. Without this, the position
+          -- encoding mismatch causes LazyVim's `has = "codeAction"` check to fail,
+          -- making <leader>ca silently not work.
+          capabilities = {
+            general = {
+              positionEncodings = { "utf-16" },
+            },
+          },
         },
         eslint = {
           settings = {

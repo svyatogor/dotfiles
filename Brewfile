@@ -36,7 +36,6 @@ brew "glow"
 brew "tree-sitter-cli"
 cask "claude-code"
 cask "nikitabobko/tap/aerospace"
-cask "sparrow"
 brew "mole"
 
 # PostgreSQL tools
