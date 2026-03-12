@@ -76,6 +76,8 @@ abbr -a vim nvim
 
 bind \cp history-search-backward
 bind \cn history-search-forward
+# Cmd+K clear screen + scrollback (ghostty sends \e[76;6u via CSI u, tmux forwards via extended-keys)
+bind \e\[76\;6u 'printf "\033[2J\033[3J\033[H"; commandline -f repaint'
 
 # --- Secrets (add secrets.fish if needed) ------------------------------------
 # test -f ~/.local/share/secrets.fish; and source ~/.local/share/secrets.fish
