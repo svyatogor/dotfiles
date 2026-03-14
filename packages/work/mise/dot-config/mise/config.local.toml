@@ -2,6 +2,7 @@
 # tools can read the versions files used by other version managers
 # for example, .nvmrc in the case of node's nvm
 idiomatic_version_file_enable_tools = ['node']
+not_found_auto_install = false
 
 [tools]
 node = "20"

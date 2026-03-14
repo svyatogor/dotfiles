@@ -15,14 +15,16 @@ end
 # --- Prompt (pure-fish/pure) -------------------------------------------------
 
 set --universal fish_transient_prompt 1
+set -g pure_threshold_command_duration 1000000000
 set -g pure_enable_single_line_prompt true
 set -g pure_enable_aws_profile true
 set -g pure_show_numbered_git_indicator true
-set -g pure_symbol_git_dirty ""
+set -g pure_symbol_git_dirty " "
 set -g pure_symbol_git_stash "󰏗 "
 set -g pure_symbol_git_unpulled_commits "󰶹"
 set -g pure_symbol_git_unpushed_commits "󰶼"
 set -g pure_symbol_ssh_prefix " "
+set -g pure_symbol_aws_profile_prefix "  "
 set -g pure_begin_prompt_with_current_directory false
 set -g pure_truncate_prompt_current_directory_keeps 3
 
@@ -77,6 +79,8 @@ bind \cn history-search-forward
 bind \e\[76\;6u 'printf "\033[2J\033[3J\033[H"; commandline -f repaint'
 
 bind \cl 'printf "\033[2J\033[3J\033[H"; commandline -f repaint'
+
+set -Ux AWS_VAULT_BACKEND file
 
 # --- Secrets (add secrets.fish if needed) ------------------------------------
 # test -f ~/.local/share/secrets.fish; and source ~/.local/share/secrets.fish

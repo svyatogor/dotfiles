@@ -10,6 +10,7 @@
 !functions/
 !functions/gwt.fish
 !functions/gwd.fish
+!functions/fish_command_not_found.fish
 !completions/
 !completions/gwt.fish
 !completions/gwd.fish
