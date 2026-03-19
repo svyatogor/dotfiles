@@ -1,0 +1,16 @@
+alias cat='bat'
+alias less='bat'
+alias eza='eza --icons auto --git --group-directories-first --color-scale=all'
+alias la='eza -a'
+alias ll='eza -l'
+alias lla='eza -la'
+alias lt='eza --tree'
+alias ls='eza'
+alias yy='yazi'
+
+alias g='lazygit'
+alias gp='git push'
+alias gss='git status -s'
+
+alias n='nvim'
+alias vim='nvim'

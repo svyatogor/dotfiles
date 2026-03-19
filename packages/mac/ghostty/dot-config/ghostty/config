@@ -2,7 +2,7 @@ window-padding-x = 2
 macos-titlebar-style = tabs
 #theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 theme = Catppuccin Frappe
-shell-integration = fish
+shell-integration = zsh
 background-opacity = 0.92
 window-colorspace = display-p3
 cursor-style = underline
@@ -34,3 +34,29 @@ keybind = ctrl+tab=text:\x02l
 keybind = shift+enter=text:\x1b\r
 # Cmd+K → clear screen + scrollback (sends C-S-l, bound in tmux and fish)
 keybind = super+k=text:\x1b[76;6u
+
+# Russian Phonetic layout: force Ctrl+<cyrillic> → correct control codes
+keybind = ctrl+а=text:\x01
+keybind = ctrl+б=text:\x02
+keybind = ctrl+ц=text:\x03
+keybind = ctrl+д=text:\x04
+keybind = ctrl+е=text:\x05
+keybind = ctrl+ф=text:\x06
+keybind = ctrl+г=text:\x07
+keybind = ctrl+х=text:\x08
+keybind = ctrl+и=text:\x09
+keybind = ctrl+к=text:\x0b
+keybind = ctrl+л=text:\x0c
+keybind = ctrl+н=text:\x0e
+keybind = ctrl+о=text:\x0f
+keybind = ctrl+п=text:\x10
+keybind = ctrl+я=text:\x11
+keybind = ctrl+р=text:\x12
+keybind = ctrl+с=text:\x13
+keybind = ctrl+т=text:\x14
+keybind = ctrl+у=text:\x15
+keybind = ctrl+в=text:\x16
+keybind = ctrl+ш=text:\x17
+keybind = ctrl+ь=text:\x18
+keybind = ctrl+ы=text:\x19
+keybind = ctrl+з=text:\x1a

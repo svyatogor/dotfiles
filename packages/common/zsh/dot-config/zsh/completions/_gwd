@@ -1,0 +1,18 @@
+#compdef gwd
+
+local -a worktrees
+worktrees=("${(@f)$(git worktree list --porcelain 2>/dev/null | awk '/^worktree / {print $2}')}")
+local wt_root
+wt_root=$(dirname "$(git rev-parse --absolute-git-dir)" 2>/dev/null)
+
+local -a branches
+for wt in "${worktrees[@]}"; do
+  [[ "$wt" == "$wt_root" ]] && continue
+  branches+=("${wt:t}")
+done
+
+if [[ ${#branches[@]} -gt 0 ]]; then
+  _describe 'worktrees' branches
+else
+  _message "no worktrees found"
+fi

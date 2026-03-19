@@ -1,0 +1,29 @@
+local branch=$1
+
+if [[ -z "$branch" ]]; then
+  echo "Usage: gwt <branch-name>"
+  return 1
+fi
+
+local folder_name=${branch//\//-}
+local wt_root
+wt_root=$(dirname "$(git rev-parse --absolute-git-dir)")
+local target_path="$wt_root/$folder_name"
+
+if [[ -d "$target_path" ]]; then
+  cd "$target_path" || return
+  [[ -n "$TMUX" ]] && tmux rename-window "$folder_name"
+  return
+fi
+
+if git show-ref --quiet refs/heads/"$branch" || git show-ref --quiet refs/remotes/origin/"$branch"; then
+  git worktree add "$target_path" "$branch"
+else
+  local base_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+  git worktree add -b "$branch" "$target_path" origin/"${base_branch:-main}"
+  git -C "$target_path" config branch."$branch".remote origin
+  git -C "$target_path" config branch."$branch".merge "refs/heads/$branch"
+fi
+
+cd "$target_path" || return
+[[ -n "$TMUX" ]] && tmux rename-window "$folder_name"

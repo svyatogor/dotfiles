@@ -1,0 +1,10 @@
+#compdef gwt
+
+local -a branches
+branches=("${(@f)$(git branch -a --format='%(refname:short)' 2>/dev/null | sed 's|^origin/||' | sort -u)}")
+
+if [[ ${#branches[@]} -gt 0 ]]; then
+  _describe 'branches' branches
+else
+  _message "not a git repository"
+fi
