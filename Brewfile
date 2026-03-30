@@ -1,4 +1,5 @@
 tap "nikitabobko/tap"
+tap "fcoury/tap"
 
 # Base CLI
 brew "git"
@@ -37,6 +38,8 @@ brew "tree-sitter-cli"
 cask "claude-code"
 cask "nikitabobko/tap/aerospace"
 brew "mole"
+brew "tsql"
+uv "git+https://github.com/github/spec-kit.git"
 
 # PostgreSQL tools
 brew "libpq"
