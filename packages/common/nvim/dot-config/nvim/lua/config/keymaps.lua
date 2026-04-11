@@ -9,3 +9,22 @@ vim.keymap.set(
   "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
   { desc = "Go to definition in vertical split", noremap = true, silent = true }
 )
+
+vim.keymap.set("v", "<leader>yf", function()
+  local start_line = vim.fn.line("v")
+  local end_line = vim.fn.line(".")
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+  local ref = path .. ":" .. start_line .. "-" .. end_line
+  vim.fn.setreg("+", ref)
+  vim.notify(ref, vim.log.levels.INFO)
+end, { desc = "Copy file reference with line range" })
+
+vim.keymap.set("n", "<leader>yf", function()
+  local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+  local ref = path .. ":" .. vim.fn.line(".")
+  vim.fn.setreg("+", ref)
+  vim.notify(ref, vim.log.levels.INFO)
+end, { desc = "Copy file reference with line" })

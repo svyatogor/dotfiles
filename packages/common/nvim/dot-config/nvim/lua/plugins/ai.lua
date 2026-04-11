@@ -2,6 +2,22 @@
 -- This block defines plugins and their dependencies used by Neovim
 return {
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        copilot = {
+          on_attach = function(client, bufnr)
+            if vim.bo[bufnr].filetype == "markdown" then
+              vim.schedule(function()
+                vim.lsp.buf_detach_client(bufnr, client.id)
+              end)
+            end
+          end,
+        },
+      },
+    },
+  },
+  {
     "svyatogor/ai-commit-msg.nvim",
     ft = "gitcommit",
     config = true,
