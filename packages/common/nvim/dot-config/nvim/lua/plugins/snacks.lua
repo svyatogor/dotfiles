@@ -2,6 +2,17 @@ return {
   "folke/snacks.nvim",
   opts = {
     picker = { ui_select = true },
+    scratch = {
+      ft = "markdown",
+      win = {
+        position = "right",
+        height = 0,
+        wo = {
+          wrap = true,
+          spell = false,
+        },
+      },
+    },
   },
   keys = {
     {

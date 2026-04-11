@@ -1,5 +1,6 @@
 {
   "LazyVim": { "branch": "main", "commit": "fca0af57cc3851b14f96a795a9c9bfafc5096dd1" },
+  "OSC11.nvim": { "branch": "main", "commit": "548380b6ef9f45d877215657bca55f5ca2ca4f1a" },
   "SchemaStore.nvim": { "branch": "main", "commit": "24eeb97da8d605c480dc68bb6276248702e31d2a" },
   "ai-commit-msg.nvim": { "branch": "main", "commit": "2c3f4d18fb848a1b781ffe93241d67b2dc90cd5e" },
   "blink.cmp": { "branch": "main", "commit": "451168851e8e2466bc97ee3e026c3dcb9141ce07" },
@@ -54,7 +55,6 @@
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f" },
   "nvim-web-devicons": { "branch": "master", "commit": "d7462543c9e366c0d196c7f67a945eaaf5d99414" },
   "octo.nvim": { "branch": "master", "commit": "efc48d4b766b91c8666fe860779a91a73b217b97" },
-  "opencode.nvim": { "branch": "main", "commit": "df533d6da724109bf08446392db860fdceddbd0c" },
   "outline.nvim": { "branch": "main", "commit": "c293eb56db880a0539bf9d85b4a27816960b863e" },
   "persistence.nvim": { "branch": "main", "commit": "b20b2a7887bd39c1a356980b45e03250f3dce49c" },
   "plantuml-previewer.vim": { "branch": "master", "commit": "368a1f331c1ff29f6a3ee76facfca39a7f374b13" },

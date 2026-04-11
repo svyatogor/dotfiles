@@ -20,18 +20,20 @@ eu-west-1 = "ie"
 us-east-1 = "us"
 
 [character]
-error_symbol = "[✗](bold cyan)"
-success_symbol = "[❯](bold cyan)"
+error_symbol = "[✗](bold blue)"
+success_symbol = "[❯](bold blue)"
 
 [directory]
 #fish_style_pwd_dir_length = 1
 #repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
 truncate_to_repo = false
-repo_root_style = "bold cyan"
+repo_root_style = "blue"
+style = "blue"
 truncation_length = 2
 truncation_symbol = "…/"
 
 [git_branch]
+style = "purple"
 symbol = " "
 truncation_length = 16
 
@@ -46,6 +48,5 @@ modified = " "
 renamed = ""
 staged = ""
 stashed = ""
-style = "cyan"
 untracked = ""
 up_to_date = " "

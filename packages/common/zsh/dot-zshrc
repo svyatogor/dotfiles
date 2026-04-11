@@ -53,11 +53,6 @@ done
 autoload -U select-word-style
 select-word-style bash
 
-# --- Theme ------------------------------------------------------------------
-source ~/.local/share/theme/zsh.sh
-source ~/.local/share/theme/fzf.sh
-source ~/.local/share/theme/bat.sh
-
 [[ -f ~/.local/share/secrets.sh ]] && source ~/.local/share/secrets.sh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
