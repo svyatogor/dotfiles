@@ -3,7 +3,7 @@
 # automatically via terminal palette. These wrappers handle tools that
 # need hex colors or theme names (fzf, bat, eza, lazygit).
 
-_THEME_DIR="${DOTFILES:-$HOME/dotfiles}/themes"
+_THEME_DIR="${0:A:h:h}/themes"
 _THEME_DARK="catppuccin-frappe"
 _THEME_LIGHT="catppuccin-latte"
 
@@ -58,9 +58,7 @@ bat() {
 # --- eza wrapper ------------------------------------------------------------
 eza() {
   _detect_theme
-  local eza_dir="$_THEME_DIR/$_THEME_VARIANT/eza"
-  [[ -d "$eza_dir" ]] || eza_dir="${HOME}/.local/share/theme/eza"
-  EZA_CONFIG_DIR="$eza_dir" command eza --icons auto --git --group-directories-first "$@"
+  EZA_CONFIG_DIR="$_THEME_DIR/$_THEME_VARIANT/eza" command eza --icons auto --git --group-directories-first "$@"
 }
 
 # --- lazygit wrapper ---------------------------------------------------------
