@@ -59,20 +59,20 @@ bat() {
 # EZA_COLORS uses ANSI codes (30-37, 90-97) so the terminal palette drives the
 # actual colors -- no hex, no theme detection needed.
 export EZA_COLORS="\
-di=34:ln=1;36:pi=37:bd=31:cd=31:so=37:sp=35:ex=32:mp=36:\
+di=34:ln=1;36:pi=2:bd=31:cd=31:so=2:sp=35:ex=32:mp=36:\
 ur=31;1:uw=33;1:ux=32;1:ue=32;1:\
 gr=31:gw=33:gx=32:tr=31:tw=33:tx=32:\
-su=35:sf=90:xa=37:oc=36:\
-nb=37:nk=37:nm=34:ng=35:nt=35:\
-ub=37:uk=36:um=35:ug=35:ut=36:\
-df=37:ds=37:\
-uu=37:uR=31:un=31:gu=37:gR=31:gn=37:\
-lc=37:lm=37:\
-ga=32:gm=33:gd=31:gv=36:gt=35:gi=90:gc=91:\
-Gm=37:Go=35:Gc=32:Gd=31:\
-xx=90:da=33:in=37:bl=90:hd=1:\
-lp=36:cc=36:bO=90:\
-im=33:vi=31:mu=32:lo=36:cr=90:do=37:co=35:tm=31:cm=36:bu=33;1"
+su=35:sf=2:xa=2:oc=36:\
+nb=2:nk=2:nm=34:ng=35:nt=35:\
+ub=2:uk=36:um=35:ug=35:ut=36:\
+df=2:ds=2:\
+uu=2:uR=31:un=31:gu=2:gR=31:gn=2:\
+lc=2:lm=2:\
+ga=32:gm=33:gd=31:gv=36:gt=35:gi=2:gc=91:\
+Gm=2:Go=35:Gc=32:Gd=31:\
+xx=2:da=33:in=2:bl=2:hd=1:\
+lp=36:cc=36:bO=2:\
+im=33:vi=31:mu=32:lo=36:cr=2:do=2;3:co=35:tm=31:cm=36:bu=33;1"
 
 eza() {
   command eza --icons auto --git --group-directories-first "$@"
