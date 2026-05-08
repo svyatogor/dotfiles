@@ -3,12 +3,30 @@
 -- Add any additional keymaps here
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center", noremap = true, silent = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center", noremap = true, silent = true })
-vim.keymap.set(
-  "n",
-  "<leader>gvd",
-  "<cmd>vsplit<CR><cmd>lua vim.lsp.buf.definition()<CR>",
-  { desc = "Go to definition in vertical split", noremap = true, silent = true }
-)
+
+vim.keymap.set("n", "<leader>gs", function()
+  local cur = vim.api.nvim_get_current_win()
+
+  vim.lsp.buf.definition({
+    on_list = function(opts)
+      if not opts or not opts.items or vim.tbl_isempty(opts.items) then
+        vim.notify("No definition found", vim.log.levels.INFO)
+        return
+      end
+
+      vim.api.nvim_set_current_win(cur)
+
+      vim.cmd("wincmd l")
+      if vim.api.nvim_get_current_win() == cur then
+        vim.cmd("vsplit")
+      end
+
+      vim.fn.setqflist({}, " ", opts)
+      vim.cmd("cc 1")
+      vim.cmd("cclose")
+    end,
+  })
+end, { desc = "Goto Definition in Right Split" })
 
 vim.keymap.set("v", "<leader>yf", function()
   local start_line = vim.fn.line("v")
@@ -20,6 +38,8 @@ vim.keymap.set("v", "<leader>yf", function()
   local ref = path .. ":" .. start_line .. "-" .. end_line
   vim.fn.setreg("+", ref)
   vim.notify(ref, vim.log.levels.INFO)
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 end, { desc = "Copy file reference with line range" })
 
 vim.keymap.set("n", "<leader>yf", function()
