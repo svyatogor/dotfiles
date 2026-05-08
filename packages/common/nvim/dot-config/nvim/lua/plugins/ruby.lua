@@ -7,6 +7,17 @@ return {
     end,
   },
   {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters = {
+        erb_format = {
+          args = { "--stdin", "--print-width", "120" },
+        },
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
