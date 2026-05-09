@@ -20,3 +20,6 @@ node_modules*
 **/.claude/settings.local.json
 .codex/sessions
 .claude/settings.local.json
+
+.opencode
+.specify

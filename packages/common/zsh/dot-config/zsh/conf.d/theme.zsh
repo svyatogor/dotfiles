@@ -75,7 +75,7 @@ lp=36:cc=36:bO=2:\
 im=33:vi=31:mu=32:lo=36:cr=2:do=2;3:co=35:tm=31:cm=36:bu=33;1"
 
 eza() {
-  command eza --icons auto --git --group-directories-first "$@"
+  command eza --icons auto --git --group-directories-first --no-quotes "$@"
 }
 
 # --- lazygit wrapper ---------------------------------------------------------

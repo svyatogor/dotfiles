@@ -15,7 +15,7 @@ vim.g.lazyvim_ruby_formatter = "rubocop"
 
 vim.g.tinted_background_transparent = 1
 vim.opt.termguicolors = true
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 
 vim.opt.fillchars:append({ diff = " " })
 
