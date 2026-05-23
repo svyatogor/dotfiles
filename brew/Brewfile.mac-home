@@ -15,5 +15,4 @@ cask "iina"
 brew "beszel-agent"
 cask "sparrow"
 cask 'chatgpt'
-cask 'codex'
 brew 'mole'

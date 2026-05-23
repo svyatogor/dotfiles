@@ -6,6 +6,7 @@ not_found_auto_install = false
 
 [tools]
 node = "20"
+ruby = "3"
 
 [env]
 CONTEXT = "work"

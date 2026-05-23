@@ -19,6 +19,8 @@ node_modules*
 
 **/.claude/settings.local.json
 .codex/sessions
+.claude/skills/spec*
+.specify
 .claude/settings.local.json
 
 .opencode
