@@ -48,4 +48,4 @@
   path = ~/.config/git/identity
 
 [branch]
-	autoSetupMerge = always
+	autoSetupMerge = true

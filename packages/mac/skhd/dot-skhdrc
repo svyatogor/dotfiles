@@ -1,0 +1,16 @@
+# Safari profile switching
+ctrl - 1 [
+  "Safari" : osascript "$HOME/.config/skhd/scripts/safari-profile-personal.applescript"
+  * ~
+]
+
+ctrl - 2 [
+  "Safari" : osascript "$HOME/.config/skhd/scripts/safari-profile-work.applescript"
+  * ~
+]
+
+
+ctrl - 3 [
+  "Safari" : osascript "$HOME/.config/skhd/scripts/safari-profile-uf.applescript"
+  * ~
+]

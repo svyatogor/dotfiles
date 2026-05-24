@@ -5,7 +5,7 @@ if [[ -z "$branch" ]]; then
   return 1
 fi
 
-local folder_name=${branch//\//-}
+local folder_name=${branch##*/}
 local wt_root
 wt_root=$(dirname "$(git rev-parse --absolute-git-dir)")
 local target_path="$wt_root/$folder_name"

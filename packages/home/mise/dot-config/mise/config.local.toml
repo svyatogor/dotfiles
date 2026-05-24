@@ -5,6 +5,7 @@ idiomatic_version_file_enable_tools = ['node', 'ruby']
 
 [tools]
 node = "24"
+ruby = "3.4"
 # rust = "1.82"
 # ruby = "3"
 # python = "3.12"

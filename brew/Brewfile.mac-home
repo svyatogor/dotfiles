@@ -8,11 +8,11 @@ cask "discord"
 cask "affinity"
 cask "whatsapp"
 cask "ledger-wallet"
-cask "insomnia"
 cask "istat-menus"
 cask "transmission"
 cask "iina"
 brew "beszel-agent"
 cask "sparrow"
 cask 'chatgpt'
+cask 'codex-app'
 brew 'mole'
