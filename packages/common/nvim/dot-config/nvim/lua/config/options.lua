@@ -19,14 +19,32 @@ vim.opt.termguicolors = true
 
 vim.opt.fillchars:append({ diff = " " })
 
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-  },
-}
+-- vim.g.clipboard = {
+--   name = "OSC 52",
+--   copy = {
+--     ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+--     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+--   },
+--   paste = {
+--     ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+--     ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+--   },
+-- }
+
+-- vim.opt.clipboard = "unnamedplus"
+
+if vim.env.TMUX and vim.fn.executable("tmux") == 1 then
+  vim.g.clipboard = {
+    name = "TmuxOSC52",
+    copy = {
+      ["*"] = { "tmux", "load-buffer", "-w", "-" },
+      ["+"] = { "tmux", "load-buffer", "-w", "-" },
+    },
+    paste = {
+      ["*"] = { "tmux", "save-buffer", "-" },
+      ["+"] = { "tmux", "save-buffer", "-" },
+    },
+    cache_enabled = 1,
+  }
+end
+vim.opt.clipboard = "unnamed"
