@@ -15,10 +15,14 @@ vim.g.lazyvim_ruby_formatter = "rubocop"
 
 vim.g.tinted_background_transparent = 1
 vim.opt.termguicolors = true
--- vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = ""
 
 vim.opt.fillchars:append({ diff = " " })
 
+-- local function no_clipboard_paste()
+--   return { {}, "v" }
+-- end
+--
 -- vim.g.clipboard = {
 --   name = "OSC 52",
 --   copy = {
@@ -26,25 +30,7 @@ vim.opt.fillchars:append({ diff = " " })
 --     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
 --   },
 --   paste = {
---     ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
---     ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+--     ["+"] = no_clipboard_paste,
+--     ["*"] = no_clipboard_paste,
 --   },
 -- }
-
--- vim.opt.clipboard = "unnamedplus"
-
-if vim.env.TMUX and vim.fn.executable("tmux") == 1 then
-  vim.g.clipboard = {
-    name = "TmuxOSC52",
-    copy = {
-      ["*"] = { "tmux", "load-buffer", "-w", "-" },
-      ["+"] = { "tmux", "load-buffer", "-w", "-" },
-    },
-    paste = {
-      ["*"] = { "tmux", "save-buffer", "-" },
-      ["+"] = { "tmux", "save-buffer", "-" },
-    },
-    cache_enabled = 1,
-  }
-end
-vim.opt.clipboard = "unnamed"

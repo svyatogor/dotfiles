@@ -6,8 +6,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center", noremap
 
 vim.keymap.set({ "n", "x" }, "<leader>cy", '"+y', { desc = "Yank to system clipboard (OSC)" })
 vim.keymap.set("n", "<leader>cY", '"+Y', { desc = "Yank line to system clipboard (OSC)" })
-vim.keymap.set({ "n", "x" }, "<leader>cp", '"+p', { desc = "Paste from system clipboard (OSC)" })
-vim.keymap.set({ "n", "x" }, "<leader>cP", '"+P', { desc = "Paste before from system clipboard (OSC)" })
 
 vim.keymap.set("n", "<leader>gs", function()
   local cur = vim.api.nvim_get_current_win()
