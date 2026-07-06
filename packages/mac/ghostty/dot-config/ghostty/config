@@ -1,7 +1,7 @@
 window-padding-x = 2
 macos-titlebar-style = hidden
 theme = Catppuccin Frappe
-#dark:Catppuccin Frappe,light:Catppuccin Latte
+# theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 shell-integration = zsh
 background-opacity = 0.92
 window-colorspace = display-p3
@@ -10,15 +10,18 @@ window-width = 200
 window-padding-balance = true
 window-padding-x = 4
 window-padding-y = 8
-shell-integration-features = ssh-terminfo,ssh-env,sudo,cursor,title
+shell-integration-features = true
 clipboard-read = allow
 macos-option-as-alt = true
 background-blur = macos-glass-regular
 # background-blur = 50
 font-size = 14
 adjust-cell-height = 20%
+font-family = IoskeleyMonoTerm Nerd Font
+font-style = SemiCondensed
+font-style-italic = SemiCondensed Italic
 # font-family = MonoLisa
-font-family = Maple Mono NF
+# font-family = Maple Mono NF
 # font-family = Lilex
 
 keybind = ctrl+1=text:\x021
