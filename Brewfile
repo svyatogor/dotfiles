@@ -39,7 +39,7 @@ brew 'tree-sitter-cli'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
 brew 'dlvhdr/formulae/diffnav'
-brew 'worktruk'
+brew 'worktrunk'
 
 # PostgreSQL tools
 brew 'libpq'
