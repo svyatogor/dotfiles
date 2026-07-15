@@ -1,0 +1,26 @@
+# Vague Light — custom light variant of the Vague theme.
+## name: Vague Light
+
+palette = 0=#505569
+palette = 1=#c84b67
+palette = 2=#668a52
+palette = 3=#bd7122
+palette = 4=#4b759c
+palette = 5=#935697
+palette = 6=#6d6dac
+palette = 7=#7e849c
+palette = 8=#6a718c
+palette = 9=#d65d78
+palette = 10=#769b61
+palette = 11=#cd843f
+palette = 12=#5d87b0
+palette = 13=#a368a8
+palette = 14=#8d8dbf
+palette = 15=#d3d8e3
+background = ffffff
+foreground = 323644
+cursor-color = bd7122
+cursor-text = ffffff
+selection-background = d3d8e3
+selection-foreground = 323644
+split-divider-color = d3d8e3

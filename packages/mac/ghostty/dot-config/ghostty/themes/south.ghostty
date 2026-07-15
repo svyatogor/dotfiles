@@ -1,0 +1,26 @@
+# South — a crisp, light palette based on the South Neovim theme.
+## name: South
+
+palette = 0=#9097a6
+palette = 1=#c1293d
+palette = 2=#2b9728
+palette = 3=#d99610
+palette = 4=#0850b5
+palette = 5=#615fb9
+palette = 6=#0092bf
+palette = 7=#b5bac4
+palette = 8=#787571
+palette = 9=#c1293d
+palette = 10=#2b9728
+palette = 11=#d99610
+palette = 12=#1d5ab5
+palette = 13=#615fb9
+palette = 14=#499794
+palette = 15=#e4eaf3
+background = fcfcfd
+foreground = 323b45
+cursor-color = 0850b5
+cursor-text = fcfcfd
+selection-background = ceeaff
+selection-foreground = 323b45
+split-divider-color = c2d6f2
