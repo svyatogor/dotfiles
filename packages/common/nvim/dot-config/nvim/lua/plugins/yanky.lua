@@ -5,4 +5,5 @@ return {
       sync_with_ring = false,
     },
   },
+  enabled = false,
 }

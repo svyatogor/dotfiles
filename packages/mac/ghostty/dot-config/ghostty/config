@@ -1,20 +1,22 @@
-window-padding-x = 2
-macos-titlebar-style = hidden
-theme = Catppuccin Frappe
+theme = vague-light.ghostty
 # theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+
 shell-integration = zsh
+shell-integration-features = true
+clipboard-read = allow
+
 background-opacity = 0.92
 window-colorspace = display-p3
-window-height = 50
-window-width = 200
+background-blur = macos-glass-regular
+# background-blur = 50
+
 window-padding-balance = true
 window-padding-x = 4
 window-padding-y = 8
-shell-integration-features = true
-clipboard-read = allow
+
+macos-titlebar-style = hidden
 macos-option-as-alt = true
-background-blur = macos-glass-regular
-# background-blur = 50
+
 font-size = 14
 adjust-cell-height = 20%
 font-family = IoskeleyMonoTerm Nerd Font
@@ -24,6 +26,10 @@ font-style-italic = SemiCondensed Italic
 # font-family = Maple Mono NF
 # font-family = Lilex
 
+# Tmux shortcuts implemented as terminal-side key sequences.
+# Ctrl+1 sends \x02 (Ctrl+B, tmux's default prefix), then the literal 1;
+# Ctrl+2 through Ctrl+9 do the same with their respective digit.
+# These are equivalent to pressing prefix + number, not distinct Ctrl+number keys.
 keybind = ctrl+1=text:\x021
 keybind = ctrl+2=text:\x022
 keybind = ctrl+3=text:\x023
@@ -33,7 +39,9 @@ keybind = ctrl+6=text:\x026
 keybind = ctrl+7=text:\x027
 keybind = ctrl+8=text:\x028
 keybind = ctrl+9=text:\x029
+# Ctrl+Tab sends Ctrl+B followed by l, equivalent to prefix + l (last window).
 keybind = ctrl+tab=text:\x02l
+# Shift+Enter sends Escape followed by carriage return, equivalent to Alt+Enter.
 keybind = shift+enter=text:\x1b\r
 # Cmd+K → clear screen + scrollback (sends C-S-l, bound in tmux and fish)
 keybind = super+k=text:\x1b[76;6u
