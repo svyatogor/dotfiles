@@ -1,6 +1,3 @@
--- Default to frappe; OSC11.nvim corrects via TermResponse immediately after startup
-local colorscheme = "south"
-
 return {
   {
     "catppuccin/nvim",
@@ -19,29 +16,29 @@ return {
       end,
     },
   },
-  {
-    "arnauKL/south.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      -- Optional configuration goes here
-      require("south").setup({
-        transparent = true,
-        darker_floats = false, -- Forces solid floating windows/menus even if transparent
-        styles = {
-          italics = true, -- Master switch for font slant overrides
-          italic_comments = true, -- Toggles italicized comments (ignored if italics = false)
-          italic_linenums = true, -- Toggles italicized line numbers (ignored if italics = false)
-          bold_keywords = true, -- Applies bold weight to syntax keywords
-        },
-      })
-      vim.cmd.colorscheme("south")
-    end,
-  },
+  -- {
+  --   "arnauKL/south.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     -- Optional configuration goes here
+  --     require("south").setup({
+  --       transparent = true,
+  --       darker_floats = false, -- Forces solid floating windows/menus even if transparent
+  --       styles = {
+  --         italics = true, -- Master switch for font slant overrides
+  --         italic_comments = true, -- Toggles italicized comments (ignored if italics = false)
+  --         italic_linenums = true, -- Toggles italicized line numbers (ignored if italics = false)
+  --         bold_keywords = true, -- Applies bold weight to syntax keywords
+  --       },
+  --     })
+  --     -- vim.cmd.colorscheme("south")
+  --   end,
+  -- },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = colorscheme,
+      colorscheme = "catppuccin-frappe",
     },
   },
 }

@@ -1,5 +1,5 @@
-theme = vague-light.ghostty
-# theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+# theme = vague-light.ghostty
+theme = Catppuccin Frappe
 
 shell-integration = zsh
 shell-integration-features = true
