@@ -38,8 +38,8 @@ cask 'codex'
 brew 'tree-sitter-cli'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
-brew 'dlvhdr/formulae/diffnav'
 brew 'worktrunk'
+brew 'brew install agavra/tap/tuicr'
 
 # PostgreSQL tools
 brew 'libpq'
