@@ -1,13 +1,20 @@
-# Dotfiles mise configuration
-#
-# Variables (override via env or --context flag):
-#   PROFILE:       mac | linux | devcontainer (auto-detected)
-#   CONTEXT:       home | work (from ~/.config/mise/config.local.toml or --context)
-#   STOW_OVERRIDE: regex for stow --override
-#   STOW_ADOPT:    set to 1 to pass --adopt
-#
-# Tasks are defined in mise/tasks/
+min_version = "2026.8.3"
 
-[env]
-PACKAGES_DIR = "packages"
-PROFILE = "{% if os() == 'macos' %}mac{% else %}linux{% endif %}"
+[bootstrap.repos]
+"~/.local/share/zinit/zinit.git" = { url = "https://github.com/zdharma-continuum/zinit.git", ref = "main" }
+"~/.tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm.git", ref = "master" }
+
+[dotfiles]
+"~/.config" = { source = "dotfiles/.config", mode = "symlink-each", exclude = ["btop/btop.conf"] }
+"~/.config/btop/btop.conf" = { source = "dotfiles/.config/btop/btop.conf", mode = "copy" }
+"~/.local/bin" = { source = "dotfiles/.local/bin", mode = "symlink-each" }
+"~/.local/share/theme" = { source = "dotfiles/.local/share/theme", mode = "symlink" }
+"~/.zshrc" = { source = "dotfiles/.zshrc", mode = "symlink" }
+"~/Library/Application Support/jesseduffield/lazydocker/config.yml" = { source = "dotfiles/Library/Application Support/jesseduffield/lazydocker/config.yml", mode = "copy" }
+
+[tasks.bootstrap]
+description = "Converge Homebrew packages and refresh local secrets"
+run = """
+HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle --no-upgrade --file=./Brewfile
+HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle cleanup --force --zap --file=./Brewfile
+"""

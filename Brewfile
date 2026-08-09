@@ -1,81 +1,75 @@
-tap 'nikitabobko/tap'
-tap 'fcoury/tap'
+profiles = ENV.fetch("HOMEBREW_DOTFILES_PROFILE", "").split(",")
+raise "Set HOMEBREW_DOTFILES_PROFILE to exactly one of: home, work" unless (profiles & %w[ home work ]).one?
 
-# Base CLI
-brew 'git'
-brew 'stow'
-brew 'mise'
-brew 'tmux'
-brew 'tpm'
-brew 'starship'
-brew 'zoxide'
-brew 'neovim'
-brew 'coreutils'
-brew 'wget'
-brew 'awscli@2'
-brew 'devcontainer'
-brew 'btop'
-brew 'git-crypt'
-brew 'gpg'
-brew 'telnet'
-brew 'aws-vault'
-brew 'cocoapods'
-brew 'bash'
-brew 'fzf'
-brew 'ripgrep'
-brew 'jq'
-brew 'bat'
-brew 'eza'
-brew 'lazygit'
-brew 'delta'
-brew 'fd'
-brew 'yazi'
-brew 'asmvik/formulae/skhd'
-brew 'anomalyco/tap/opencode'
-brew 'gh'
-brew 'glow'
-cask 'codex'
-brew 'tree-sitter-cli'
-cask 'nikitabobko/tap/aerospace'
-cask 'xykong/tap/flux-markdown'
-brew 'worktrunk'
-brew 'brew install agavra/tap/tuicr'
+tap "agavra/tap", trusted: { formula: "tuicr" }
+tap "asmvik/formulae", trusted: { formula: "skhd" }
+tap "nikitabobko/tap", trusted: { cask: "aerospace" }
+tap "xykong/tap", trusted: { cask: "flux-markdown" }
 
-# PostgreSQL tools
-brew 'libpq'
+brew "bash"
+brew "btop"
+brew "cocoapods"
+brew "coreutils"
+brew "git"
+brew "git-crypt"
+brew "gmp"
+brew "gnupg"
+brew "libpq"
+brew "libyaml"
+brew "telnet"
+brew "tree-sitter-cli"
+brew "wget"
+brew "tuicr"
 
-# Ruby dependencies
-brew 'libyaml'
-brew 'gmp'
+cask "1password"
+cask "1password-cli"
+cask "codex"
+cask "daisydisk"
+cask "font-fira-code-nerd-font"
+# cask "font-ioskeley-mono"
+cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-lilex"
+cask "font-maple-mono-nf"
+cask "font-symbols-only-nerd-font"
+cask "font-ubuntu-mono"
+cask "forklift"
+cask "ghostty"
+cask "google-chrome"
+cask "macwhisper"
+cask "medis"
+cask "openin"
+cask "orbstack"
+cask "postman"
+cask "raycast"
+cask "slack"
+cask "tableplus"
+cask "telegram"
+cask "the-unarchiver"
+cask "visual-studio-code"
+cask "yandex-music"
+cask "nikitabobko/tap/aerospace"
+cask "xykong/tap/flux-markdown"
 
-# GUI (macOS)
-cask 'visual-studio-code'
-cask 'telegram'
-cask 'daisydisk'
-cask 'forklift'
-cask 'google-chrome'
-cask 'raycast'
-cask 'yandex-music'
-cask 'postman'
-cask 'the-unarchiver'
-# cask "google-drive"
-cask '1password'
-cask 'slack'
-cask 'tableplus'
-cask 'medis'
-cask 'orbstack'
-cask 'codex'
-cask 'ghostty'
-cask 'openin'
-cask '1password-cli'
-cask 'macwhisper'
+if profiles.include?("home")
+  brew "mole"
 
-# Fonts
-cask 'font-symbols-only-nerd-font'
-cask 'font-jetbrains-mono'
-cask 'font-maple-mono-nf'
-cask 'font-ubuntu-mono'
-cask 'font-ioskeley-mono'
-cask 'font-lilex'
-cask 'font-jetbrains-mono-nerd-font'
-cask 'font-fira-code-nerd-font'
+  cask "affinity"
+  cask "chatgpt"
+  cask "codex-app"
+  cask "discord"
+  cask "iina"
+  cask "istat-menus"
+  cask "ledger-wallet"
+  cask "microsoft-excel"
+  cask "microsoft-word"
+  cask "sparrow"
+  cask "tailscale-app"
+  cask "transmission"
+  cask "whatsapp"
+end
+
+if profiles.include?("work")
+  cask "session-manager-plugin"
+  cask "unifi-identity-enterprise"
+end

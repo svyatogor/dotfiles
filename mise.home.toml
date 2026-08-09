@@ -1,0 +1,3 @@
+[dotfiles]
+"~/.aws/config" = { source = "profiles/home/.aws/config", mode = "copy" }
+"~/.ssh/config" = { source = "profiles/home/.ssh/config", mode = "copy" }
