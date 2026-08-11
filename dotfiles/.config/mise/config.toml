@@ -1,4 +1,5 @@
 [tools]
+node = "24"
 awscli = "latest"
 aws-vault = "latest"
 bat = "latest"

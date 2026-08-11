@@ -1,0 +1,1 @@
+env = ["{{ mise_env | last }}"]

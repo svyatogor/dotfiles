@@ -1,0 +1,13 @@
+[bootstrap.packages]
+"pacman:base-devel" = "latest"
+"pacman:git" = "latest"
+"pacman:ncurses" = "latest"
+"pacman:zsh" = "latest"
+"pacman:docker" = "latest"
+"pacmake:docker-compose" = "latest"
+
+[bootstrap.hooks.post-packages]
+run = 'tic -x -o "$HOME/.terminfo" dotfiles/.terminfo/xterm-ghostty.terminfo'
+
+[bootstrap.user]
+login_shell = "/bin/zsh"

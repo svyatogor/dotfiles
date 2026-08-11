@@ -7,14 +7,7 @@ min_version = "2026.8.3"
 [dotfiles]
 "~/.config" = { source = "dotfiles/.config", mode = "symlink-each", exclude = ["btop/btop.conf"] }
 "~/.config/btop/btop.conf" = { source = "dotfiles/.config/btop/btop.conf", mode = "copy" }
+"~/.config/mise/miserc.toml" = { source = "profiles/mise/miserc.toml", mode = "template" }
 "~/.local/bin" = { source = "dotfiles/.local/bin", mode = "symlink-each" }
 "~/.local/share/theme" = { source = "dotfiles/.local/share/theme", mode = "symlink" }
 "~/.zshrc" = { source = "dotfiles/.zshrc", mode = "symlink" }
-"~/Library/Application Support/jesseduffield/lazydocker/config.yml" = { source = "dotfiles/Library/Application Support/jesseduffield/lazydocker/config.yml", mode = "copy" }
-
-[tasks.bootstrap]
-description = "Converge Homebrew packages and refresh local secrets"
-run = """
-HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle --no-upgrade --file=./Brewfile
-HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle cleanup --force --zap --file=./Brewfile
-"""
