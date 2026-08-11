@@ -4,7 +4,7 @@
 "pacman:ncurses" = "latest"
 "pacman:zsh" = "latest"
 "pacman:docker" = "latest"
-"pacmake:docker-compose" = "latest"
+"pacman:docker-compose" = "latest"
 
 [bootstrap.hooks.post-packages]
 run = 'tic -x -o "$HOME/.terminfo" dotfiles/.terminfo/xterm-ghostty.terminfo'
