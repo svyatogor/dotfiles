@@ -1,79 +1,50 @@
-# Dotfiles (stow + Homebrew + mise)
+# Dotfiles
 
-This repo manages my cross-platform dotfiles with GNU Stow, Homebrew (on macOS), and mise for toolchains. It targets macOS (home/work contexts), Linux, devcontainers, and WSL-style setups.
+Laptop and Linux VM setup orchestrated by [Mise Bootstrap](https://mise.jdx.dev/bootstrap.html). Mise owns portable tools and dotfiles; one Brewfile owns all native macOS packages.
 
-## Quick start
+## Profiles
 
-- Clone the repo to `~/dotfiles` (or any path) and `cd` into it.
-- Run `make` to bootstrap the current platform. The default goal detects the profile:
-  - macOS runs Homebrew bundle + cleanup, then stows dotfiles and installs mise tools.
-  - Linux or WSL stows dotfiles and runs `mise install`.
-  - In devcontainers set `PROFILE=devcontainer` (or run `make devcontainer`) for container-appropriate setup.
-- Re-run `make` whenever you add packages or update mise tool definitions.
+From this checkout, preview the selected profile:
 
-You can override `PROFILE` (`mac`, `linux`, `devcontainer`) and `CONTEXT` (`home`, `work`, …) per invocation, e.g. `make CONTEXT=work`.
+```sh
+mise -E earth bootstrap --dry-run
+mise -E mars bootstrap --dry-run
+mise -E mercury bootstrap --dry-run
+mise -E neptune bootstrap --dry-run
+```
 
-## Repository layout
+After reviewing the preview, apply it on the target machine:
 
-- `Makefile` – orchestration for bootstrap, stow, tooling installs, and context helpers.
-- `scripts/` – helper scripts used by the make targets (see below for details).
-- `packages/` – GNU Stow packages arranged by scope:
-  - `packages/common/` – shared across every machine.
-  - `packages/<profile>/` – profile-specific (e.g. `mac/`, `devcontainer/`).
-  - `packages/<context>/` – optional persona overrides (e.g. `home/`, `work/`).
-  - `packages/<profile>-<context>/` – combined overrides when both apply.
-  - Example packages under `common/`: `bash/`, `git/`, `direnv/`, `mise/`, `starship/`, `tmux/`, `nvim/`.
-- `Brewfile` – base Homebrew bundle for all macOS installs.
-- `brew/` – layered Brewfiles (`Brewfile.mac`, `Brewfile.mac-work`, …) merged on demand.
-- `assets/` – supporting files such as fonts synced by stow.
+```sh
+mise -E earth bootstrap
+mise -E mars bootstrap
+mise -E mercury bootstrap
+mise -E neptune bootstrap
+```
 
-Each directory inside a stow root is an independent package; add or remove directories to control what gets linked.
+The bootstrap requires mise `2026.8.3` or newer. It installs portable CLI tools through Mise, clones Zinit and TPM, and deploys dotfiles. On macOS only, it also requires Homebrew, converges the selected laptop inventory, and removes undeclared packages.
 
-## Scripts
+The Brewfile refuses to run without exactly one laptop profile, preventing an incomplete inventory from being used for cleanup.
 
-- `scripts/bootstrap-mac.sh` – end-to-end macOS bootstrap (brew, stow, mise) used by `make mac`.
-- `scripts/brew-install.sh` – ensures Homebrew is installed, merges layered Brewfiles, runs `brew bundle`, and cleans unused packages.
-- `scripts/setup-devcontainer.sh` – convenience bootstrap for devcontainers/WSL; stows dotfiles and installs mise when available.
-- `scripts/apt-install.sh` – declarative APT installer that merges profile/context package lists and installs them via `apt-get`.
+`mise.earth.toml` owns personal AWS/SSH config. `mars` and `neptune` use the same employer toolchain. `mercury` needs no additions to the shared VM setup. Bootstrap records the selected planet in `~/.config/mise/miserc.toml`, so later Mise commands load its profile automatically. The Brewfile reads the same environment to select profile-specific apps. Shared and profile-specific tools are deployed under `~/.config/mise/`.
 
-These helpers respect the same `PROFILE`/`CONTEXT` environment variables as the Makefile.
+## Layout
 
-## Make targets
+- `.miserc.toml` — enables Mise's native platform environments.
+- `mise.toml` — shared laptop and Linux VM bootstrap declaration.
+- `mise.macos.toml` — automatically loaded macOS-only dotfile and Brew task.
+- `mise.linux.toml` — installs Zsh and Ghostty terminfo, then selects Zsh as the Linux login shell.
+- `mise.<planet>.toml` — profile additions where needed.
+- `Brewfile` — complete native macOS package inventory with laptop-profile conditions.
+- `dotfiles/` — direct home-directory layout; `symlink-each` links most files.
+- `profiles/` — profile-only copied AWS and SSH configuration.
+- `dotfiles/.config/mise/` — shared and profile-specific tool versions, deployed globally.
+- `scripts/extract-secrets.sh` — optional 1Password refresh task.
 
-- `make` / `make bootstrap` – default goal; runs brew+stow+mise on macOS, stow+mise on Linux/WSL, or `devcontainer` + stow + mise when `PROFILE=devcontainer`.
-- `make mac` – macOS bootstrap wrapper using `scripts/bootstrap-mac.sh`.
-- `make devcontainer` – devcontainer bootstrap wrapper.
-- `make brew` – install Homebrew if needed and run the layered bundle.
-- `make stow` / `make unstow` – link or unlink every discovered package for the active profile/context.
-- `make mise-install` – install toolchains defined in `mise/config.toml`.
-- `make apt-install` – apply the declarative apt package lists.
-- `make brew-dump` – refresh the root `Brewfile` from the current mac.
-- `make list` – show the active profile, context, and packages that will be stowed.
-- `make check` – lightweight diagnostic (profile+context info plus tool versions).
-- `make set-context`, `make show-context`, `make clear-context` – manage the persisted context file under `~/.config/dotfiles-v2/`.
+Editor-owned configuration that rewrites files (`git`, `btop`, Zed, and Lazydocker) uses copy mode. Other dotfiles are individual symlinks, so an unmanaged file beside them is left alone.
 
-You can pass `STOW_OVERRIDE` (regex) to resolve conflicts or `STOW_ADOPT=1` to pull existing files into the repo when stowing.
+## Migration notes
 
-## Notes
+Do not run with `--force-dotfiles` on an existing machine until the dry-run output has been reviewed.
 
-- Platform-specific tweaks are intentionally small and handled inside the stowed shell configs.
-- `~/.gitconfig.local` stays untracked for personal identity/tokens.
-- `mise` integrates with `direnv` via the provided `direnvrc`.
-- Each stow root ships its own `.stow-global-ignore` so helper files aren’t linked.
-- Prefer Bash across environments. On macOS you can switch to Homebrew Bash:
-  - `brew install bash`
-  - `sudo bash -c 'echo /opt/homebrew/bin/bash >> /etc/shells'` (Apple Silicon)
-  - `chsh -s /opt/homebrew/bin/bash`
-
-### Declarative apt (Linux/devcontainers)
-
-- Define baseline packages in `packages/common/apt.txt`.
-- Add profile/context packages in `packages/<profile>/apt.txt`, `packages/<context>/apt.txt`, or `packages/<profile>-<context>/apt.txt`.
-- Install with `make apt-install` or directly via `scripts/apt-install.sh`.
-- Lines are package names; `#` comments and blank lines are ignored before deduping.
-
-### Custom scripts in PATH
-
-- Place executable scripts under `packages/common/bin/.local/bin/` (or another stow package).
-- Run `make stow` to link them into `~/.local/bin/`.
-- `~/.local/bin` is already included in the shell PATH that ships with these dotfiles.
+Linux VMs run the same Bootstrap command; Mise does not load `mise.macos.toml` there, so Homebrew and macOS-only dotfiles are skipped. Devcontainers remain out of scope.

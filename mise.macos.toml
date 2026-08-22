@@ -1,0 +1,9 @@
+[dotfiles]
+"~/Library/Application Support/jesseduffield/lazydocker/config.yml" = { source = "dotfiles/Library/Application Support/jesseduffield/lazydocker/config.yml", mode = "copy" }
+
+[tasks.bootstrap]
+description = "Converge Homebrew packages"
+run = """
+HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle --no-upgrade --file=./Brewfile
+HOMEBREW_DOTFILES_PROFILE="$MISE_ENV" brew bundle cleanup --force --zap --file=./Brewfile
+"""

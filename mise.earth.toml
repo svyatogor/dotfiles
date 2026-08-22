@@ -1,0 +1,11 @@
+[settings]
+idiomatic_version_file_enable_tools = ['node', 'ruby']
+
+[tools]
+go = "latest"
+node = "24"
+ruby = "3.4"
+
+[dotfiles]
+"~/.aws/config" = { source = "profiles/home/.aws/config", mode = "copy" }
+"~/.ssh/config" = { source = "profiles/home/.ssh/config", mode = "copy" }

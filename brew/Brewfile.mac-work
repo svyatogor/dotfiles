@@ -1,4 +1,0 @@
-tap "jesseduffield/lazydocker"
-brew "jesseduffield/lazydocker/lazydocker"
-cask "unifi-identity-enterprise"
-cask "session-manager-plugin"

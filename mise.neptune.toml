@@ -1,0 +1,8 @@
+[settings]
+idiomatic_version_file_enable_tools = ['node']
+not_found_auto_install = false
+
+[tools]
+node = "20"
+op = "latest"
+ruby = "3"
