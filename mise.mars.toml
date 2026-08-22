@@ -5,4 +5,5 @@ not_found_auto_install = false
 [tools]
 node = "20"
 op = "latest"
+claude = "latest"
 ruby = "3"
