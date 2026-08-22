@@ -5,6 +5,7 @@ tap 'agavra/tap', trusted: { formula: 'tuicr' }
 tap 'asmvik/formulae', trusted: { formula: 'skhd' }
 tap 'nikitabobko/tap', trusted: { cask: 'aerospace' }
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
+tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
 brew 'bash'
 brew 'btop'
@@ -20,6 +21,8 @@ brew 'telnet'
 brew 'tree-sitter-cli'
 brew 'wget'
 brew 'tuicr'
+brew 'FelixKratz/formulae/borders'
+brew 'FelixKratz/formulae/sketchybar'
 
 cask '1password'
 cask '1password-cli'
@@ -55,7 +58,6 @@ if profiles.include?('earth')
 
   cask 'affinity'
   cask 'chatgpt'
-  cask 'codex-app'
   cask 'discord'
   cask 'iina'
   cask 'istat-menus'
