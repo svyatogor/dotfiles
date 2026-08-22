@@ -2,7 +2,7 @@ return {
   { "tpope/vim-fugitive" },
   {
     "dlyongemallo/diffview.nvim",
-    version = "v0.32",
+    version = "v0.37",
     cmd = "DiffviewOpen",
     keys = {
       { "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Open Diff View" },

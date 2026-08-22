@@ -17,4 +17,4 @@ vim.opt.termguicolors = true
 vim.g.clipboard = "osc52"
 vim.opt.clipboard = "unnamedplus"
 
-vim.opt.fillchars:append({ diff = " " })
+-- vim.opt.fillchars:append({ diff = " " })

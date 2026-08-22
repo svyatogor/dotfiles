@@ -8,12 +8,12 @@ return {
       integrations = {
         diffview = true,
       },
-      custom_highlights = function(colors)
-        return {
-          DiffDelete = { bg = colors.surface0, fg = colors.surface0 },
-          DiffviewDiffAddAsDelete = { bg = colors.surface0 },
-        }
-      end,
+      -- custom_highlights = function(colors)
+      --   return {
+      --     DiffDelete = { bg = colors.surface0, fg = colors.surface0 },
+      --     DiffviewDiffAddAsDelete = { bg = colors.surface0 },
+      --   }
+      -- end,
     },
   },
   -- {
