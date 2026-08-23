@@ -13,14 +13,30 @@ return {
         vtsls = {
           enabled = false,
         },
-        tsgo = {
+        tsc = {
           enabled = true,
-          -- Force UTF-16 to match ESLint's encoding. Without this, the position
-          -- encoding mismatch causes LazyVim's `has = "codeAction"` check to fail,
-          -- making <leader>ca silently not work.
-          capabilities = {
-            general = {
-              positionEncodings = { "utf-16" },
+          settings = {
+            ["js/ts"] = {
+              inlayHints = {
+                parameterNames = {
+                  enabled = "literals",
+                  suppressWhenArgumentMatchesName = true,
+                },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = false },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = false },
+                enumMemberValues = { enabled = true },
+              },
+              referencesCodeLens = {
+                enabled = true,
+                showOnAllFunctions = true,
+              },
+              implementationsCodeLens = {
+                enabled = true,
+                showOnInterfaceMethods = true,
+                showOnAllClassMethods = true,
+              },
             },
           },
         },
