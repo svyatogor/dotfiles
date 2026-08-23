@@ -25,7 +25,7 @@ cask '1password'
 cask '1password-cli'
 cask 'daisydisk'
 cask 'font-fira-code-nerd-font'
-# cask "font-ioskeley-mono"
+cask 'font-ioskeley-mono'
 cask 'font-jetbrains-mono'
 cask 'font-jetbrains-mono-nerd-font'
 cask 'font-lilex'
