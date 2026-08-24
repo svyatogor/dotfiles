@@ -51,6 +51,7 @@ cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
+cask 'stats'
 
 if profiles.include?('earth')
   brew 'mole'
@@ -58,7 +59,6 @@ if profiles.include?('earth')
   cask 'affinity'
   cask 'chatgpt'
   cask 'discord'
-  cask 'stats'
   cask 'iina'
   cask 'ledger-wallet'
   cask 'microsoft-excel'

@@ -6,3 +6,4 @@ not_found_auto_install = false
 node = "20"
 op = "latest"
 ruby = "3"
+claude = "latest"

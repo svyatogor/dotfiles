@@ -56,8 +56,9 @@ select-word-style bash
 [[ -f ~/.local/share/secrets.sh ]] && source ~/.local/share/secrets.sh
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  eval $(ssh-agent -s)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export SSH_AUTH_SOCK="$HOME/.ssh/agent/agent.sock"
+  "$HOME/.local/bin/ssh-agent-ensure"
 fi
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

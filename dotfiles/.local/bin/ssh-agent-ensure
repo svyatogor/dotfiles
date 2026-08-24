@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+agent_dir="$HOME/.ssh/agent"
+agent_sock="$agent_dir/agent.sock"
+agent_lock="$agent_dir/start.lock"
+
+mkdir -p "$agent_dir"
+chmod 700 "$agent_dir"
+export SSH_AUTH_SOCK="$agent_sock"
+
+agent_reachable() {
+  local status
+
+  /usr/bin/ssh-add -l >/dev/null 2>&1 && return 0
+  status=$?
+  [[ "$status" -eq 1 ]]
+}
+
+if agent_reachable; then
+  exit 0
+fi
+
+(
+  if ! /usr/bin/lockf -s -t 2 9; then
+    echo "ssh-agent: could not acquire startup lock" >&2
+    exit 1
+  fi
+
+  if ! agent_reachable; then
+    rm -f "$agent_sock"
+    /usr/bin/ssh-agent -a "$agent_sock" >/dev/null
+  fi
+) 9>"$agent_lock"

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  exit 0
+fi
+
+login_keychain=$(/usr/bin/security default-keychain -d user | sed -E 's/^[[:space:]]*"//; s/"[[:space:]]*$//')
+
+if /usr/bin/security show-keychain-info "$login_keychain" >/dev/null 2>&1; then
+  printf '#[fg=green]#[default]'
+else
+  printf '#[fg=red]#[default]'
+fi
