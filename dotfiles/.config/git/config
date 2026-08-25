@@ -42,7 +42,7 @@
 	name = "Sergey Kuleshov"
 
 [include]
-  path = ~/.local/share/theme/delta.gitconfig
+  path = ~/.config/themes/current/delta.gitconfig
 
 [include]
   path = ~/.config/git/identity

@@ -9,6 +9,7 @@ alias vim='nvim'
 
 alias cat='bat'
 alias less='bat'
+alias eza='eza --icons auto --git --group-directories-first --no-quotes'
 alias la='eza -a'
 alias ll='eza -l'
 alias lla='eza -la'

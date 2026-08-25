@@ -39,8 +39,9 @@ zinit cdreplay -q
   zinit ice wait lucid
   zinit light zsh-users/zsh-autosuggestions
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-ZSH_HIGHLIGHT_MAXLENGTH=512
+  ZSH_HIGHLIGHT_MAXLENGTH=512
+  [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/themes/current/zsh-syntax-highlighting.zsh" ]] &&
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/themes/current/zsh-syntax-highlighting.zsh"
   zinit ice wait lucid
   zinit light zsh-users/zsh-syntax-highlighting
 fi

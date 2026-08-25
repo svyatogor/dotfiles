@@ -1,4 +1,4 @@
-# Flavors provide all styling; yazi auto-switches via OSC 11.
+# Use one deterministic flavor in every terminal mode.
 [flavor]
 dark = "catppuccin-frappe"
-light = "catppuccin-latte"
+light = "catppuccin-frappe"
