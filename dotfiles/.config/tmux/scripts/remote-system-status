@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -z "${SSH_CONNECTION:-}${SSH_CLIENT:-}${SSH_TTY:-}" ]]; then
+  exit 0
+fi
+
+percent_color() {
+  local value="$1"
+  local warning="$2"
+  local critical="$3"
+
+  if ((value >= critical)); then
+    printf 'red'
+  elif ((value >= warning)); then
+    printf 'yellow'
+  else
+    printf 'green'
+  fi
+}
+
+cpu_percent_linux() {
+  local user nice system idle iowait irq softirq steal
+  local first_total first_idle second_total second_idle
+
+  read -r _ user nice system idle iowait irq softirq steal _ </proc/stat
+  first_total=$((user + nice + system + idle + iowait + irq + softirq + steal))
+  first_idle=$((idle + iowait))
+
+  sleep 0.2
+
+  read -r _ user nice system idle iowait irq softirq steal _ </proc/stat
+  second_total=$((user + nice + system + idle + iowait + irq + softirq + steal))
+  second_idle=$((idle + iowait))
+
+  awk -v total="$((second_total - first_total))" \
+    -v idle="$((second_idle - first_idle))" \
+    'BEGIN { if (total > 0) printf "%.0f", 100 * (total - idle) / total }'
+}
+
+cpu_percent_macos() {
+  top -l 1 -n 0 2>/dev/null | awk '
+    /^CPU usage:/ {
+      gsub(/%/, "", $3)
+      gsub(/%/, "", $5)
+      printf "%.0f", $3 + $5
+      exit
+    }
+  '
+}
+
+memory_percent_linux() {
+  awk '
+    /^MemTotal:/ { total = $2 }
+    /^MemAvailable:/ { available = $2 }
+    END { if (total > 0) printf "%.0f", 100 * (total - available) / total }
+  ' /proc/meminfo
+}
+
+memory_percent_macos() {
+  memory_pressure -Q 2>/dev/null | awk '
+    /System-wide memory free percentage:/ {
+      gsub(/%/, "", $NF)
+      printf "%.0f", 100 - $NF
+      exit
+    }
+  '
+}
+
+system_name="$(uname -s)"
+case "$system_name" in
+Darwin)
+  cpu_percent="$(cpu_percent_macos || true)"
+  memory_percent="$(memory_percent_macos || true)"
+  ;;
+Linux)
+  cpu_percent="$(cpu_percent_linux || true)"
+  memory_percent="$(memory_percent_linux || true)"
+  ;;
+*)
+  exit 0
+  ;;
+esac
+
+load_average="$(LC_ALL=C uptime | sed -E 's/.*load averages?:[[:space:]]*([0-9]+([.][0-9]+)?).*/\1/')"
+cpu_count="$(getconf _NPROCESSORS_ONLN 2>/dev/null || printf '1')"
+
+if [[ ! "$cpu_percent" =~ ^[0-9]+$ ]]; then
+  cpu_percent='?'
+  cpu_color='brightblack'
+else
+  cpu_color="$(percent_color "$cpu_percent" 60 85)"
+fi
+
+if [[ ! "$memory_percent" =~ ^[0-9]+$ ]]; then
+  memory_percent='?'
+  memory_color='brightblack'
+else
+  memory_color="$(percent_color "$memory_percent" 70 85)"
+fi
+
+if [[ "$load_average" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$cpu_count" =~ ^[1-9][0-9]*$ ]]; then
+  load_percent="$(awk -v load="$load_average" -v cpus="$cpu_count" \
+    'BEGIN { printf "%.0f", 100 * load / cpus }')"
+  load_color="$(percent_color "$load_percent" 70 100)"
+else
+  load_percent='?'
+  load_color='brightblack'
+fi
+
+printf '#[fg=%s] %s%%#[default]  ' "$cpu_color" "$cpu_percent"
+printf '#[fg=%s] %s%%#[default]  ' "$memory_color" "$memory_percent"
+printf '#[fg=%s]󰓅 %s%%#[default]  ' "$load_color" "$load_percent"
