@@ -52,6 +52,7 @@ cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
 cask 'stats'
+brew 'kanata'
 
 if profiles.include?('earth')
   brew 'mole'
