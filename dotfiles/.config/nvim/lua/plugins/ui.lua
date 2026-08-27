@@ -51,4 +51,30 @@ return {
       },
     },
   },
+  {
+    "stevearc/quicker.nvim",
+    ---@module "quicker"
+    ---@type quicker.SetupOptions
+    opts = {},
+    -- ponytail: <leader>x* instead of <leader>q/<leader>l, which are LazyVim's
+    -- quit and Lazy prefixes; these two lhs override the Trouble defaults.
+    keys = {
+      {
+        "<leader>xq",
+        function()
+          require("quicker").toggle()
+        end,
+        desc = "Toggle quickfix",
+      },
+      {
+        "<leader>xl",
+        function()
+          require("quicker").toggle({ loclist = true })
+        end,
+        desc = "Toggle loclist",
+      },
+      { ">", "<cmd>lua require('quicker').expand()<CR>", ft = "qf", desc = "Expand quickfix content" },
+      { "<", "<cmd>lua require('quicker').collapse()<CR>", ft = "qf", desc = "Collapse quickfix content" },
+    },
+  },
 }
