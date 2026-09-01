@@ -22,7 +22,7 @@ mise -E mercury bootstrap
 mise -E neptune bootstrap
 ```
 
-The bootstrap requires mise `2026.8.3` or newer. It installs portable CLI tools through Mise, clones Zinit and TPM, and deploys dotfiles. On macOS only, it also requires Homebrew, converges the selected laptop inventory, and removes undeclared packages.
+The bootstrap requires mise `2026.8.3` or newer. It installs portable CLI tools through Mise, clones Zinit and TPM, initializes the Neovim config submodule, and deploys dotfiles. On macOS only, it also requires Homebrew, converges the selected laptop inventory, and removes undeclared packages.
 
 The Brewfile refuses to run without exactly one laptop profile, preventing an incomplete inventory from being used for cleanup.
 

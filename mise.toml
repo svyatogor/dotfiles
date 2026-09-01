@@ -4,6 +4,9 @@ min_version = "2026.8.3"
 "~/.local/share/zinit/zinit.git" = { url = "https://github.com/zdharma-continuum/zinit.git", ref = "main" }
 "~/.tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm.git", ref = "master" }
 
+[bootstrap.hooks.pre-dotfiles]
+run = 'git -C "$MISE_CONFIG_ROOT" submodule update --init'
+
 [dotfiles]
 "~/.config" = { source = "dotfiles/.config", mode = "symlink-each", exclude = [
   "btop/btop.conf",
