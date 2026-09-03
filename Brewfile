@@ -51,13 +51,13 @@ cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
-cask 'stats'
 brew 'kanata'
 cask 'hiddenbar'
 
 if profiles.include?('earth')
   brew 'mole'
 
+  cask 'istat-menus'
   cask 'affinity'
   cask 'chatgpt'
   cask 'discord'
