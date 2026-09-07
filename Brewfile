@@ -7,17 +7,14 @@ tap 'nikitabobko/tap', trusted: { cask: 'aerospace' }
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
-brew 'bash'
 brew 'btop'
 brew 'cocoapods'
 brew 'coreutils'
 brew 'git'
-brew 'git-crypt'
 brew 'gmp'
 brew 'gnupg'
 brew 'libpq'
 brew 'libyaml'
-brew 'telnet'
 brew 'tree-sitter-cli'
 brew 'wget'
 # brew 'FelixKratz/formulae/borders'
@@ -51,7 +48,6 @@ cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
-cask 'stats'
 brew 'kanata'
 cask 'hiddenbar'
 
