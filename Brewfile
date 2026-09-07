@@ -54,6 +54,7 @@ cask 'hiddenbar'
 if profiles.include?('earth')
   brew 'mole'
 
+  cask 'istat-menus'
   cask 'affinity'
   cask 'chatgpt'
   cask 'discord'
