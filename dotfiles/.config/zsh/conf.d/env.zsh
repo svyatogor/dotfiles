@@ -22,4 +22,8 @@ _theme_dir="${XDG_CONFIG_HOME:-$HOME/.config}/themes/current"
 export EZA_CONFIG_DIR="$_theme_dir/eza"
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml,$_theme_dir/lazygit.yml"
 
+export GLOW_STYLE="$_theme_dir/glow.json"
+export GLOW_WIDTH=120
+export GLOW_PAGER=true
+
 unset _theme_dir
