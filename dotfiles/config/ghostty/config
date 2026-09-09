@@ -19,8 +19,6 @@ macos-option-as-alt = true
 font-size = 14
 adjust-cell-height = 20%
 font-family = Ioskeley Mono Term
-# font-family = Maple Mono NF
-# font-family = Lilex
 
 # Tmux shortcuts implemented as terminal-side key sequences.
 # Ctrl+1 sends \x02 (Ctrl+B, tmux's default prefix), then the literal 1;
