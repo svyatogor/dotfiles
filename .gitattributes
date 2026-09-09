@@ -1,3 +1,0 @@
-dotfiles/.config/zed/settings.json filter=git-crypt diff=git-crypt
-**/aws/** filter=git-crypt diff=git-crypt
-**/ssh/** filter=git-crypt diff=git-crypt
