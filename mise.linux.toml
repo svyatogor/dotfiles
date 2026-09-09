@@ -7,7 +7,7 @@
 "pacman:docker-compose" = "latest"
 
 [bootstrap.hooks.post-packages]
-run = 'tic -x -o "$HOME/.terminfo" dotfiles/.terminfo/xterm-ghostty.terminfo'
+run = 'tic -x -o "$HOME/.terminfo" dotfiles/terminfo/xterm-ghostty.terminfo'
 
 [bootstrap.user]
 login_shell = "/bin/zsh"

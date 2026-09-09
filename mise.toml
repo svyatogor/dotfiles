@@ -4,18 +4,15 @@ min_version = "2026.8.3"
 "~/.local/share/zinit/zinit.git" = { url = "https://github.com/zdharma-continuum/zinit.git", ref = "main" }
 "~/.tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm.git", ref = "master" }
 
-[bootstrap.hooks.pre-dotfiles]
-run = 'git -C "$MISE_CONFIG_ROOT" submodule update --init'
-
 [dotfiles]
-"~/.config" = { source = "dotfiles/.config", mode = "symlink-each", exclude = [
+"~/.config" = { source = "dotfiles/config", mode = "symlink-each", exclude = [
   "btop/btop.conf",
 ] }
-"~/.config/btop/btop.conf" = { source = "dotfiles/.config/btop/btop.conf", mode = "copy" }
+"~/.config/btop/btop.conf" = { source = "dotfiles/config/btop/btop.conf", mode = "copy" }
 "~/.config/mise/miserc.toml" = { source = "profiles/mise/miserc.toml", mode = "template" }
-"~/.local/bin" = { source = "dotfiles/.local/bin", mode = "symlink-each" }
-"~/.zshrc" = { source = "dotfiles/.zshrc", mode = "symlink" }
+"~/.local/bin" = { source = "bin", mode = "symlink-each" }
+"~/.zshrc" = { source = "dotfiles/zshrc", mode = "symlink" }
 # Shared skills, one copy read by both agents. symlink-each leaves machine-local skills
 # already in these directories alone.
-"~/.claude/skills" = { source = "dotfiles/.agents/skills", mode = "symlink-each" }
-"~/.codex/skills" = { source = "dotfiles/.agents/skills", mode = "symlink-each" }
+"~/.claude/skills" = { source = "skills", mode = "symlink-each" }
+"~/.codex/skills" = { source = "skills", mode = "symlink-each" }
