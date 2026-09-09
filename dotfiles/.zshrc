@@ -61,5 +61,3 @@ if [[ "$OSTYPE" == darwin* ]]; then
   export SSH_AUTH_SOCK="$HOME/.ssh/agent/agent.sock"
   "$HOME/.local/bin/ssh-agent-ensure"
 fi
-
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
