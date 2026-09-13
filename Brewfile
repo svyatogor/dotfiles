@@ -6,6 +6,7 @@ tap 'asmvik/formulae', trusted: { formula: 'skhd' }
 tap 'nikitabobko/tap', trusted: { cask: 'aerospace' }
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
+tap 'abue-ammar/tinycast', trusted: { formula: 'tinycast' }
 
 brew 'btop'
 brew 'cocoapods'
@@ -31,7 +32,6 @@ cask 'medis'
 cask 'openin'
 cask 'orbstack'
 cask 'postman'
-cask 'raycast'
 cask 'slack'
 cask 'tableplus'
 cask 'telegram'
@@ -40,8 +40,8 @@ cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
+cask 'tinycast'
 brew 'kanata'
-cask 'hiddenbar'
 
 cask 'font-fira-code-nerd-font'
 cask 'font-ioskeley-mono'
@@ -69,4 +69,8 @@ if profiles.include?('earth')
   cask 'whatsapp'
 end
 
-cask 'unifi-identity-enterprise' if profiles.include?('mars')
+if profiles.include?('mars')
+  cask 'unifi-identity-enterprise' 
+  cask 'raycast'
+  cask 'hiddenbar'
+end
