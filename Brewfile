@@ -5,8 +5,7 @@ tap 'agavra/tap', trusted: { formula: 'tuicr' }
 tap 'asmvik/formulae', trusted: { formula: 'skhd' }
 tap 'nikitabobko/tap', trusted: { cask: 'aerospace' }
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
-tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
-tap 'abue-ammar/tinycast', trusted: { formula: 'tinycast' }
+# tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
 brew 'btop'
 brew 'cocoapods'
@@ -27,7 +26,6 @@ cask 'daisydisk'
 cask 'forklift'
 cask 'ghostty'
 cask 'google-chrome'
-cask 'macwhisper'
 cask 'medis'
 cask 'openin'
 cask 'orbstack'
@@ -40,7 +38,7 @@ cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'nikitabobko/tap/aerospace'
 cask 'xykong/tap/flux-markdown'
-cask 'tinycast'
+cask 'raycast'
 brew 'kanata'
 
 cask 'font-fira-code-nerd-font'
