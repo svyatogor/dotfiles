@@ -10,6 +10,7 @@ min_version = "2026.8.3"
 ] }
 "~/.config/btop/btop.conf" = { source = "dotfiles/config/btop/btop.conf", mode = "copy" }
 "~/.config/mise/miserc.toml" = { source = "profiles/mise/miserc.toml", mode = "template" }
+"~/.config/nvim" = { source = "nvim", mode = "symlink" }
 "~/.local/bin" = { source = "bin", mode = "symlink-each" }
 "~/.zshrc" = { source = "dotfiles/zshrc", mode = "symlink" }
 # Shared skills, one copy read by both agents. symlink-each leaves machine-local skills
