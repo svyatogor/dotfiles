@@ -63,11 +63,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require('nvim-treesitter-textobjects').setup { move = { set_jumps = true } }
+require('nvim-treesitter-textobjects').setup { move = { set_jumps = true }, select = { lookahead = true } }
 
 -- ]f/]c/]a jump to the start of the next function/class/parameter, ]F/]C/]A to its end; [ reverses.
 local move = require 'nvim-treesitter-textobjects.move'
-for key, query in pairs { f = '@function.outer', c = '@class.outer', a = '@parameter.inner' } do
+for key, query in pairs { f = '@function.outer', c = '@comment.outer', C = '@class.outer', a = '@parameter.inner' } do
   local name = query:match '@(%w+)'
   local function jump(fn, dir)
     vim.keymap.set(
@@ -81,4 +81,16 @@ for key, query in pairs { f = '@function.outer', c = '@class.outer', a = '@param
   jump('goto_previous_start', '[' .. key)
   jump('goto_next_end', ']' .. key:upper())
   jump('goto_previous_end', '[' .. key:upper())
+end
+
+-- af/if function, aa/ia parameter, ac/ic comment (works with d, y, v, etc.)
+local select = require 'nvim-treesitter-textobjects.select'
+for key, queries in pairs {
+  f = { outer = '@function.outer', inner = '@function.inner' },
+  a = { outer = '@parameter.outer', inner = '@parameter.inner' },
+  c = { outer = '@comment.outer', inner = '@comment.inner' },
+} do
+  local name = queries.outer:match '@(%w+)'
+  vim.keymap.set({ 'x', 'o' }, 'a' .. key, function() select.select_textobject(queries.outer, 'textobjects') end, { desc = 'Select around ' .. name })
+  vim.keymap.set({ 'x', 'o' }, 'i' .. key, function() select.select_textobject(queries.inner, 'textobjects') end, { desc = 'Select inside ' .. name })
 end
