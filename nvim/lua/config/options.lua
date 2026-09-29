@@ -21,6 +21,14 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = {
+  eob = ' ',
+  fold = ' ',
+  foldopen = '',
+  foldclose = '',
+  foldsep = ' ',
+  diff = '╱',
+}
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.confirm = true
