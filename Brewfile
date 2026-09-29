@@ -1,9 +1,6 @@
 profiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
 raise 'Set HOMEBREW_DOTFILES_PROFILE to exactly one of: earth, mars' unless (profiles & %w[earth mars]).one?
 
-tap 'agavra/tap', trusted: { formula: 'tuicr' }
-tap 'asmvik/formulae', trusted: { formula: 'skhd' }
-tap 'nikitabobko/tap', trusted: { cask: 'aerospace' }
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 # tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
@@ -36,7 +33,7 @@ cask 'telegram'
 cask 'the-unarchiver'
 cask 'visual-studio-code'
 cask 'yandex-music'
-cask 'nikitabobko/tap/aerospace'
+cask 'omniwm'
 cask 'xykong/tap/flux-markdown'
 cask 'raycast'
 brew 'kanata'
@@ -69,6 +66,5 @@ end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
-  cask 'raycast'
   cask 'hiddenbar'
 end
