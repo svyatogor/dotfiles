@@ -21,7 +21,6 @@ cask '1password'
 cask '1password-cli'
 cask 'daisydisk'
 cask 'forklift'
-cask 'ghostty'
 cask 'google-chrome'
 cask 'medis'
 cask 'openin'
@@ -62,9 +61,11 @@ if profiles.include?('earth')
   cask 'tailscale-app'
   cask 'transmission'
   cask 'whatsapp'
+  cask 'ghostty@tip'
 end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
   cask 'hiddenbar'
+  cask 'ghostty'
 end
