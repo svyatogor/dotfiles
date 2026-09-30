@@ -13,7 +13,7 @@ window-padding-balance = true
 window-padding-x = 4
 window-padding-y = 8
 
-macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 macos-option-as-alt = true
 
 font-size = 14
@@ -64,3 +64,30 @@ keybind = ctrl+ш=text:\x17
 keybind = ctrl+ь=text:\x18
 keybind = ctrl+ы=text:\x19
 keybind = ctrl+з=text:\x1a
+
+# Outside Neovim.
+# Move
+keybind = performable:ctrl+h=goto_split:left
+keybind = performable:ctrl+j=goto_split:down
+keybind = performable:ctrl+k=goto_split:up
+keybind = performable:ctrl+l=goto_split:right
+
+# Resize
+keybind = performable:alt+h=resize_split:left,30
+keybind = performable:alt+j=resize_split:down,30
+keybind = performable:alt+k=resize_split:up,30
+keybind = performable:alt+l=resize_split:right,30
+
+# Inside Neovim.
+keybind = nvim/
+# Move
+keybind = nvim/ctrl+h=text:\x08
+keybind = nvim/ctrl+j=text:\x0a
+keybind = nvim/ctrl+k=text:\x0b
+keybind = nvim/ctrl+l=text:\x0c
+
+# Resize
+keybind = nvim/alt+h=esc:h
+keybind = nvim/alt+j=esc:j
+keybind = nvim/alt+k=esc:k
+keybind = nvim/alt+l=esc:l

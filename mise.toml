@@ -7,10 +7,8 @@ min_version = "2026.8.3"
 [dotfiles]
 "~/.config" = { source = "dotfiles/config", mode = "symlink-each", exclude = [
   "btop/btop.conf",
-  "omniwm/settings.toml",
 ] }
 "~/.config/btop/btop.conf" = { source = "dotfiles/config/btop/btop.conf", mode = "copy" }
-"~/.config/omniwm/settings.toml" = { source = "dotfiles/config/omniwm/settings.toml", mode = "copy" }
 "~/.config/mise/miserc.toml" = { source = "profiles/mise/miserc.toml", mode = "template" }
 "~/.config/nvim" = { source = "nvim", mode = "symlink" }
 "~/.local/bin" = { source = "bin", mode = "symlink-each" }
