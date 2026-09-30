@@ -41,7 +41,7 @@ useGlobalGaps = true
 [focus]
 crossesMonitorAtEdge = true
 followsMouse = false
-followsWindowToMonitor = false
+followsWindowToMonitor = true
 lockModifier = "off"
 moveCrossesMonitorAtEdge = false
 moveMouseToFocusedWindow = false
@@ -977,7 +977,7 @@ binding = "Unassigned"
 id = "openCommandPalette"
 
 [[hotkeys]]
-binding = "Option+Shift+R"
+binding = "Unassigned"
 id = "raiseAllFloatingWindows"
 
 [[hotkeys]]
@@ -985,7 +985,7 @@ binding = "Unassigned"
 id = "rescueOffscreenWindows"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Shift+Comma"
 id = "toggleFocusedWindowFloating"
 
 [[hotkeys]]
@@ -1013,7 +1013,7 @@ binding = "Unassigned"
 id = "toggleWorkspaceLayout"
 
 [[hotkeys]]
-binding = "Option+Shift+O"
+binding = "Unassigned"
 id = "toggleOverview"
 
 [[hotkeys]]
