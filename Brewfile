@@ -6,7 +6,6 @@ tap 'Giammarco-Ferranti/deja', trusted: {formula: 'deja' }
 # tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
 brew 'btop'
-brew 'cocoapods'
 brew 'coreutils'
 brew 'git'
 brew 'gmp'
@@ -70,4 +69,5 @@ if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
   cask 'hiddenbar'
   cask 'ghostty'
+  cask 'claude'
 end

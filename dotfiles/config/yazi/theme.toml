@@ -1,4 +1,4 @@
 # Use one deterministic flavor in every terminal mode.
 [flavor]
-dark = "catppuccin-frappe"
-light = "catppuccin-frappe"
+dark = "circadia-light"
+light = "circadia-light"

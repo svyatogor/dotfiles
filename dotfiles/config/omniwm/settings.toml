@@ -40,11 +40,11 @@ useGlobalGaps = true
 
 [focus]
 crossesMonitorAtEdge = true
-followsMouse = false
+followsMouse = true
 followsWindowToMonitor = true
 lockModifier = "off"
-moveCrossesMonitorAtEdge = false
-moveMouseToFocusedWindow = false
+moveCrossesMonitorAtEdge = true
+moveMouseToFocusedWindow = true
 raiseOnMouseFocus = false
 
 [gaps]
@@ -74,7 +74,7 @@ mouseMoveModifierKey = "option"
 mouseResizeModifierKey = "option"
 overviewGestureEnabled = false
 overviewGestureFingerCount = 4
-scrollEnabled = false
+scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
 trackpadScrollStyle = "snap"
@@ -91,6 +91,16 @@ workspaceSwipeFingerCount = 3
 enabled = false
 hiddenBundleIDs = []
 rehideIntervalSeconds = 5.0
+
+[monitors]
+
+[[monitors.ranking]]
+displayUUID = "1CAD44FF-C6D9-4B9F-B214-F7A7F63044AE"
+name = "Studio Display"
+
+[[monitors.ranking]]
+displayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+name = "Built-in Retina Display"
 
 [mouseWarp]
 constrainToArrangement = false
@@ -151,8 +161,22 @@ position = "top"
 widthPercent = 100.0
 
 [routing]
-arrangements = []
-mode = "macOS"
+mode = "custom"
+
+[[routing.arrangements]]
+id = "97ACD620-646A-45D3-85F4-18482B43C9B6"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 1
+monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+monitorName = "Built-in Retina Display"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayUUID = "1CAD44FF-C6D9-4B9F-B214-F7A7F63044AE"
+monitorName = "Studio Display"
 
 [scratchpads]
 
@@ -677,11 +701,11 @@ binding = "Unassigned"
 id = "moveWorkspaceToMonitor.right"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Shift+Up Arrow"
 id = "moveWorkspaceToMonitor.up"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Shift+Down Arrow"
 id = "moveWorkspaceToMonitor.down"
 
 [[hotkeys]]
@@ -1028,7 +1052,7 @@ outerGapTop = 44.0
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
-layoutType = "default"
+layoutType = "niri"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -1057,7 +1081,7 @@ layoutType = "default"
 name = "4"
 
 [workspaces.monitorAssignment]
-type = "main"
+type = "secondary"
 
 [[workspaces]]
 displayName = "🔨"

@@ -1,2 +1,2 @@
 [user]
-  signingKey = ~/.ssh/id_edsa.pub
+  signingKey = ~/.ssh/id_ed25519.pub

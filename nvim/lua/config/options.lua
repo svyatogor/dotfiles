@@ -41,6 +41,9 @@ vim.opt.foldlevelstart = 99
 vim.o.winborder = 'rounded'
 vim.opt.iskeyword:append '-'
 
+-- gq wrap column; editorconfig's max_line_length overrides this per-project
+vim.o.textwidth = 100
+
 vim.opt.termguicolors = true
 vim.g.clipboard = 'osc52'
 vim.opt.clipboard = 'unnamedplus'
