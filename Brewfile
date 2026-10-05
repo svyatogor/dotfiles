@@ -2,6 +2,7 @@ profiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
 raise 'Set HOMEBREW_DOTFILES_PROFILE to exactly one of: earth, mars' unless (profiles & %w[earth mars]).one?
 
 tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
+tap 'Giammarco-Ferranti/deja', trusted: {formula: 'deja' }
 # tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
 brew 'btop'
@@ -36,6 +37,7 @@ cask 'omniwm'
 cask 'xykong/tap/flux-markdown'
 cask 'raycast'
 brew 'kanata'
+brew 'deja'
 
 cask 'font-fira-code-nerd-font'
 cask 'font-ioskeley-mono'
