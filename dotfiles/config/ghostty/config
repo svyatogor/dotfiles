@@ -1,12 +1,12 @@
-theme = Catppuccin Frappe
+theme = light:circadia-light.ghostty,dark:circadia-dark.ghostty
 
 shell-integration = zsh
 shell-integration-features = true
 clipboard-read = allow
 
-background-opacity = 0.92
+#background-opacity = 0.92
 window-colorspace = display-p3
-background-blur = macos-glass-regular
+#background-blur = macos-glass-regular
 #background-blur = 50
 
 window-padding-balance = true
@@ -16,25 +16,11 @@ window-padding-y = 8
 macos-titlebar-style = tabs
 macos-option-as-alt = true
 
-font-size = 14
+font-size = 13
 adjust-cell-height = 20%
-font-family = Ioskeley Mono Term
+#font-family = Ioskeley Mono Term
+font-family = Lilex
 
-# Tmux shortcuts implemented as terminal-side key sequences.
-# Ctrl+1 sends \x02 (Ctrl+B, tmux's default prefix), then the literal 1;
-# Ctrl+2 through Ctrl+9 do the same with their respective digit.
-# These are equivalent to pressing prefix + number, not distinct Ctrl+number keys.
-keybind = ctrl+1=text:\x021
-keybind = ctrl+2=text:\x022
-keybind = ctrl+3=text:\x023
-keybind = ctrl+4=text:\x024
-keybind = ctrl+5=text:\x025
-keybind = ctrl+6=text:\x026
-keybind = ctrl+7=text:\x027
-keybind = ctrl+8=text:\x028
-keybind = ctrl+9=text:\x029
-# Ctrl+Tab sends Ctrl+B followed by l, equivalent to prefix + l (last window).
-keybind = ctrl+tab=text:\x02l
 # Shift+Enter sends Escape followed by carriage return, equivalent to Alt+Enter.
 keybind = shift+enter=text:\x1b\r
 
@@ -91,3 +77,11 @@ keybind = nvim/alt+h=esc:h
 keybind = nvim/alt+j=esc:j
 keybind = nvim/alt+k=esc:k
 keybind = nvim/alt+l=esc:l
+
+# Tabs: send CSI-u encoded keys so Neovim sees <C-Tab>, <C-S-Tab>, <C-1>..<C-4>.
+keybind = nvim/ctrl+tab=text:\x1b[9;5u
+keybind = nvim/ctrl+shift+tab=text:\x1b[9;6u
+keybind = nvim/ctrl+1=text:\x1b[49;5u
+keybind = nvim/ctrl+2=text:\x1b[50;5u
+keybind = nvim/ctrl+3=text:\x1b[51;5u
+keybind = nvim/ctrl+4=text:\x1b[52;5u

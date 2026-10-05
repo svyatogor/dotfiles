@@ -12,6 +12,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gO', fzf.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
     vim.keymap.set('n', 'gW', fzf.lsp_live_workspace_symbols, { buffer = buf, desc = 'Open Workspace Symbols' })
     vim.keymap.set('n', 'grt', fzf.lsp_typedefs, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+
+    vim.keymap.set('n', '<leader>gs', function()
+      local cur = vim.api.nvim_get_current_win()
+      vim.lsp.buf.definition {
+        on_list = function(opts)
+          if not opts or not opts.items or vim.tbl_isempty(opts.items) then
+            vim.notify('No definition found', vim.log.levels.INFO)
+            return
+          end
+          vim.api.nvim_set_current_win(cur)
+          vim.cmd 'wincmd l'
+          if vim.api.nvim_get_current_win() == cur then
+            vim.cmd 'vsplit'
+          end
+          vim.fn.setqflist({}, ' ', opts)
+          vim.cmd 'cc 1'
+          vim.cmd 'cclose'
+        end,
+      }
+    end, { buffer = buf, desc = '[G]oto Definition in Right [S]plit' })
   end,
 })
 
@@ -22,6 +42,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
       mode = mode or 'n'
       vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
     end
+
+    -- conform.nvim (<leader>cf, format-on-save) owns code formatting; keep gq on
+    -- Neovim's native formatter so it reflows comment/prose text (LSP formatexpr doesn't).
+    -- '1' means "always defer to internal formatting" (see 'formatexpr'). Clearing to ''/nil
+    -- doesn't stick: core's lsp._set_defaults treats an empty formatexpr as fair game and
+    -- reclaims it the moment a second client (e.g. eslint) attaches to the same buffer.
+    vim.bo[event.buf].formatexpr = '1'
 
     map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
     map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })

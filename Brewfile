@@ -5,7 +5,6 @@ tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 # tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
 
 brew 'btop'
-brew 'cocoapods'
 brew 'coreutils'
 brew 'git'
 brew 'gmp'
@@ -68,4 +67,5 @@ if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
   cask 'hiddenbar'
   cask 'ghostty'
+  cask 'claude'
 end

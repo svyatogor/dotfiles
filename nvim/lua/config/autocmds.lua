@@ -17,3 +17,16 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   callback = function() vim.diagnostic.enable(false, { bufnr = 0 }) end,
 })
+
+-- A bg-only CursorLine on a diff line renders as an underline; keep just the line number there.
+-- Diffview sets 'diff' with autocmds suppressed, so OptionSet misses it; its own event covers that.
+vim.api.nvim_create_autocmd({ 'OptionSet', 'VimEnter', 'User' }, {
+  group = augroup 'diff_cursorline',
+  pattern = { 'diff', '*', 'DiffviewDiffBufWinEnter' },
+  callback = function(ev)
+    if ev.event == 'OptionSet' and ev.match ~= 'diff' then return end
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      vim.wo[win][0].cursorlineopt = vim.wo[win].diff and 'number' or 'both'
+    end
+  end,
+})

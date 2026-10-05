@@ -4,8 +4,8 @@ options=(
     style=round
     width=6.0
     blacklist="Stats"
-    active_color=0xffe1e3e4 
-    inactive_color=0xff494d64 
+    active_color=0xff0048b3 
+    inactive_color=0xffd7cdb7 
     width=5.0
 )
 

@@ -18,8 +18,16 @@ vim.keymap.set(
 vim.diagnostic.config {
   update_in_insert = false,
   severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.HINT] = ' ',
+    },
+  },
   float = { border = 'rounded', source = 'if_many' },
-  underline = { severity = { min = vim.diagnostic.severity.WARN } },
+  underline = true,
   virtual_text = false,
   virtual_lines = false,
   jump = {
@@ -57,10 +65,13 @@ vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = tr
 vim.keymap.set('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
 vim.keymap.set('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
 vim.keymap.set('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
-vim.keymap.set('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
-vim.keymap.set('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
+vim.keymap.set('n', '<C-t>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+vim.keymap.set('n', '<C-Tab>', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
 vim.keymap.set('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
-vim.keymap.set('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+vim.keymap.set('n', '<C-S-Tab>', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+for i = 1, 4 do
+  vim.keymap.set('n', '<C-' .. i .. '>', i .. 'gt', { desc = 'Tab ' .. i })
+end
 
 vim.keymap.set('v', '<leader>yf', function()
   local start_line = vim.fn.line 'v'
