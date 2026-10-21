@@ -34,6 +34,7 @@ cask 'yandex-music'
 cask 'omniwm'
 cask 'xykong/tap/flux-markdown'
 cask 'raycast'
+cask 'ghostty@tip'
 brew 'kanata'
 
 cask 'font-fira-code-nerd-font'
@@ -60,12 +61,10 @@ if profiles.include?('earth')
   cask 'tailscale-app'
   cask 'transmission'
   cask 'whatsapp'
-  cask 'ghostty@tip'
 end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
-  cask 'hiddenbar'
-  cask 'ghostty'
+  # cask 'hiddenbar'
   cask 'claude'
 end
