@@ -33,11 +33,11 @@ if (( $+functions[zinit] )); then
   zinit light hlissner/zsh-autopair
   zinit light urbainvaes/fzf-marks
 
-autoload -U compinit && compinit
-zinit cdreplay -q
+  autoload -U compinit && compinit
+  zinit cdreplay -q
 
-  zinit ice wait lucid
-  zinit light zsh-users/zsh-autosuggestions
+  zinit ice wait"0" lucid depth=1 pick"deja.plugin.zsh"
+  zinit light Giammarco-Ferranti/deja
 
   ZSH_HIGHLIGHT_MAXLENGTH=512
   [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/themes/current/zsh-syntax-highlighting.zsh" ]] &&
