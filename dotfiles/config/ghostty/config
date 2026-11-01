@@ -18,7 +18,7 @@ macos-option-as-alt = true
 
 font-size = 13
 adjust-cell-height = 20%
-#font-family = Ioskeley Mono Term
+font-feature = "onum,ss02"
 font-family = Lilex
 
 # Shift+Enter sends Escape followed by carriage return, equivalent to Alt+Enter.

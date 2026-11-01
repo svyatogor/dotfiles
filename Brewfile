@@ -35,6 +35,7 @@ cask 'yandex-music'
 cask 'omniwm'
 cask 'xykong/tap/flux-markdown'
 cask 'raycast'
+cask 'ghostty@tip'
 brew 'kanata'
 brew 'deja'
 
@@ -67,6 +68,5 @@ end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
-  cask 'hiddenbar'
   cask 'claude'
 end

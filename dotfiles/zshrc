@@ -36,6 +36,8 @@ if (( $+functions[zinit] )); then
   autoload -U compinit && compinit
   zinit cdreplay -q
 
+  # Keep Tab for fzf-tab; deja otherwise rebinds it every prompt to cycle history.
+  DEJA_CYCLE_KEY=
   zinit ice wait"0" lucid depth=1 pick"deja.plugin.zsh"
   zinit light Giammarco-Ferranti/deja
 
