@@ -6,7 +6,12 @@ vim.pack.add {
 require('guess-indent').setup {}
 
 if vim.g.have_nerd_font then
-  require('mini.icons').setup()
+  require('mini.icons').setup {
+    extension = {
+      ['spec.ts'] = { glyph = '󰙨', hl = 'MiniIconsGreen' }, -- nf-md-test_tube
+      ['e2e-spec.ts'] = { glyph = '󰙨', hl = 'MiniIconsGreen' }, -- nf-md-test_tube
+    },
+  }
   MiniIcons.mock_nvim_web_devicons()
   MiniIcons.tweak_lsp_kind()
 end
