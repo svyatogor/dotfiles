@@ -46,6 +46,7 @@ cask 'font-lilex'
 cask 'font-maple-mono-nf'
 cask 'font-symbols-only-nerd-font'
 cask 'font-ubuntu-mono'
+cask 'ghostty'
 
 if profiles.include?('earth')
   brew 'mole'
@@ -62,12 +63,10 @@ if profiles.include?('earth')
   cask 'tailscale-app'
   cask 'transmission'
   cask 'whatsapp'
-  cask 'ghostty@tip'
 end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
   cask 'hiddenbar'
-  cask 'ghostty'
   cask 'claude'
 end
