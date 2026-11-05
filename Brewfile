@@ -1,10 +1,6 @@
 profiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
 raise 'Set HOMEBREW_DOTFILES_PROFILE to exactly one of: earth, mars' unless (profiles & %w[earth mars]).one?
 
-tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
-tap 'Giammarco-Ferranti/deja', trusted: {formula: 'deja' }
-# tap 'FelixKratz/formulae', trusted: { formula: %w[borders sketchybar] }
-
 brew 'btop'
 brew 'coreutils'
 brew 'git'
@@ -14,16 +10,12 @@ brew 'libpq'
 brew 'libyaml'
 brew 'tree-sitter-cli'
 brew 'wget'
-# brew 'FelixKratz/formulae/borders'
-# brew 'FelixKratz/formulae/sketchybar'
 
 cask '1password'
 cask '1password-cli'
 cask 'daisydisk'
-cask 'forklift'
 cask 'google-chrome'
 cask 'medis'
-cask 'openin'
 cask 'orbstack'
 cask 'postman'
 cask 'slack'
@@ -33,11 +25,11 @@ cask 'the-unarchiver'
 cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'omniwm'
-cask 'xykong/tap/flux-markdown'
 cask 'raycast'
-cask 'ghostty@tip'
 brew 'kanata'
 brew 'deja'
+cask 'ghostty'
+cask 'claude'
 
 cask 'font-fira-code-nerd-font'
 cask 'font-ioskeley-mono'
@@ -47,7 +39,6 @@ cask 'font-lilex'
 cask 'font-maple-mono-nf'
 cask 'font-symbols-only-nerd-font'
 cask 'font-ubuntu-mono'
-cask 'ghostty'
 
 if profiles.include?('earth')
   brew 'mole'
@@ -64,9 +55,10 @@ if profiles.include?('earth')
   cask 'tailscale-app'
   cask 'transmission'
   cask 'whatsapp'
+  cask 'forklift'
+  cask 'openin'
 end
 
 if profiles.include?('mars')
   cask 'unifi-identity-enterprise' 
-  cask 'claude'
 end
