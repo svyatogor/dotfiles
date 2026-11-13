@@ -1,4 +1,4 @@
-profiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
+brprofiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
 raise 'Set HOMEBREW_DOTFILES_PROFILE to exactly one of: earth, mars' unless (profiles & %w[earth mars]).one?
 
 brew 'btop'
@@ -25,10 +25,10 @@ cask 'the-unarchiver'
 cask 'visual-studio-code'
 cask 'yandex-music'
 cask 'omniwm'
-cask 'tinycast'
 brew 'kanata'
 brew 'deja'
 cask 'ghostty'
+cask 'tinycast'
 cask 'claude'
 
 cask 'font-fira-code-nerd-font'

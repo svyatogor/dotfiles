@@ -25,3 +25,4 @@ neogit.setup {
 
 vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Open Neogit UI" })
 
+vim.keymap.set('n', '<leader>gw', '<cmd>Gwrite<cr>', { desc = 'Git Write (stage file)' })

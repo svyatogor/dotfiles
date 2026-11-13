@@ -1,4 +1,5 @@
 require 'config.options'
+require 'config.langmapper'
 require 'config.keymaps'
 require 'config.autocmds'
 require 'config.review'

@@ -1,5 +1,20 @@
 gui:
   nerdFontsVersion: "3"
+  # Named ANSI colours only, so they follow the terminal's live theme.
+  # Selected-line colours are left to lazygit, which derives them from the
+  # terminal background at startup; Rex's contrast correction keeps text legible.
+  theme:
+    activeBorderColor: [blue, bold]
+    # Not [default, dim]: lazygit renders that as ANSI white, invisible on light.
+    inactiveBorderColor: [default]
+    searchingActiveBorderColor: [magenta, bold]
+    optionsTextColor: [blue]
+    cherryPickedCommitFgColor: [blue]
+    cherryPickedCommitBgColor: [default]
+    markedBaseCommitFgColor: [blue]
+    markedBaseCommitBgColor: [default]
+    unstagedChangesColor: [red]
+    defaultFgColor: [default]
 customCommands:
   - key: "C"
     context: "files"

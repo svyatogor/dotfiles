@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Terminal palette theme. bat reads #NN000000 as palette index NN (hex) and
+  #00000001 as the terminal default, so colours follow the terminal's live
+  theme. Roles: see "Terminal colours" in the repository README.
+-->
+<plist version="1.0">
+<dict>
+  <key>name</key><string>terminal</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key><string>#00000001</string>
+        <key>background</key><string>#00000001</string>
+        <key>caret</key><string>#00000001</string>
+        <key>lineHighlight</key><string>#EA000000</string>
+        <key>selection</key><string>#EC000000</string>
+        <key>gutter</key><string>#00000001</string>
+        <key>gutterForeground</key><string>#F0000000</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>comment, punctuation.definition.comment</string>
+      <key>settings</key><dict><key>foreground</key><string>#F6000000</string><key>fontStyle</key><string>italic</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>string, punctuation.definition.string, markup.raw</string>
+      <key>settings</key><dict><key>foreground</key><string>#02000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>constant.numeric, constant.language, constant.character, constant.other, string.regexp, constant.character.escape</string>
+      <key>settings</key><dict><key>foreground</key><string>#06000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>keyword, storage, keyword.operator.word</string>
+      <key>settings</key><dict><key>foreground</key><string>#05000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>keyword.operator, punctuation</string>
+      <key>settings</key><dict><key>foreground</key><string>#00000001</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>storage.type, support.type, support.class, entity.name.type, entity.name.class, entity.other.inherited-class, entity.other.attribute-name</string>
+      <key>settings</key><dict><key>foreground</key><string>#03000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>entity.name.function, support.function, meta.function-call variable.function, entity.name.tag, markup.heading, entity.name.section</string>
+      <key>settings</key><dict><key>foreground</key><string>#04000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.heading, entity.name.section, markup.bold</string>
+      <key>settings</key><dict><key>fontStyle</key><string>bold</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.italic</string>
+      <key>settings</key><dict><key>fontStyle</key><string>italic</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.underline.link, string.other.link</string>
+      <key>settings</key><dict><key>foreground</key><string>#04000000</string><key>fontStyle</key><string>underline</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.inserted</string>
+      <key>settings</key><dict><key>foreground</key><string>#02000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.deleted, invalid</string>
+      <key>settings</key><dict><key>foreground</key><string>#01000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>markup.changed</string>
+      <key>settings</key><dict><key>foreground</key><string>#03000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>meta.diff.range, meta.diff.header, meta.separator</string>
+      <key>settings</key><dict><key>foreground</key><string>#06000000</string></dict>
+    </dict>
+  </array>
+</dict>
+</plist>

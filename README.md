@@ -48,3 +48,26 @@ Editor-owned configuration that rewrites files (`git`, `btop`, Zed, and Lazydock
 Do not run with `--force-dotfiles` on an existing machine until the dry-run output has been reviewed.
 
 Linux VMs run the same Bootstrap command; Mise does not load `mise.macos.toml` there, so Homebrew and macOS-only dotfiles are skipped. Devcontainers remain out of scope.
+
+## Terminal colours
+
+The terminal (Ghostty, Rex) is the only place that defines colours. Tools refer to
+palette indices, so switching the terminal between light and dark recolours them
+live, including programs already running. Indices 16–255 must be generated from
+the theme with the background→foreground ramp in both modes (Ghostty:
+`palette-generate`, `palette-harmonious`; Rex: "Use extended theme palette").
+
+| Role | Index |
+| --- | --- |
+| Text, background | default (`-1`) |
+| Surface: current line | `234` |
+| Surface: selection | `236` |
+| Borders, separators | `240` |
+| Muted text, comments | `246` |
+| Secondary text | `249` |
+| Error / ok / warning / primary / keyword / info | `1` / `2` / `3` / `4` / `5` / `6` |
+| Diff removed / added background | `52` / `22` |
+| Diff removed / added emphasis | `88` / `28` |
+
+Avoid `0`, `7`, `15` (fixed black/white, invisible on one of the backgrounds),
+`9`–`14` (too pale on light backgrounds), and `16`/`231` (use default instead).

@@ -5,6 +5,11 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
+-- macOS "Russian – Phonetic" → ABC, dumped from the system layout via UCKeyTranslate
+local ru = [[асдфчгзхцвбяшерытъьжоуюиплйкэнмщАСДФЧГЗХЦВБЯШЕРЫТЪЬЖОУЮИПЛЙКЭНМЩ]]
+local en = [[asdfhgzxcvbqweryt=-]ou[ipljk\nm`ASDFHGZXCVBQWERYT+_}OU{IPLJK|NM~]]
+vim.o.langmap = vim.fn.escape(ru, [[;,"|\]]) .. ';' .. vim.fn.escape(en, [[;,"|\]])
+
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = 'a'

@@ -42,8 +42,19 @@ if (( $+functions[zinit] )); then
   zinit light Giammarco-Ferranti/deja
 
   ZSH_HIGHLIGHT_MAXLENGTH=512
-  [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/themes/current/zsh-syntax-highlighting.zsh" ]] &&
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/themes/current/zsh-syntax-highlighting.zsh"
+  # Terminal palette indices; roles in the repository README ("Terminal colours").
+  typeset -gA ZSH_HIGHLIGHT_STYLES=(
+    command fg=4 builtin fg=4 function fg=4 alias fg=4 suffix-alias fg=4
+    global-alias fg=4 hashed-command fg=4 precommand fg=4,italic
+    autodirectory fg=4,underline
+    reserved-word fg=5 back-quoted-argument fg=5 redirection fg=5
+    unknown-token fg=1
+    single-hyphen-option fg=3 double-hyphen-option fg=3
+    single-quoted-argument fg=2 double-quoted-argument fg=2 dollar-quoted-argument fg=2
+    globbing fg=6 history-expansion fg=6
+    path underline
+    comment fg=246
+  )
   zinit ice wait lucid
   zinit light zsh-users/zsh-syntax-highlighting
 fi

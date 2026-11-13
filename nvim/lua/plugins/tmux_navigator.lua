@@ -3,6 +3,19 @@ if vim.env.TMUX and vim.env.TMUX ~= '' then
   return
 end
 
+if vim.env.TERM_PROGRAM == 'rex' then
+  -- Rex passes ctrl+hjkl through to Neovim; at the edge, hand focus back to Rex.
+  local rex = vim.env.REX_BIN_DIR .. '/rex'
+  for key, dir in pairs { h = 'left', j = 'down', k = 'up', l = 'right' } do
+    vim.keymap.set('n', '<C-' .. key .. '>', function()
+      local win = vim.api.nvim_get_current_win()
+      vim.cmd.wincmd(key)
+      if win == vim.api.nvim_get_current_win() then vim.system { rex, 'focus', '-s', vim.env.REX_SESSION, dir } end
+    end)
+  end
+  return
+end
+
 if vim.env.TERM_PROGRAM ~= 'ghostty' then return end
 
 vim.pack.add {

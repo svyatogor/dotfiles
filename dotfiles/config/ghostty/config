@@ -1,10 +1,17 @@
-theme = Catppuccin Frappe
+theme = Monokai Pro Light
+# Derive palette 16–255 from the theme, ordered background→foreground in both
+# light and dark, so tools can use indices as roles (README "Terminal colours").
+palette-generate = true
+palette-harmonious = true
 
 shell-integration = zsh
 shell-integration-features = true
 clipboard-read = allow
 
-#background-opacity = 0.92
+palette-generate = true
+palette-harmonious = true
+
+#background-opacity = 0
 window-colorspace = display-p3
 #background-blur = macos-glass-regular
 #background-blur = 50
@@ -33,7 +40,7 @@ keybind = ctrl+д=text:\x04
 keybind = ctrl+е=text:\x05
 keybind = ctrl+ф=text:\x06
 keybind = ctrl+г=text:\x07
-keybind = ctrl+х=text:\x08
+keybind = ctrl+х=text:\x18
 keybind = ctrl+и=text:\x09
 keybind = ctrl+к=text:\x0b
 keybind = ctrl+л=text:\x0c
@@ -47,33 +54,32 @@ keybind = ctrl+т=text:\x14
 keybind = ctrl+у=text:\x15
 keybind = ctrl+в=text:\x16
 keybind = ctrl+ш=text:\x17
-keybind = ctrl+ь=text:\x18
 keybind = ctrl+ы=text:\x19
 keybind = ctrl+з=text:\x1a
 
 # Outside Neovim.
 # Move
-keybind = performable:ctrl+h=goto_split:left
-keybind = performable:ctrl+j=goto_split:down
-keybind = performable:ctrl+k=goto_split:up
-keybind = performable:ctrl+l=goto_split:right
+keybind = performable:ctrl+key_h=goto_split:left
+keybind = performable:ctrl+key_j=goto_split:down
+keybind = performable:ctrl+key_k=goto_split:up
+keybind = performable:ctrl+key_l=goto_split:right
 
 # Resize
-keybind = performable:alt+h=resize_split:left,30
-keybind = performable:alt+j=resize_split:down,30
-keybind = performable:alt+k=resize_split:up,30
-keybind = performable:alt+l=resize_split:right,30
+keybind = performable:alt+key_h=resize_split:left,30
+keybind = performable:alt+key_j=resize_split:down,30
+keybind = performable:alt+key_k=resize_split:up,30
+keybind = performable:alt+key_l=resize_split:right,30
 
 # Inside Neovim.
 keybind = nvim/
 # Move
-keybind = nvim/ctrl+h=text:\x08
-keybind = nvim/ctrl+j=text:\x0a
-keybind = nvim/ctrl+k=text:\x0b
-keybind = nvim/ctrl+l=text:\x0c
+keybind = nvim/ctrl+key_h=text:\x08
+keybind = nvim/ctrl+key_j=text:\x0a
+keybind = nvim/ctrl+key_k=text:\x0b
+keybind = nvim/ctrl+key_l=text:\x0c
 
 # Resize
-keybind = nvim/alt+h=esc:h
-keybind = nvim/alt+j=esc:j
-keybind = nvim/alt+k=esc:k
-keybind = nvim/alt+l=esc:l
+keybind = nvim/alt+key_h=esc:h
+keybind = nvim/alt+key_j=esc:j
+keybind = nvim/alt+key_k=esc:k
+keybind = nvim/alt+key_l=esc:l
