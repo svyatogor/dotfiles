@@ -15,6 +15,10 @@ gui:
     markedBaseCommitBgColor: [default]
     unstagedChangesColor: [red]
     defaultFgColor: [default]
+  # Authors and the commit graph take this colour. Unset, lazygit hashes the name into a
+  # fixed RGB colour made for dark backgrounds (pale yellow on a light theme).
+  authorColors:
+    "*": magenta
 customCommands:
   - key: "C"
     context: "files"

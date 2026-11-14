@@ -71,13 +71,21 @@ local function query(on_done, timeout)
   end)
 end
 
--- The terminal's bg decides light or dark, not whatever scheme was loaded before (a stock dark
--- flavour leaves 'background' dark). Same luminance test Neovim uses at startup.
-function M.sync_background()
-  if not M.colors then return end
-  local r, g, b = M.colors.bg:match '#(%x%x)(%x%x)(%x%x)'
+-- Same luminance test Neovim uses at startup.
+local function background_of(c)
+  local r, g, b = c.bg:match '#(%x%x)(%x%x)(%x%x)'
   local luminance = (0.299 * tonumber(r, 16) + 0.587 * tonumber(g, 16) + 0.114 * tonumber(b, 16)) / 255
-  local background = luminance < 0.5 and 'dark' or 'light'
+  return luminance < 0.5 and 'dark' or 'light'
+end
+
+-- Schemes call this before painting: the terminal's bg decides light or dark, not the scheme
+-- loaded before (a stock dark flavour leaves 'background' dark). Only on a switch from another
+-- scheme, though. When one of ours is reloading, either Neovim has just set 'background' from
+-- the terminal's light/dark report and the palette here is still the old one, about to be
+-- refreshed, or the refresh below has set it already; correcting it would undo the switch.
+function M.sync_background()
+  if not M.colors or vim.list_contains(schemes, vim.g.colors_name) then return end
+  local background = background_of(M.colors)
   if vim.o.background ~= background then
     -- Changing 'background' reloads g:colors_name; that's the previous scheme, mid-switch.
     vim.g.colors_name = nil
@@ -100,7 +108,14 @@ local function watch()
       busy = false
       if not c or vim.deep_equal(c, M.colors) then return end
       M.colors = c
-      if vim.list_contains(schemes, vim.g.colors_name) then vim.cmd.colorscheme(vim.g.colors_name) end
+      local name = vim.g.colors_name
+      if not vim.list_contains(schemes, name) then return end
+      local background = background_of(c)
+      if vim.o.background ~= background then
+        vim.o.background = background -- reloads the scheme
+      else
+        vim.cmd.colorscheme(name)
+      end
     end)
   end
 

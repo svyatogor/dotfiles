@@ -19,7 +19,7 @@
         <key>lineHighlight</key><string>#EA000000</string>
         <key>selection</key><string>#EC000000</string>
         <key>gutter</key><string>#00000001</string>
-        <key>gutterForeground</key><string>#F0000000</string>
+        <key>gutterForeground</key><string>#F1000000</string>
       </dict>
     </dict>
     <dict>
@@ -31,8 +31,12 @@
       <key>settings</key><dict><key>foreground</key><string>#02000000</string></dict>
     </dict>
     <dict>
-      <key>scope</key><string>constant.numeric, constant.language, constant.character, constant.other, string.regexp, constant.character.escape</string>
-      <key>settings</key><dict><key>foreground</key><string>#06000000</string></dict>
+      <key>scope</key><string>constant.numeric, constant.language, constant.character, constant.other</string>
+      <key>settings</key><dict><key>foreground</key><string>#D0000000</string></dict>
+    </dict>
+    <dict>
+      <key>scope</key><string>string.regexp, constant.character.escape</string>
+      <key>settings</key><dict><key>foreground</key><string>#0D000000</string></dict>
     </dict>
     <dict>
       <key>scope</key><string>keyword, storage, keyword.operator.word</string>

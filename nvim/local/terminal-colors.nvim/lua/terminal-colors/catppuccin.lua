@@ -9,7 +9,8 @@ local M = {}
 
 -- Catppuccin's names onto terminal slots (layout in init.lua): accents are the ANSI colours,
 -- in-between hues are cube cells (r,g,b), greys are ramp steps. Mantle and crust sit just past
--- base in Catppuccin; the ramp never leaves bg..fg, so its first steps stand in.
+-- base in Catppuccin; the ramp never leaves bg..fg, so its first steps stand in. Shell tools use
+-- the same slots for the same roles: README, "Terminal colours".
 ---@param c TerminalColors
 function M.palette(c)
   return {
