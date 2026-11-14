@@ -17,6 +17,15 @@ require('diffview').setup {
   },
 }
 
+-- A new file has an empty old side, so every line would be painted as added. Skip the
+-- inline render then and show the file as plain code.
+local inline_diff = require 'diffview.scene.inline_diff'
+local render = inline_diff.render
+inline_diff.render = function(bufnr, old_lines, new_lines, opts)
+  if #old_lines == 0 then return inline_diff.clear(bufnr) end
+  return render(bufnr, old_lines, new_lines, opts)
+end
+
 local neogit = require('neogit')
 neogit.setup {
   graph_style = 'kitty',
