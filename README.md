@@ -57,17 +57,24 @@ live, including programs already running. Indices 16–255 must be generated fro
 the theme with the background→foreground ramp in both modes (Ghostty:
 `palette-generate`, `palette-harmonious`; Rex: "Use extended theme palette").
 
-| Role | Index |
-| --- | --- |
-| Text, background | default (`-1`) |
-| Surface: current line | `234` |
-| Surface: selection | `236` |
-| Borders, separators | `240` |
-| Muted text, comments | `246` |
-| Secondary text | `249` |
-| Error / ok / warning / primary / keyword / info | `1` / `2` / `3` / `4` / `5` / `6` |
-| Diff removed / added background | `52` / `22` |
-| Diff removed / added emphasis | `88` / `28` |
+| Role | Index | Catppuccin name |
+| --- | --- | --- |
+| Text, background | default (`-1`) | text, base |
+| Surface: current line | `234` | surface0 |
+| Surface: selection | `236` | surface1 |
+| Borders, separators, line numbers | `241` | overlay0 |
+| Muted text, comments | `246` | overlay2 |
+| Secondary text | `249` | subtext0 |
+| Error / ok / warning / primary / keyword / info | `1` / `2` / `3` / `4` / `5` / `6` | red / green / yellow / blue / mauve / teal |
+| Numbers, constants | `208` | peach |
+| Escapes, regex | `13` | pink |
+| Diff removed / added background | `52` / `22` | — |
+| Diff removed / added emphasis | `88` / `28` | — |
 
-Avoid `0`, `7`, `15` (fixed black/white, invisible on one of the backgrounds),
-`9`–`14` (too pale on light backgrounds), and `16`/`231` (use default instead).
+The full name → index map is `M.palette` in
+`nvim/local/terminal-colors.nvim/lua/terminal-colors/catppuccin.lua`.
+
+Avoid `0`, `7`, `15` (fixed black/white, invisible on one of the backgrounds) and
+`16`/`231` (use default instead). The bright accents `9`–`14` are about a quarter
+lower in contrast than `1`–`6`, close to Catppuccin Latte's own pastels: fine for
+secondary accents, not for body text.

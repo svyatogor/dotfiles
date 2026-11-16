@@ -1,4 +1,4 @@
-brprofiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
+profiles = ENV.fetch('HOMEBREW_DOTFILES_PROFILE', '').split(',')
 raise 'Set HOMEBREW_DOTFILES_PROFILE to exactly one of: earth, mars' unless (profiles & %w[earth mars]).one?
 
 brew 'btop'
