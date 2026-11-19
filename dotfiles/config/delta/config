@@ -1,0 +1,25 @@
+# vim: set filetype=gitconfig:
+# Read via `delta --config` (see zsh env.zsh), so no gitconfig is needed.
+[delta]
+	navigate = true
+	side-by-side = true
+	# Terminal palette indices; roles in the repository README ("Terminal colours").
+	syntax-theme = terminal
+	minus-style = syntax 52
+	minus-emph-style = bold syntax 88
+	plus-style = syntax 22
+	plus-emph-style = bold syntax 28
+	map-styles = bold purple => syntax 53, bold blue => syntax 17, bold cyan => syntax 23, bold yellow => syntax 58
+	line-numbers-left-style = 241
+	line-numbers-right-style = 241
+	line-numbers-zero-style = 246
+	line-numbers-minus-style = bold 1
+	line-numbers-plus-style = bold 2
+	file-style = bold 4
+	file-decoration-style = 241 ul
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = 241 box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = 246
+	commit-decoration-style = 241 box ul
+	blame-palette = 232 233 234 235 236
