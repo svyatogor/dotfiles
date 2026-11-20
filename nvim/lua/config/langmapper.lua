@@ -3,6 +3,8 @@ vim.pack.add { 'https://github.com/Wansmer/langmapper.nvim' }
 
 require('langmapper').setup {
   use_layouts = { 'ru' },
+  -- Never fire with Cyrillic in 'langmap' (neovim/neovim#42850); CTRL keys are swapped in options.lua
+  map_all_ctrl = false,
   custom_desc = function(desc) return desc or '' end,
   layouts = {
     ru = {

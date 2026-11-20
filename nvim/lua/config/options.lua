@@ -10,6 +10,22 @@ local ru = [[асдфчгзхцвбяшерытъьжоуюиплйкэнмщА�
 local en = [[asdfhgzxcvbqweryt=-]ou[ipljk\nm`ASDFHGZXCVBQWERYT+_}OU{IPLJK|NM~]]
 vim.o.langmap = vim.fn.escape(ru, [[;,"|\]]) .. ';' .. vim.fn.escape(en, [[;,"|\]])
 
+-- With a Cyrillic letter in 'langmap', Nvim never matches typed `<C-ш>` against
+-- mappings, so langmapper's CTRL copies are dead. Swap the key before mapping instead.
+-- TODO: drop this and re-enable langmapper's `map_all_ctrl` once
+-- https://github.com/neovim/neovim/issues/42850 is fixed.
+local ctrl_ru = {}
+local en_chars = vim.fn.split(en, [[\zs]])
+for i, char in ipairs(vim.fn.split(ru, [[\zs]])) do
+  ctrl_ru[vim.keycode('<C-' .. char .. '>')] = vim.keycode('<C-' .. en_chars[i] .. '>')
+end
+vim.on_key(function(_, typed)
+  local key = ctrl_ru[typed]
+  if not key then return end
+  vim.api.nvim_feedkeys(key, 'mit', false)
+  return ''
+end, vim.api.nvim_create_namespace 'ctrl_langmap')
+
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = 'a'
