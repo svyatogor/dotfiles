@@ -1,11 +1,5 @@
 # vim: set filetype=gitconfig:
-[alias]
-	publish = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
-
-[core]
-	autocrlf = "input"
-	pager = delta
-
+# Read via `delta --config` (see zsh env.zsh), so no gitconfig is needed.
 [delta]
 	navigate = true
 	side-by-side = true
@@ -29,47 +23,3 @@
 	hunk-header-line-number-style = 246
 	commit-decoration-style = 241 box ul
 	blame-palette = 232 233 234 235 236
-
-[filter "lfs"]
-	clean = "git-lfs clean -- %f"
-	process = "git-lfs filter-process"
-	required = true
-	smudge = "git-lfs smudge -- %f"
-
-[gpg]
-	format = ssh
-
-[commit]
-	gpgSign = true
-
-[tag]
-	gpgSign = true
-
-[init]
-	defaultBranch = "main"
-
-[interactive]
-	diffFilter = "delta --color-only"
-
-[pull]
-	rebase = false
-
-[push]
-	autoSetupRemote = true
-
-[user]
-	email = "svyatogor@gmail.com"
-	name = "Sergey Kuleshov"
-
-[include]
-  path = ~/.config/git/identity
-
-[branch]
-	autoSetupMerge = true
-
-[credential "https://github.com"]
-	helper = 
-	helper = !gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !gh auth git-credential

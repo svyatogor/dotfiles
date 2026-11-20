@@ -24,3 +24,9 @@ export GLOW_PAGER=true
 
 # On macOS lazygit looks in ~/Library/Application Support unless XDG_CONFIG_HOME is set.
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
+
+# delta settings live in their own file, so git needs no [delta] section.
+export GIT_PAGER="delta --config $HOME/.config/delta/config"
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=interactive.diffFilter
+export GIT_CONFIG_VALUE_0="delta --color-only --config $HOME/.config/delta/config"
