@@ -1,4 +1,49 @@
-# Use one deterministic flavor in every terminal mode.
-[flavor]
-dark = "circadia-light"
-light = "circadia-light"
+# Named ANSI colours already follow the terminal, so only what yazi's presets hard-code is
+# overridden: ANSI 7/8 (fixed grey and bright black) and white text on accent backgrounds.
+# Palette indices as in README, "Terminal colours": 236 selection, 241 borders, 246 muted.
+# Text on an accent is the terminal background, hence `reversed` instead of a fixed colour.
+# The file-type icons keep yazi's own hex colours.
+
+[mgr]
+border_style = { fg = "241" }
+count_copied = { fg = "green", reversed = true }
+count_cut = { fg = "red", reversed = true }
+count_selected = { fg = "yellow", reversed = true }
+
+[tabs]
+active = { fg = "blue", reversed = true, bold = true }
+inactive = { fg = "blue", bg = "236" }
+
+[mode]
+normal_main = { fg = "blue", reversed = true, bold = true }
+normal_alt = { fg = "blue", bg = "236" }
+select_main = { fg = "red", reversed = true, bold = true }
+select_alt = { fg = "red", bg = "236" }
+unset_main = { fg = "red", reversed = true, bold = true }
+unset_alt = { fg = "red", bg = "236" }
+
+[status]
+perm_sep = { fg = "241" }
+progress_normal = { fg = "green", bg = "236" }
+progress_error = { fg = "red", reversed = true }
+
+[which]
+rest = { fg = "246" }
+separator_style = { fg = "241" }
+
+[input]
+hint = { fg = "246", italic = true }
+
+[filetype]
+rules = [
+	{ mime = "**/image/*", fg = "yellow" },
+	{ mime = "**/{audio,video}/*", fg = "magenta" },
+	{ mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "red" },
+	{ mime = "**/application/{pdf,doc,rtf}", fg = "cyan" },
+	{ mime = "vfs/{absent,stale}", fg = "246" },
+	{ url = "*", is = "orphan", fg = "red", reversed = true },
+	{ url = "*", is = "exec", fg = "green" },
+	{ url = "*", is = "dummy", fg = "red", reversed = true },
+	{ url = "*/", is = "dummy", fg = "red", reversed = true },
+	{ url = "*/", fg = "blue" },
+]

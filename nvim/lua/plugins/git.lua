@@ -2,11 +2,12 @@ vim.pack.add {
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/tpope/vim-fugitive',
   'https://github.com/NeogitOrg/neogit',
-  { src = 'https://github.com/dlyongemallo/diffview.nvim', version = 'v0.37' },
+  { src = 'https://github.com/dlyongemallo/diffview.nvim' },
 }
 
 require('diffview').setup {
   enhanced_diff_hl = true,
+  persist_selections = { enabled = true },
   view = {
     cycle_layouts = {
       default = { 'diff2_horizontal', 'diff1_inline' },

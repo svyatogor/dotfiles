@@ -1,27 +1,41 @@
--- Circadia light: recolour yatline-catppuccin's Latte theme, same map as flavors/circadia-light.yazi
-local circadia = {
-	["#dce0e8"] = "#e5dcc6", ["#e6e9ef"] = "#eee7d6", ["#ccd0da"] = "#e5dcc6", ["#4c4f69"] = "#28323a",
-	["#6c6f85"] = "#46535f", ["#1e66f5"] = "#0048b3", ["#8839ef"] = "#7a1f7a", ["#d20f39"] = "#843900",
-	["#40a02b"] = "#005f2f", ["#df8e1d"] = "#843900", ["#04a5e5"] = "#1c60a2", ["#7287fd"] = "#4b1fa3",
-	["#209fb5"] = "#095b62", ["#dd7878"] = "#843900", ["#ea76cb"] = "#7a1f7a", ["#e64553"] = "#843900",
-	["#fe640b"] = "#843900", ["#179299"] = "#095b62",
+-- Terminal palette indices, not hex: the terminal owns the colours (README, "Terminal colours").
+-- Names and slots are those of terminal-colors.nvim's catppuccin.lua.
+local theme = {
+	section_separator_open = "",
+	section_separator_close = "",
+	inverse_separator_open = "",
+	inverse_separator_close = "",
+	part_separator_open = "",
+	part_separator_close = "",
+
+	style_a = {
+		fg = "232",
+		bg_mode = { normal = "4", select = "5", un_set = "1" },
+	},
+	style_b = { bg = "234", fg = "reset" },
+	style_c = { bg = "232", fg = "reset" },
+
+	permissions_t_fg = "2",
+	permissions_r_fg = "3",
+	permissions_w_fg = "1",
+	permissions_x_fg = "14",
+	permissions_s_fg = "12",
+
+	selected = { icon = "󰻭", fg = "3" },
+	copied = { icon = "", fg = "2" },
+	cut = { icon = "", fg = "1" },
+
+	total = { icon = "", fg = "3" },
+	succ = { icon = "", fg = "2" },
+	fail = { icon = "", fg = "1" },
+	found = { icon = "", fg = "4" },
+	processed = { icon = "", fg = "2" },
 }
-local function recolour(t)
-	for k, v in pairs(t) do
-		if type(v) == "table" then
-			recolour(v)
-		elseif circadia[v] then
-			t[k] = circadia[v]
-		end
-	end
-	return t
-end
-local catppuccin_theme = recolour(require("yatline-catppuccin"):setup("latte"))
 require("smart-enter"):setup({
 	open_multi = true,
 })
 require("yatline"):setup({
-	theme = catppuccin_theme,
+	theme = theme,
 	show_background = false,
 
 	header_line = {
@@ -71,7 +85,7 @@ require("yatline"):setup({
 	},
 })
 require("full-border"):setup({
-	-- Available values: ui.Border.PLAIN, ui.Border.ROUNDED
-	type = ui.Border.ROUNDED,
+	-- Available values: "plain", "rounded"
+	set = "rounded",
 })
 require("git"):setup()
