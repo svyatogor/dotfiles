@@ -58,6 +58,8 @@ if profiles.include?('earth')
   cask 'whatsapp'
   cask 'forklift'
   cask 'openin'
+
+  brew 'openssl@3' # Ruby (mise) links against openssl@3
 end
 
 if profiles.include?('mars')

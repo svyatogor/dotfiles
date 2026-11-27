@@ -42,3 +42,12 @@ end
 rex.bind("super+[KeyB]", "client.sidebar.toggle")
 rex.bind("super+[KeyK]", "com.superlogical.terminal.clear")
 rex.bind("super+shift+[KeyS]", "session.switch")
+
+-- Program Resume (OSC 7577): trust nvim-osc7577's resume command, `nvim -S <session file>`.
+local state = os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")
+rex.set("resume.trust", {
+  nvim = {
+    command = { "nvim", "-S", rex.match.under(state .. "/nvim/osc7577") },
+    flags = { ["-S"] = { "drop", values = 1 } },
+  },
+})
