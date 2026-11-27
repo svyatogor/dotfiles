@@ -10,7 +10,7 @@ if vim.env.TERM_PROGRAM == 'rex' then
     vim.keymap.set('n', '<C-' .. key .. '>', function()
       local win = vim.api.nvim_get_current_win()
       vim.cmd.wincmd(key)
-      if win == vim.api.nvim_get_current_win() then vim.system { rex, 'focus', '-s', vim.env.REX_SESSION, dir } end
+      if win == vim.api.nvim_get_current_win() then vim.system { rex, 'focus', dir } end
     end)
   end
   return
